@@ -16,6 +16,18 @@ public class Exhibit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String material;
+
+    @Column(nullable = false, unique = true)
+    private String technology;
+
     @ManyToOne
     private Author author;
+
+    @ManyToOne
+    private Hall hall;
 }

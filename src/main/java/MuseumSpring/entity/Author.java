@@ -12,13 +12,16 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
 
+    @Column(nullable = false)
     private String secondName;
 
     @OneToMany(mappedBy = "author")
