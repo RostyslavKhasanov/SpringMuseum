@@ -18,4 +18,7 @@ public class Exhibit {
 
     @ManyToOne
     private Author author;
+
+    @ManyToOne
+    private Hall hall;
 }
