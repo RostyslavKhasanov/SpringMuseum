@@ -1,4 +1,4 @@
-package MuseumSpring.config;
+package museum.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +11,9 @@ import javax.persistence.Persistence;
 @Configuration
 @EnableTransactionManagement
 public class JpaConfig {
-    @Bean
-    public EntityManager entityManager() {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("primary");
-        return entityManagerFactory.createEntityManager();
-    }
+  @Bean
+  public EntityManager entityManager() {
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("primary");
+    return entityManagerFactory.createEntityManager();
+  }
 }

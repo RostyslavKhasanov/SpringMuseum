@@ -1,4 +1,4 @@
-package MuseumSpring.entity;
+package museum.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,20 +8,23 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Post {
 
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String name;
+    @Column(nullable = false)
+    private String firstName;
 
-    @OneToMany(mappedBy = "post")
-    private List<Worker> workers = new ArrayList<>();
+    @Column(nullable = false)
+    private String secondName;
 
+    @OneToMany(mappedBy = "author")
+    private List<Exhibit> exhibits = new ArrayList<Exhibit>();
 }
