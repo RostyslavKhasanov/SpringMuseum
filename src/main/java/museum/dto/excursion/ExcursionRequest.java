@@ -1,4 +1,4 @@
-package museum.dto.hall.request;
+package museum.dto.excursion;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,17 +7,19 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HallRequest {
+public class ExcursionRequest {
 
-  @NotBlank private String name;
+  @NotNull private LocalDateTime begin;
 
-  private Long workerId;
+  @NotNull private LocalDateTime end;
 
-  @NotNull private Long exhibitId;
+  @NotNull private Double price;
 
+  @NotBlank private String workerId;
 }

@@ -21,6 +21,8 @@ public class HallServiceImpl implements HallService {
 
   @Autowired private ExhibitDao exhibitDao;
 
+//  @Autowired private WorkerService workerService;
+
   //  @Autowired private WorkerDao workerDao;
 
   @Transactional
@@ -28,8 +30,7 @@ public class HallServiceImpl implements HallService {
   public HallResponse save(HallRequest hallRequest) {
     Hall hall = new Hall();
     hall.setName(hallRequest.getName());
-    //    hall.setWorker(workerDao.findById(hallDao.getWorkerId()));
-    //    hall.setExhibits(exhibitDao.findById());
+//    hall.setWorker(workerService.findById(hallRequest.getWorkerId()));
     return new HallResponse(hall);
   }
 
@@ -51,12 +52,7 @@ public class HallServiceImpl implements HallService {
   @Transactional
   @Override
   public HallResponse update(HallRequest hallRequest) {
-    Hall hall = new Hall();
-    hall.setId(hallRequest.getId());
-    hall.setName(hallRequest.getName());
-    //    hall.setWorker(workerDao.findById(hallDao.getWorkerId()));
-    //    hall.setExhibits(hallDao.findExhibitsByHall(hallRequest.getExhibitId()));
-    return new HallResponse(hall);
+    return  null;
   }
 
   @Transactional

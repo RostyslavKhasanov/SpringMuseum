@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import museum.dto.exhibit.ExhibitInfoDto;
-import museum.dto.worker.WorkerResponse;
 import museum.entity.Exhibit;
 import museum.entity.Hall;
 import museum.entity.Worker;
@@ -22,14 +20,17 @@ public class HallResponse {
 
   private String name;
 
-  private Worker worker;
+  private String workerFirstName;
+
+  private String workerSecondName;
 
   private List<Exhibit> exhibits;
 
   public HallResponse(Hall hall) {
     this.id = hall.getId();
     this.name = hall.getName();
-    this.worker = hall.getWorker();
+    this.workerFirstName = hall.getWorker().getFirstName();
+    this.workerSecondName = hall.getWorker().getSecondName();
     if (hall.getExhibits() != null) {
       this.exhibits = hall.getExhibits();
     }
