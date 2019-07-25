@@ -1,6 +1,5 @@
 package museum.service.impl;
 
-import museum.dao.AuthorDao;
 import museum.dto.author.AuthorFirstAndSecondNameDto;
 import museum.entity.Author;
 import museum.exception.BadIdException;
