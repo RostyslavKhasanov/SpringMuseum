@@ -11,5 +11,5 @@ public interface ElementDao<T> {
 
   T update(T element);
 
-  void delete(T element);
+  Boolean deleteById(Long id);
 }

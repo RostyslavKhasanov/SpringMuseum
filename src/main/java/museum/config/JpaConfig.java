@@ -2,6 +2,7 @@ package museum.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
@@ -15,5 +16,10 @@ public class JpaConfig {
   public EntityManager entityManager() {
     EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("primary");
     return entityManagerFactory.createEntityManager();
+  }
+
+  @Bean
+  public JpaTransactionManager transactionManager() {
+    return new JpaTransactionManager(entityManager().getEntityManagerFactory());
   }
 }

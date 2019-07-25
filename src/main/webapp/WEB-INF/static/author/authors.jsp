@@ -3,21 +3,30 @@
   Created by IntelliJ IDEA.
   User: macbookpro
   Date: 7/17/19
-  Time: 8:25 PM
+  Time: 6:23 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="errorPage.jsp" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage = "../errorPage.jsp"%>
 <html>
 <head>
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="menu.jsp"/>
+<jsp:include page="../menu.jsp"/>
 
-<div class="info" style="margin: 20px">
-    <div class="first-name">FistName: ${author.firstName}</div>
-    <div class="second-name">SecondName ${author.secondName}</div>
-</div>
+<c:choose>
+    <c:when test="${not empty authors}">
+        <div class="list-group">
+            <c:forEach items="${authors}" var="item">
+                <a href="?id=${item.id}"
+                   class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}</a>
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <h3 class="w3-wide" style="margin: 20px;">Not found any author!</h3>
+    </c:otherwise>
+</c:choose>
 
 
 </body>
