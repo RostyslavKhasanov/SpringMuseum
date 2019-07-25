@@ -6,7 +6,7 @@
   Time: 6:23 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage = "../errorPage.jsp"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="../errorPage.jsp" %>
 <html>
 <head>
     <title>Title</title>
@@ -19,7 +19,13 @@
         <div class="list-group">
             <c:forEach items="${authors}" var="item">
                 <a href="?id=${item.id}"
-                   class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}</a>
+                   class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}
+
+               <%-- <form action="/author/delete" method="get">
+                    <input type="hidden" name="id" value="${item.id}">
+                    <input type="submit">
+                </form>--%>
+                </a>
             </c:forEach>
         </div>
     </c:when>
@@ -30,6 +36,8 @@
 
 
 </body>
+
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

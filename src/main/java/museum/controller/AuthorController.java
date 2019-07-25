@@ -29,25 +29,24 @@ public class AuthorController {
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     modelMap.addAttribute("author", service.findById(id));
-    return "author/authorInformation";
+    return "author/authorInfo";
   }
 
   @RequestMapping(method = RequestMethod.POST)
-  public String save(@Valid @ModelAttribute AuthorFirstAndSecondNameDto dto){
+  public String save(@Valid @ModelAttribute AuthorFirstAndSecondNameDto dto) {
     service.save(dto);
     return "";
   }
 
   @RequestMapping(method = RequestMethod.PUT)
-  public String update(@Valid @ModelAttribute AuthorFirstAndSecondNameDto dto){
+  public String update(@Valid @ModelAttribute AuthorFirstAndSecondNameDto dto) {
     service.update(dto);
     return "";
   }
 
   @RequestMapping(method = RequestMethod.DELETE, params = "id")
-  public String delete(@RequestParam Long id){
+  public String delete(@RequestParam Long id) {
     service.deleteById(id);
     return "";
   }
-
 }
