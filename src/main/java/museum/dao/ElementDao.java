@@ -9,7 +9,7 @@ public interface ElementDao<T> {
 
   void save(T element);
 
-  void update(T element);
+  T update(T element);
 
   void delete(T element);
 }
