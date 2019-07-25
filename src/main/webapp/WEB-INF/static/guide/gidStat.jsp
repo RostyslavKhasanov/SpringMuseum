@@ -7,35 +7,36 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        <%@include file="style/index.css"%>
+        <%@include file="../style/index.css"%>
     </style>
 </head>
 <body>
-<jsp:include page="menu.jsp"/>
-<div class="row">
+<jsp:include page="../menu.jsp"/>
+<div class="row no-gutters">
     <div class="col"></div>
     <div class="col-6">
-            <table class="table">
-                <thead>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Count of excursions</th>
+                <th scope="col">Hours</th>
+            </tr>
+            </thead>
+            <c:forEach items="${guides}" var="item">
                 <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
+                    <th scope="row">${(item.getId())}</th>
+                    <td>${(item.getFirstName())}</td>
+                    <td>${(item.getLastName())}</td>
+                    <td>${(item.getCountExcursion())}</td>
+                    <td>${(item.getCountHour())}</td>
                 </tr>
-                </thead>
-                <c:forEach items="${workers}" var="item">
-                    <tr>
-                        <th scope="row"><a
-                                href="http://localhost:8080/museum/worker?id=${(item.getId())}">${(item.getId())}</a>
-                        </th>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a></td>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getLastName())}</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
+            </c:forEach>
+        </table>
     </div>
-    <div class="col">
-    </div>
+    <div class="col"></div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -48,3 +49,4 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 </html>
+

@@ -5,11 +5,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        <%@include file="style/index.css"%>
+        <%@include file="../style/index.css"%>
     </style>
 </head>
 <body>
-<jsp:include page="menu.jsp"/>
+<jsp:include page="../menu.jsp"/>
 <div class="card">
     <h6>Exhibits of ${(worker.getFirstName())} ${(worker.getLastName())} :</h6>
     <br>
