@@ -7,9 +7,9 @@ public interface ElemetDao<T> {
 
   T findById(Long id);
 
-  T save(T element);
+  void save(T element);
 
-  T update(T element);
+  void update(T element);
 
-  Boolean delete(T element);
+  void delete(T element);
 }

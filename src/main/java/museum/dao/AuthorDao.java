@@ -1,6 +1,7 @@
 package museum.dao;
 
 import museum.entity.Author;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 @Service
