@@ -1,10 +1,13 @@
-package museum.dto;
+package museum.dto.exhibit;
 
-import museum.entity.Exhibit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import museum.entity.Exhibit;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -12,9 +15,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ExhibitNameDto {
 
-  private Long id;
+  @NotNull private Long id;
 
-  private String name;
+  @NotBlank private String name;
 
   public ExhibitNameDto(Exhibit exhibit) {
     this.id = exhibit.getId();
