@@ -7,7 +7,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>MuseumSpring</name>
+	<name>museum</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -93,9 +93,16 @@
 			<version>1.18.8</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 
-    </dependencies>
+
+	</dependencies>
 
 	<repositories>
 		<repository>
@@ -106,15 +113,15 @@
 	</repositories>
 
 	<build>
-		<finalName>MuseumSpring</finalName>
+		<finalName>museum</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
+					<source>8</source>
+					<target>8</target>
 				</configuration>
 			</plugin>
 		</plugins>
