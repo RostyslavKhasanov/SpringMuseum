@@ -6,7 +6,7 @@
   Time: 8:25 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage="errorPage.jsp" %>
 <html>
 <head>
     <title>Title</title>
@@ -15,8 +15,8 @@
 <jsp:include page="menu.jsp"/>
 
 <div class="info" style="margin: 20px">
-<div class="first-name">FistName: ${author.firstName}</div>
-<div class="second-name">SecondName ${author.secondName}</div>
+    <div class="first-name">FistName: ${author.firstName}</div>
+    <div class="second-name">SecondName ${author.secondName}</div>
 </div>
 
 
