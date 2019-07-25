@@ -1,4 +1,4 @@
-package museum.dto;
+package museum.dto.exhibit;
 
 import museum.entity.Exhibit;
 import lombok.AllArgsConstructor;

@@ -2,7 +2,7 @@ package museum.dao;
 
 import java.util.List;
 
-public interface ElemetDao<T> {
+public interface ElementDao<T> {
   List<T> findAll();
 
   T findById(Long id);

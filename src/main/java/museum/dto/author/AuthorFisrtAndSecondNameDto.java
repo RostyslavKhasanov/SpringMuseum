@@ -1,4 +1,4 @@
-package museum.dto;
+package museum.dto.author;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

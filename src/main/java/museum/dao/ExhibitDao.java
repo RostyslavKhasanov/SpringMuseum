@@ -1,12 +1,7 @@
 package museum.dao;
 
 import museum.entity.Exhibit;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-@Service
-public class ExhibitDao extends ElementDaoImpl<Exhibit> {
-  public ExhibitDao() {
-    super(Exhibit.class);
-  }
+public interface ExhibitDao extends ElementDao<Exhibit> {
+
 }

@@ -6,7 +6,7 @@
   Time: 6:23 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" errorPage = "errorPage.jsp"%>
 <html>
 <head>
     <title>Title</title>
@@ -27,8 +27,6 @@
         <h3 class="w3-wide" style="margin: 20px;">Not found any author!</h3>
     </c:otherwise>
 </c:choose>
-
-
 
 
 </body>

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class ElementDaoImpl<T> implements ElemetDao<T> {
+public class ElementDaoImpl<T> implements ElementDao<T> {
 
   @Autowired private EntityManager manager;
 
@@ -26,7 +26,8 @@ public class ElementDaoImpl<T> implements ElemetDao<T> {
 
   @Override
   public T findById(Long id) {
-    return manager.find(elementClass, id);
+    T t = manager.find(elementClass, id);
+    return t;
   }
 
   @Override
@@ -35,8 +36,9 @@ public class ElementDaoImpl<T> implements ElemetDao<T> {
   }
 
   @Override
-  public void update(T element) {
-    manager.merge(element);
+  public T update(T element) {
+    T merge = manager.merge(element);
+    return merge;
   }
 
   @Override
