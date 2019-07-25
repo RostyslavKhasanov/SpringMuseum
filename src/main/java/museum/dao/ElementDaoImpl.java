@@ -17,17 +17,14 @@ public class ElementDaoImpl<T> implements ElementDao<T> {
 
   @Override
   public List<T> findAll() {
-    List<T> resultList =
-        manager
-            .createQuery("from " + elementClass.getSimpleName() + " e", elementClass)
-            .getResultList();
-    return resultList;
+    return manager
+        .createQuery("from " + elementClass.getSimpleName() + " e", elementClass)
+        .getResultList();
   }
 
   @Override
   public T findById(Long id) {
-    T t = manager.find(elementClass, id);
-    return t;
+    return manager.find(elementClass, id);
   }
 
   @Override
@@ -37,12 +34,17 @@ public class ElementDaoImpl<T> implements ElementDao<T> {
 
   @Override
   public T update(T element) {
-    T merge = manager.merge(element);
-    return merge;
+    return manager.merge(element);
   }
 
   @Override
-  public void delete(T element) {
-    manager.remove(element);
+  public Boolean deleteById(Long id) {
+    T byId = findById(id);
+    if (byId != null) {
+      manager.remove(byId);
+      return true;
+    } else {
+      return false;
+    }
   }
 }

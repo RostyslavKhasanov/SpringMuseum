@@ -1,18 +1,18 @@
 package museum.service;
 
-import museum.dao.impl.AuthorDaoImpl;
-import museum.dto.author.AuthorFisrtAndSecondNameDto;
+import museum.dto.author.AuthorFirstAndSecondNameDto;
+import museum.entity.Author;
 
 import java.util.List;
 
 public interface AuthorService {
-  void save(AuthorFisrtAndSecondNameDto dto);
+  void save(AuthorFirstAndSecondNameDto dto);
 
-  List<AuthorFisrtAndSecondNameDto> findAll();
+  List<AuthorFirstAndSecondNameDto> findAll();
 
-  AuthorDaoImpl findById(Long id);
+  Author findById(Long id);
 
-  void update(AuthorFisrtAndSecondNameDto dto);
+  Author update(AuthorFirstAndSecondNameDto dto);
 
   void deleteById(Long id);
 }

@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="menu.jsp"/>
+<jsp:include page="../menu.jsp"/>
 
 <div class="info" style="margin: 20px">
     <div class="name">Name of the exhibit is: ${exhibit.name}</div>
