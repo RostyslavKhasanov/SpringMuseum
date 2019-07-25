@@ -5,57 +5,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-public class ElementDaoImpl<T> implements ElemetDao<T> {
+public class ElementDaoImpl<T> implements ElementDao<T> {
 
-    @Autowired
-    private EntityManager manager;
+  @Autowired private EntityManager manager;
 
-    private Class<T> elementClass;
+  private Class<T> elementClass;
 
-    public ElementDaoImpl(Class<T> elementClass) {
-        this.elementClass = elementClass;
+  public ElementDaoImpl(Class<T> elementClass) {
+    this.elementClass = elementClass;
+  }
+
+  @Override
+  public List<T> findAll() {
+    return manager
+        .createQuery("from " + elementClass.getSimpleName() + " e", elementClass)
+        .getResultList();
+  }
+
+  @Override
+  public T findById(Long id) {
+    return manager.find(elementClass, id);
+  }
+
+  @Override
+  public void save(T element) {
+    manager.persist(element);
+  }
+
+  @Override
+  public T update(T element) {
+    return manager.merge(element);
+  }
+
+  @Override
+  public Boolean deleteById(Long id) {
+    T byId = findById(id);
+    if (byId != null) {
+      manager.remove(byId);
+      return true;
+    } else {
+      return false;
     }
-
-    @Override
-    public List<T> findAll() {
-        manager.getTransaction().begin();
-        List<T> resultList =
-                manager
-                        .createQuery("from " + elementClass.getSimpleName() + " e", elementClass)
-                        .getResultList();
-        manager.getTransaction().commit();
-        return resultList;
-    }
-
-    @Override
-    public T findById(Long id) {
-        manager.getTransaction().begin();
-
-        manager.getTransaction().commit();
-        return null;
-    }
-
-    @Override
-    public T save(T element) {
-        manager.getTransaction().begin();
-        manager.persist(element);
-        manager.getTransaction().commit();
-        return null;
-    }
-
-    @Override
-    public T update(T element) {
-        manager.getTransaction().begin();
-
-        manager.getTransaction().commit();
-        return null;
-    }
-
-    @Override
-    public Boolean delete(T element) {
-        manager.getTransaction().begin();
-
-        manager.getTransaction().commit();
-        return null;
-    }
+  }
 }
