@@ -1,4 +1,6 @@
 package museum.dao;
 
-public interface WorkerDao {
+import museum.entity.Worker;
+
+public interface WorkerDao extends ElementDao<Worker> {
 }

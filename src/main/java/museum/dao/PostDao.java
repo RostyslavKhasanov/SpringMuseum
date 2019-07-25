@@ -1,4 +1,6 @@
 package museum.dao;
 
-public interface PostDao {
+import museum.entity.Post;
+
+public interface PostDao extends ElementDao<Post> {
 }
