@@ -1,21 +1,28 @@
 package museum.controller;
 
-import museum.dao.WorkerDao;
+import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/worker")
 public class WorkerController {
 
-    @Autowired
-    private WorkerDao workerDao;
+  @Autowired private WorkerService workerService;
 
-    public String findAll(ModelMap modelMap) {
-        modelMap.addAttribute("workers", workerDao.findAll());
-        return "workers/workers";
-    }
+  @GetMapping
+  public String findAll(ModelMap modelMap) {
+    modelMap.addAttribute("workers", workerService.findAll());
+    return "worker/worker";
+  }
 
+  @RequestMapping(
+      method = RequestMethod.GET,
+      params = {"id"})
+  public String findById(@RequestParam Long id, ModelMap modelMap) {
+    modelMap.addAttribute("worker", workerService.findById(id));
+    return "worker/workerInfo";
+  }
 }

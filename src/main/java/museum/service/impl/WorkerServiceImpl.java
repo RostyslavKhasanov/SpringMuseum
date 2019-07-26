@@ -7,6 +7,8 @@ import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WorkerServiceImpl implements WorkerService {
 
@@ -24,4 +26,16 @@ public class WorkerServiceImpl implements WorkerService {
 //        worker.setSecondName(workerDto.getSecondName());
 //        return worker;
 //    }
+
+    @Override
+    public List<Worker> findAll() {
+        List<Worker> workers = workerDao.findAll();
+        return workers;
+    }
+
+    @Override
+    public Worker findById(Long id) {
+        Worker worker = workerDao.findById(id);
+        return worker;
+    }
 }

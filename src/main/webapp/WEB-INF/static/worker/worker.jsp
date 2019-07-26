@@ -1,12 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="dto.ExhibitDto" %><%--
-  Created by IntelliJ IDEA.
-  User: user
-  Date: 7/18/2019
-  Time: 10:03 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -40,7 +32,7 @@
                                 href="http://localhost:8080/museum/worker?id=${(item.getId())}">${(item.getId())}</a>
                         </th>
                         <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a></td>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getLastName())}</a></td>
+                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>

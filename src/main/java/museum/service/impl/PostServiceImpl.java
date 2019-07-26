@@ -31,7 +31,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAll() {
-        return null;
+        List<Post> posts = postDao.findAll();
+        return posts;
     }
 
     private Post postDtoToPost(PostDto postDto) {

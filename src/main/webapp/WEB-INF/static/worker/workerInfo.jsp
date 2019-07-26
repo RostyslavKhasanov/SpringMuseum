@@ -15,8 +15,8 @@
 <div class="card">
     <h6>Worker id: ${(worker.getId())}</h6>
     <h6>First name: ${(worker.getFirstName())}</h6>
-    <h6>Last name: ${(worker.getLastName())}</h6>
-    <h6>Post: ${(worker.getPositionName())}</h6>
+    <h6>Last name: ${(worker.getSecondName())}</h6>
+    <h6>Post: ${(worker.getPost().getName())}</h6>
     <br>
     <c:forEach items="${worker.getHalls()}" var="item">
         <h6>Serves ${(item.getName())}</h6>
@@ -27,11 +27,11 @@
     </c:forEach>
 </div>
 <div class="col-5">
-    <c:forEach items="${halls}" var="item">
-        <c:forEach items="${item.getExhibits()}" var="item1">
-            <h6>${(item1.getName())}</h6>
-        </c:forEach>
-    </c:forEach>
+<%--    <c:forEach items="${halls}" var="item">--%>
+<%--        <c:forEach items="${item.getExhibits()}" var="item1">--%>
+<%--            <h6>${(item1.getName())}</h6>--%>
+<%--        </c:forEach>--%>
+<%--    </c:forEach>--%>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
