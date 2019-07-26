@@ -2,6 +2,7 @@ package museum.service.impl;
 
 import museum.dao.ExhibitDao;
 import museum.dto.exhibit.ExhibitDto;
+import museum.dto.exhibit.ExhibitInfoDto;
 import museum.entity.Exhibit;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
@@ -61,6 +62,11 @@ public class ExhibitServiceImpl implements ExhibitService {
     if (!isDeleted) {
       throw new BadIdException("Exhibits has not row with id " + id);
     }
+  }
+
+  @Override
+  public List<ExhibitInfoDto> findByHallId(Long id) {
+    return dao.findExhibitsByHall(id);
   }
 
   private Exhibit exhibitDtoToExhibit(ExhibitDto dto) {

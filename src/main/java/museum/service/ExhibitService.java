@@ -1,6 +1,7 @@
 package museum.service;
 
 import museum.dto.exhibit.ExhibitDto;
+import museum.dto.exhibit.ExhibitInfoDto;
 import museum.entity.Exhibit;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface ExhibitService {
   Exhibit update(ExhibitDto dto);
 
   void deleteById(Long id);
+
+  List<ExhibitInfoDto> findByHallId(Long id);
 }
