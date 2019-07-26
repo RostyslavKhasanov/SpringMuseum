@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Repository
 public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
@@ -26,5 +28,22 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
         TypedQuery query = entityManager.createQuery(strQuery, Long.class).setParameter("name", name);
         Long id = (Long) query.getSingleResult();
         return id;
+    }
+
+    @Override
+    public List<WorkerDto> findAllFreeGuide(LocalDateTime date) {
+        String strQuery = "select w from  Worker w join Excursion e on e.worker.id = w.id where w.id not in" +
+                "(select e.worker.id from Excursion e where e.begin < :date and e.end > :date) group by w.id";
+        TypedQuery query = entityManager.createQuery(strQuery, Worker.class).setParameter("date", date);
+        List<WorkerDto> workerDtos = query.getResultList();
+        return workerDtos;
+    }
+
+    @Override
+    public List<WorkerDto> findAllGuide() {
+        String strQuery = "select w from Worker w join Post p on p.id = w.post.id where p.name = 'gid'";
+        TypedQuery query = entityManager.createQuery(strQuery, Worker.class);
+        List<WorkerDto> workerDtos = query.getResultList();
+        return workerDtos;
     }
 }

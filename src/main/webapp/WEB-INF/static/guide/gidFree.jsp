@@ -23,7 +23,7 @@
                     <th scope="col">Last name</th>
                 </tr>
                 </thead>
-                <c:forEach items="${workers}" var="item">
+                <c:forEach items="${guides}" var="item">
                     <tr>
                         <th scope="row"><a
                                 href="http://localhost:8080/museum/worker?id=${(item.getId())}">${(item.getId())}</a>

@@ -25,11 +25,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${workers}" var="item">
+                <c:forEach items="${guides}" var="item">
                     <tr>
                         <th scope="row"><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getId())}</a></th>
                         <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a></td>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getLastName())}</a></td>
+                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a></td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -46,7 +46,7 @@
 </body>
 <script>
     function redirect() {
-        document.location.href = "http://localhost:8080/worker?date=now";
+        document.location.href = "http://localhost:8080/worker/guides/free";
     }
     function redirectStat() {
         document.location.href = "http://localhost:8080/worker?stat=stat";

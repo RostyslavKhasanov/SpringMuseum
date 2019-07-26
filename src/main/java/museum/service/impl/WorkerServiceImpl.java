@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,5 +49,19 @@ public class WorkerServiceImpl implements WorkerService {
     @Override
     public Long findWorkerIdByName(String name) {
         return workerDao.findWorkerIdByName(name);
+    }
+
+    @Override
+    public List<WorkerDto> findAllFreeGuide() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime dateTime = LocalDateTime.now();
+        List<WorkerDto> workers = workerDao.findAllFreeGuide(dateTime);
+        return workers;
+    }
+
+    @Override
+    public List<WorkerDto> findAllGuide() {
+        List<WorkerDto> workers = workerDao.findAllGuide();
+        return workers;
     }
 }

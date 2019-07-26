@@ -15,4 +15,7 @@ public interface WorkerService {
 
     Long findWorkerIdByName(String name);
 
+    List<WorkerDto> findAllFreeGuide();
+
+    List<WorkerDto> findAllGuide();
 }

@@ -40,4 +40,16 @@ public class WorkerController {
     modelMap.addAttribute("halls", hallService.findByWorkerId(id));
     return "worker/workerExhibits";
   }
+
+  @GetMapping("/guides")
+  public String findAllGuides(ModelMap modelMap) {
+    modelMap.addAttribute("guides", workerService.findAllGuide());
+    return "guide/gid";
+  }
+
+  @GetMapping("/guides/free")
+  public String findAllFreeGuides(ModelMap modelMap) {
+    modelMap.addAttribute("guides", workerService.findAllFreeGuide());
+    return "guide/gidFree";
+  }
 }
