@@ -22,8 +22,8 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
 
     @Override
     public Long findWorkerIdByName(String name) {
-        String strQuery = "w.id from Worker w where lower(w.secondName) = lower(:name)";
-        TypedQuery query = entityManager.createQuery(strQuery, Worker.class).setParameter("name", name);
+        String strQuery = "select w.id from Worker w where lower(w.secondName) = lower(:name)";
+        TypedQuery query = entityManager.createQuery(strQuery, Long.class).setParameter("name", name);
         Long id = (Long) query.getSingleResult();
         return id;
     }
