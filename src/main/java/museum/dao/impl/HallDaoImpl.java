@@ -7,7 +7,6 @@ import museum.entity.Hall;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
