@@ -27,11 +27,6 @@
     </c:forEach>
 </div>
 <div class="col-5">
-<%--    <c:forEach items="${halls}" var="item">--%>
-<%--        <c:forEach items="${item.getExhibits()}" var="item1">--%>
-<%--            <h6>${(item1.getName())}</h6>--%>
-<%--        </c:forEach>--%>
-<%--    </c:forEach>--%>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -13,4 +13,6 @@ public interface WorkerService {
 
     Worker findById(Long id);
 
+    Long findWorkerIdByName(String name);
+
 }

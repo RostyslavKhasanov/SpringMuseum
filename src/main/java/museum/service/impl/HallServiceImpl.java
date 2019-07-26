@@ -63,4 +63,10 @@ public class HallServiceImpl implements HallService {
       throw new BadIdException("Hall has not row with id " + id);
     }
   }
+
+  @Transactional
+  @Override
+  public List<HallResponse> findByWorkerId(Long id) {
+    return hallDao.findAll().stream().map(HallResponse::new).collect(Collectors.toList());
+  }
 }

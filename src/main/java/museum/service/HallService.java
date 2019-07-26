@@ -17,4 +17,6 @@ public interface HallService {
   HallResponse update(HallRequest hallRequest);
 
   void deleteById(Long id);
+
+  List<HallResponse> findByWorkerId(Long id);
 }

@@ -6,6 +6,7 @@ import museum.entity.Worker;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ public class WorkerServiceImpl implements WorkerService {
     @Autowired
     private WorkerDao workerDao;
 
+    @Transactional
     @Override
     public void save(WorkerDto workerDto) {
 
@@ -28,15 +30,22 @@ public class WorkerServiceImpl implements WorkerService {
 //        return worker;
 //    }
 
+    @Transactional
     @Override
     public List<WorkerDto> findAll() {
         List<Worker> workers = workerDao.findAll();
         return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public Worker findById(Long id) {
         Worker worker = workerDao.findById(id);
         return worker;
+    }
+
+    @Override
+    public Long findWorkerIdByName(String name) {
+        return workerDao.findWorkerIdByName(name);
     }
 }
