@@ -9,7 +9,7 @@ public interface WorkerService {
 
     void save(WorkerDto workerDto);
 
-    List<Worker> findAll();
+    List<WorkerDto> findAll();
 
     Worker findById(Long id);
 

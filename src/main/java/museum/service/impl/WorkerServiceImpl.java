@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkerServiceImpl implements WorkerService {
@@ -28,9 +29,9 @@ public class WorkerServiceImpl implements WorkerService {
 //    }
 
     @Override
-    public List<Worker> findAll() {
+    public List<WorkerDto> findAll() {
         List<Worker> workers = workerDao.findAll();
-        return workers;
+        return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
     }
 
     @Override
