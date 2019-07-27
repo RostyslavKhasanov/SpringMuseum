@@ -8,6 +8,7 @@ import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +23,7 @@ public class WorkerServiceImpl implements WorkerService {
 
   @Autowired private PostService postService;
 
+  @Transactional
   @Override
   public void save(WorkerDto workerDto) {
     Worker worker = workerDtoToWorker(workerDto);
@@ -65,12 +67,12 @@ public class WorkerServiceImpl implements WorkerService {
     List<Worker> workers = workerDao.findAllGuide();
     List<WorkerStatDto> workerStatDtos = new ArrayList<>();
     for (Worker worker : workers) {
-      workerStatDtos.add(workerDtoToWorkerStatDto(worker));
+      workerStatDtos.add(workerToWorkerStatDto(worker));
     }
     return workerStatDtos;
   }
 
-  private WorkerStatDto workerDtoToWorkerStatDto(Worker worker) {
+  private WorkerStatDto workerToWorkerStatDto(Worker worker) {
     WorkerStatDto workerStatDto = new WorkerStatDto();
     workerStatDto.setId(worker.getId());
     workerStatDto.setFirstName(worker.getFirstName());
