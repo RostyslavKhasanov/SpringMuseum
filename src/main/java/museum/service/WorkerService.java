@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface WorkerService {
 
-    void save(WorkerDto workerDto);
+  void save(WorkerDto workerDto);
 
-    List<WorkerDto> findAll();
+  List<WorkerDto> findAll();
 
-    Worker findById(Long id);
+  Worker findById(Long id);
 
-    Long findWorkerIdByName(String name);
+  Long findWorkerIdByName(String name);
 
-    List<WorkerDto> findAllFreeGuide();
+  List<WorkerDto> findAllFreeGuide();
 
-    List<WorkerDto> findAllGuide();
+  List<WorkerDto> findAllGuide();
 
-    List<WorkerStatDto> findGuidesStat();
+  List<WorkerStatDto> findGuidesStat();
 }

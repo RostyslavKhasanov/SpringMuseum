@@ -1,6 +1,7 @@
 package museum.dto.worker;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Excursion;
 import museum.entity.Hall;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class WorkerDto {
 
   @NotNull private Long id;

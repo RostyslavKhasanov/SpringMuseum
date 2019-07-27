@@ -1,6 +1,7 @@
 package museum.dto.post;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Post;
 import museum.entity.Worker;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class PostDto {
 
   @NotNull private Long id;

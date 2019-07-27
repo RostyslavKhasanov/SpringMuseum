@@ -31,8 +31,10 @@
                         <th scope="row"><a
                                 href="http://localhost:8080/museum/worker?id=${(item.getId())}">${(item.getId())}</a>
                         </th>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a></td>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a></td>
+                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a>
+                        </td>
+                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -40,13 +42,18 @@
         </div>
         <div class="col">
             <div class="col-10">
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="spanName">Full name</span>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="spanName">Full name</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                           id="name">
                 </div>
-                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="name">
-            </div>
                 <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
+                <br><br>
+                <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
+                <br><br>
+                <button type="button" class="btn btn-primary" onclick="redirectToWorkerAddForm()">Add new worker</button>
             </div>
         </div>
     </div>
@@ -57,6 +64,13 @@
     function findByName() {
         var fName = document.getElementById("name").value;
         document.location.href = "http://localhost:8080/worker?name=" + fName;
+    }
+
+    function addPostForm() {
+        document.location.href = "http://localhost:8080/post/add";
+    }
+    function redirectToWorkerAddForm() {
+        document.location.href = "http://localhost:8080/worker/add";
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

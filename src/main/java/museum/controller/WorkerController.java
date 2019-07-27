@@ -1,6 +1,8 @@
 package museum.controller;
 
+import museum.dto.worker.WorkerDto;
 import museum.service.HallService;
+import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,22 @@ public class WorkerController {
 
   @Autowired private WorkerService workerService;
 
+  @Autowired private HallService hallService;
+
   @Autowired
-  private HallService hallService;
+  private PostService postService;
+
+  public String save(
+      @RequestParam(name = "firstName") String fName,
+      @RequestParam(name = "secondName") String sName,
+      @RequestParam(name = "postId") Long postId) {
+    WorkerDto workerDto = new WorkerDto();
+    workerDto.setFirstName(fName);
+    workerDto.setSecondName(sName);
+    workerDto.setPostId(postId);
+    workerService.save(workerDto);
+    return "worker/addWorker";
+  }
 
   @GetMapping
   public String findAll(ModelMap modelMap) {
@@ -32,8 +48,8 @@ public class WorkerController {
   }
 
   @RequestMapping(
-          method = RequestMethod.GET,
-          params = {"name"})
+      method = RequestMethod.GET,
+      params = {"name"})
   public String findWorkerExhibits(@RequestParam String name, ModelMap modelMap) {
     Long id = workerService.findWorkerIdByName(name);
     modelMap.addAttribute("worker", workerService.findById(id));
@@ -57,5 +73,11 @@ public class WorkerController {
   public String findGuidesStat(ModelMap modelMap) {
     modelMap.addAttribute("guides", workerService.findGuidesStat());
     return "guide/gidStat";
+  }
+
+  @RequestMapping("/add")
+  public String addWorkerPage(ModelMap modelMap) {
+    modelMap.addAttribute("posts", postService.findAll());
+    return "worker/addWorker";
   }
 }

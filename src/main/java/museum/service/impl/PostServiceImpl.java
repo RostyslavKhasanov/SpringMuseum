@@ -13,31 +13,30 @@ import java.util.List;
 @Service
 public class PostServiceImpl implements PostService {
 
-    @Autowired
-    private PostDao postDao;
+  @Autowired private PostDao postDao;
 
-    @Override
-    public void save(PostDto postDto) {
-        Post post = postDtoToPost(postDto);
-        postDao.save(post);
-    }
+  @Override
+  public void save(PostDto postDto) {
+    Post post = postDtoToPost(postDto);
+    postDao.save(post);
+  }
 
-    @Transactional
-    @Override
-    public Post findById(Long id) {
-        Post post = postDao.findById(id);
-        return post;
-    }
+  @Transactional
+  @Override
+  public Post findById(Long id) {
+    Post post = postDao.findById(id);
+    return post;
+  }
 
-    @Override
-    public List<Post> findAll() {
-        List<Post> posts = postDao.findAll();
-        return posts;
-    }
+  @Override
+  public List<Post> findAll() {
+    List<Post> posts = postDao.findAll();
+    return posts;
+  }
 
-    private Post postDtoToPost(PostDto postDto) {
-        Post post = new Post();
-        post.setName(postDto.getName());
-        return post;
-    }
+  private Post postDtoToPost(PostDto postDto) {
+    Post post = new Post();
+    post.setName(postDto.getName());
+    return post;
+  }
 }

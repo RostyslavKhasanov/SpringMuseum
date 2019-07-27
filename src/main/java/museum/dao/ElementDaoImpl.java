@@ -29,7 +29,9 @@ public class ElementDaoImpl<T> implements ElementDao<T> {
 
   @Override
   public void save(T element) {
+    manager.getTransaction().begin();
     manager.persist(element);
+    manager.getTransaction().commit();
   }
 
   @Override
