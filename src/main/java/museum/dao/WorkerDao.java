@@ -8,10 +8,13 @@ import java.util.List;
 
 public interface WorkerDao extends ElementDao<Worker> {
 
-    Long findWorkerIdByName(String name);
+  Long findWorkerIdByName(String name);
 
-    List<WorkerDto> findAllFreeGuide(LocalDateTime date);
+  List<WorkerDto> findAllFreeGuide(LocalDateTime date);
 
-    List<WorkerDto> findAllGuide();
+  List<Worker> findAllGuide();
 
+  Integer findCountOfExcursion(Long id);
+
+  Integer findCountOfHours(Long id);
 }

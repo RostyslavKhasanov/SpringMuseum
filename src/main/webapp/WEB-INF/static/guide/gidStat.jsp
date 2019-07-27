@@ -29,9 +29,9 @@
                 <tr>
                     <th scope="row">${(item.getId())}</th>
                     <td>${(item.getFirstName())}</td>
-                    <td>${(item.getLastName())}</td>
-                    <td>${(item.getCountExcursion())}</td>
-                    <td>${(item.getCountHour())}</td>
+                    <td>${(item.getSecondName())}</td>
+                    <td>${(item.getCountOfExcursion())}</td>
+                    <td>${(item.getCountOfHour())}</td>
                 </tr>
             </c:forEach>
         </table>

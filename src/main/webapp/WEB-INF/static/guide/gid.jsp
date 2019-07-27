@@ -49,7 +49,7 @@
         document.location.href = "http://localhost:8080/worker/guides/free";
     }
     function redirectStat() {
-        document.location.href = "http://localhost:8080/worker?stat=stat";
+        document.location.href = "http://localhost:8080/worker/guides/stat";
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

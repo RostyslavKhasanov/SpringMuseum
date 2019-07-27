@@ -2,6 +2,7 @@ package museum.service.impl;
 
 import museum.dao.WorkerDao;
 import museum.dto.worker.WorkerDto;
+import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -61,7 +63,27 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     public List<WorkerDto> findAllGuide() {
-        List<WorkerDto> workers = workerDao.findAllGuide();
-        return workers;
+        List<Worker> workers = workerDao.findAllGuide();
+        return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<WorkerStatDto> findGuidesStat() {
+        List<Worker> workers = workerDao.findAllGuide();
+        List<WorkerStatDto> workerStatDtos = new ArrayList<>();
+        for (Worker worker: workers) {
+            workerStatDtos.add(workerDtoToWorkerStatDto(worker));
+        }
+        return workerStatDtos;
+    }
+
+    private WorkerStatDto workerDtoToWorkerStatDto(Worker worker) {
+        WorkerStatDto workerStatDto = new WorkerStatDto();
+        workerStatDto.setId(worker.getId());
+        workerStatDto.setFirstName(worker.getFirstName());
+        workerStatDto.setSecondName(worker.getSecondName());
+        workerStatDto.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
+        workerStatDto.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
+        return workerStatDto;
     }
 }

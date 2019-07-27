@@ -52,4 +52,10 @@ public class WorkerController {
     modelMap.addAttribute("guides", workerService.findAllFreeGuide());
     return "guide/gidFree";
   }
+
+  @GetMapping("/guides/stat")
+  public String findGuidesStat(ModelMap modelMap) {
+    modelMap.addAttribute("guides", workerService.findGuidesStat());
+    return "guide/gidStat";
+  }
 }
