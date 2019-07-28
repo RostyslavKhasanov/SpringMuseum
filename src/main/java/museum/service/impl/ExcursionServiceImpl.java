@@ -1,8 +1,8 @@
 package museum.service.impl;
 
 import museum.dao.ExcursionDao;
-import museum.dto.excursion.ExcursionRequest;
-import museum.dto.excursion.ExcursionResponse;
+import museum.dto.request.excursion.ExcursionRequest;
+import museum.dto.response.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 import museum.exception.BadIdException;
 import museum.service.ExcursionService;
@@ -18,10 +18,6 @@ import java.util.stream.Collectors;
 public class ExcursionServiceImpl implements ExcursionService {
 
     @Autowired private ExcursionDao excursionDao;
-
-//    @Autowired private WorkerService workerService;
-
-//    @Autowired private WorkerDao workerDao;
 
     @Transactional
     @Override

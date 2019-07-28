@@ -2,10 +2,7 @@ package museum.service.impl;
 
 import museum.dao.ExhibitDao;
 import museum.dao.HallDao;
-import museum.dto.hall.request.HallRequest;
-import museum.dto.hall.response.HallResponse;
 import museum.dto.request.hall.HallSaveRequest;
-import museum.dto.request.hall.HallUpdateRequest;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.dto.response.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
@@ -25,10 +22,6 @@ public class HallServiceImpl implements HallService {
 
   @Autowired private ExhibitDao exhibitDao;
 
-//  @Autowired private WorkerService workerService;
-
-  //  @Autowired private WorkerDao workerDao;
-
   @Transactional
   @Override
   public void save(HallSaveRequest hallRequest) {
@@ -43,14 +36,14 @@ public class HallServiceImpl implements HallService {
     return hallDao.findAll().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
   }
 
-  @Transactional
-  @Override
-  public HallDtoResponse findById(Long id) throws BadIdException {
-    if (hallDao == null) {
-      throw new BadIdException("Hall with id " + id + " does not exists");
-    }
-    return hallDao.findById(id);
-  }
+//  @Transactional
+//  @Override
+//  public HallDtoResponse findById(Long id) throws BadIdException {
+//    if (hallDao == null) {
+//      throw new BadIdException("Hall with id " + id + " does not exists");
+//    }
+//    return hallDao.findById(id);
+//  }
 
   @Transactional
   @Override

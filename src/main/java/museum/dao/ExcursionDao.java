@@ -1,6 +1,6 @@
 package museum.dao;
 
-import museum.dto.excursion.ExcursionResponse;
+import museum.dto.response.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 
 import java.time.LocalDateTime;
