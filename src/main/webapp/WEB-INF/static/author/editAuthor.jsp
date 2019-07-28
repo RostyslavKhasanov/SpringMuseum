@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: macbookpro
   Date: 7/28/19
-  Time: 5:31 PM
+  Time: 6:01 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -17,14 +17,16 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
+
 <div class="row">
     <div class="col-4"></div>
-    <form action="/author/save" method="post" class="col-4" id="workerForm">
-        <input type="text" name="firstName" class="form-control" placeholder="First name" aria-label="First name"
-               aria-describedby="basic-addon2">
+    <form action="/author/update" method="post" class="col-4" id="workerForm">
+        <input type="hidden" name="id" value="${author.id}">
+        <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
+               aria-describedby="basic-addon2" value="${author.firstName}">
         <br>
-        <input type="text" name="secondName" class="form-control" placeholder="Second name" aria-label="Second name"
-               aria-describedby="basic-addon2">
+        <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
+               aria-describedby="basic-addon2" value="${author.secondName}">
         <br>
         <input type="submit" class="btn btn-primary" value="Save"/>
     </form>

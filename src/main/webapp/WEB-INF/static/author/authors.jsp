@@ -25,7 +25,8 @@
     </form>
 
 </div>--%>
-<a class="btn btn-primary" style="float: right">Add new Author</a>
+<a href="/author/add" class="btn btn-primary" style="float: right">Add new Author</a>
+
 
 
 <c:choose>

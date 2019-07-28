@@ -14,20 +14,23 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
+<a href="/author/edit?id=${author.id}" class="btn btn-primary" style="float: right">Edit</a>
+
 <button type="button" class="btn btn-primary" style="float: right" onclick="deleteAuthor(${author.id})">Delete this
     author
 </button>
 
-
 <div class="info" style="margin: 20px">
-    <div class="first-name">FistName: ${author.firstName}</div>
-    <div class="second-name">SecondName ${author.secondName}</div>
+    <div class="first-name">Fist name: ${author.firstName}</div>
+    <div class="second-name">Second name ${author.secondName}</div>
     <div class="author-exhibits">
         <c:forEach items="${exhibits}" var="exhibit">
             <p>${exhibit.id} ${exhibit.name}</p>
         </c:forEach>
     </div>
 </div>
+
+
 
 
 </body>

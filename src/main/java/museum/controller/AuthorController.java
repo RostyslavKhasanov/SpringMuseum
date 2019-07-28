@@ -8,10 +8,7 @@ import museum.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -23,23 +20,21 @@ public class AuthorController {
 
   @Autowired private AuthorService service;
 
-  @RequestMapping(method = RequestMethod.GET)
+  @GetMapping
   public String findAll(ModelMap modelMap) {
     List<AuthorIdFirstSecondNameDtoResponse> authors = service.findAll();
     modelMap.addAttribute("authors", authors);
     return "author/authors";
   }
 
-  @RequestMapping(
-      method = RequestMethod.GET,
-      params = {"id"})
+  @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     AuthorDtoResponse author = service.findById(id);
     modelMap.addAttribute("author", author);
     return "author/authorInfo";
   }
 
-  @RequestMapping(value = "/save", method = RequestMethod.POST)
+  @PostMapping("/save")
   public void save(
       @Valid @ModelAttribute AuthorSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
     service.save(dto);
@@ -47,7 +42,7 @@ public class AuthorController {
     httpServletResponse.setStatus(302);
   }
 
-  @RequestMapping(value = "/update", method = RequestMethod.POST)
+  @PostMapping("/update")
   public void update(
       @Valid @ModelAttribute AuthorUpdateDtoRequest dto, HttpServletResponse httpServletResponse) {
     service.update(dto);
@@ -55,10 +50,22 @@ public class AuthorController {
     httpServletResponse.setStatus(302);
   }
 
-  @RequestMapping(value = "/delete", method = RequestMethod.GET, params = "id")
+  @GetMapping(value = "/delete", params = "id")
   public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     service.deleteById(id);
     httpServletResponse.setHeader("Location", "http://localhost:8080/author");
     httpServletResponse.setStatus(302);
+  }
+
+  @RequestMapping("/add")
+  public String addAuthorPage() {
+    return "author/addAuthor";
+  }
+
+  @RequestMapping(value = "/edit", params = "id")
+  public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
+    AuthorDtoResponse author = service.findById(id);
+    modelMap.addAttribute("author", author);
+    return "author/editAuthor";
   }
 }

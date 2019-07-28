@@ -4,7 +4,6 @@ import museum.dto.request.exhibit.ExhibitDto;
 import museum.dto.request.exhibit.ExhibitNameDto;
 import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
 import museum.dto.response.exhibit.ExhibitDtoResponse;
-import museum.entity.Exhibit;
 import museum.service.ExhibitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
