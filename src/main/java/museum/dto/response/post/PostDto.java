@@ -1,4 +1,4 @@
-package museum.dto.post;
+package museum.dto.response.post;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package museum.service;
 
-import museum.dto.post.PostDto;
+import museum.dto.response.post.PostDto;
 import museum.entity.Post;
 
 import java.util.List;

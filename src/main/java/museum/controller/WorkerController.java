@@ -1,6 +1,6 @@
 package museum.controller;
 
-import museum.dto.worker.WorkerDto;
+import museum.dto.response.worker.WorkerDto;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;

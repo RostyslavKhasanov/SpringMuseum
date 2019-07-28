@@ -1,8 +1,8 @@
 package museum.service.impl;
 
 import museum.dao.WorkerDao;
-import museum.dto.worker.WorkerDto;
-import museum.dto.worker.WorkerStatDto;
+import museum.dto.response.worker.WorkerDto;
+import museum.dto.response.worker.WorkerStatDto;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.service.PostService;

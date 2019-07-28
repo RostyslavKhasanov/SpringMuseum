@@ -1,7 +1,7 @@
 package museum.service.impl;
 
 import museum.dao.PostDao;
-import museum.dto.post.PostDto;
+import museum.dto.response.post.PostDto;
 import museum.entity.Post;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;

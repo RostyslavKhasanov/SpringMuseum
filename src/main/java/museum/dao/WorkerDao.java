@@ -1,6 +1,6 @@
 package museum.dao;
 
-import museum.dto.worker.WorkerDto;
+import museum.dto.response.worker.WorkerDto;
 import museum.entity.Worker;
 
 import java.time.LocalDateTime;

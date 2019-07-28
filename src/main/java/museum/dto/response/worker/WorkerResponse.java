@@ -1,4 +1,4 @@
-package museum.dto.worker;
+package museum.dto.response.worker;
 
 import museum.entity.Worker;
 
