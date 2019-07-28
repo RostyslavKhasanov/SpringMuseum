@@ -31,7 +31,7 @@ public class WorkerServiceImpl implements WorkerService {
   @Override
   public void save(WorkerAddRequestDto workerAddRequestDto) {
     Worker worker = workerAddRequestDtoToWorker(workerAddRequestDto);
-     workerDao.save(worker);
+    workerDao.save(worker);
   }
 
   @Override
