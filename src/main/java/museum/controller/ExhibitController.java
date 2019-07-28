@@ -1,6 +1,9 @@
 package museum.controller;
 
 import museum.dto.request.exhibit.ExhibitDto;
+import museum.dto.request.exhibit.ExhibitNameDto;
+import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
+import museum.dto.response.exhibit.ExhibitDtoResponse;
 import museum.entity.Exhibit;
 import museum.service.ExhibitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,7 @@ public class ExhibitController {
 
   @RequestMapping(method = RequestMethod.GET)
   public String findAll(ModelMap modelMap) {
-    List<ExhibitDto> authors = service.findAll();
+    List<ExhibitNameDto> authors = service.findAll();
     modelMap.addAttribute("exhibits", authors);
     return "exhibit/exhibits";
   }
@@ -32,13 +35,13 @@ public class ExhibitController {
       method = RequestMethod.GET,
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    Exhibit exhibit = service.findById(id);
+    ExhibitDtoResponse exhibit = service.findById(id);
     modelMap.addAttribute("exhibit", exhibit);
     return "exhibit/exhibitInfo";
   }
 
   @RequestMapping(value = "/save", method = RequestMethod.POST)
-  public void save(@Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
+  public void save(@Valid @ModelAttribute ExhibitSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
     service.save(dto);
     httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
     httpServletResponse.setStatus(302);

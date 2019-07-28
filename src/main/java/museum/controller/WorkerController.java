@@ -15,8 +15,6 @@ public class WorkerController {
 
   @Autowired private WorkerService workerService;
 
-  @Autowired private HallService hallService;
-
   @Autowired private PostService postService;
 
   @PostMapping
@@ -45,7 +43,7 @@ public class WorkerController {
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("halls", hallService.findByWorkerId(id));
+   /* modelMap.addAttribute("halls", hallService.findByWorkerId(id));*/
     return "worker/workerInfo";
   }
 
@@ -55,7 +53,7 @@ public class WorkerController {
   public String findWorkerExhibits(@RequestParam String name, ModelMap modelMap) {
     Long id = workerService.findWorkerIdByName(name);
     modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("halls", hallService.findByWorkerId(id));
+   /* modelMap.addAttribute("halls", hallService.findByWorkerId(id));*/
     return "worker/workerExhibits";
   }
 

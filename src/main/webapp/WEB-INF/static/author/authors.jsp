@@ -15,7 +15,7 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<div class="save-author" style="float: right; width: 200px">
+<%--<div class="save-author" style="float: right; width: 200px">
     <form method="post" action="http://localhost:8080/author/save" name="dto">
         First name:
         <input type="text" name="firstName">
@@ -24,7 +24,9 @@
         <input type="submit">
     </form>
 
-</div>
+</div>--%>
+<a class="btn btn-primary" style="float: right">Add new Author</a>
+
 
 <c:choose>
     <c:when test="${not empty authors}">
