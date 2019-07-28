@@ -1,6 +1,6 @@
 package museum.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,8 +8,7 @@ import java.util.List;
 
 public class ElementDaoImpl<T> implements ElementDao<T> {
 
-  @PersistenceContext
-  private EntityManager manager;
+  @PersistenceContext private EntityManager manager;
 
   private Class<T> elementClass;
 

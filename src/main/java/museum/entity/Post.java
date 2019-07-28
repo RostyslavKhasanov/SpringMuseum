@@ -21,6 +21,6 @@ public class Post {
   @Column(nullable = false, unique = true)
   private String name;
 
-  @OneToMany(mappedBy = "post")
+  @OneToMany(mappedBy = "post", fetch = FetchType.EAGER)
   private List<Worker> workers = new ArrayList<>();
 }
