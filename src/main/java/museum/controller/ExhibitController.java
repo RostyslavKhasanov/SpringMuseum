@@ -19,43 +19,43 @@ import java.util.List;
 @RequestMapping("/exhibit")
 public class ExhibitController {
 
-  @Autowired private ExhibitService service;
-
-  @RequestMapping(method = RequestMethod.GET)
-  public String findAll(ModelMap modelMap) {
-    List<ExhibitDto> authors = service.findAll();
-    modelMap.addAttribute("exhibits", authors);
-    return "exhibit/exhibits";
-  }
-
-  @RequestMapping(
-      method = RequestMethod.GET,
-      params = {"id"})
-  public String findById(@RequestParam Long id, ModelMap modelMap) {
-    Exhibit exhibit = service.findById(id);
-    modelMap.addAttribute("exhibit", exhibit);
-    return "exhibit/exhibitInfo";
-  }
-
-  @RequestMapping(value = "/save", method = RequestMethod.POST)
-  public void save(@Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
-    service.save(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
-  }
-
-  @RequestMapping(value = "/update", method = RequestMethod.POST)
-  public void update(
-      @Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
-    service.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
-  }
-
-  @RequestMapping(value = "/delete", method = RequestMethod.GET, params = "id")
-  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
-    service.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
-  }
+//  @Autowired private ExhibitService service;
+//
+//  @RequestMapping(method = RequestMethod.GET)
+//  public String findAll(ModelMap modelMap) {
+//    List<ExhibitDto> authors = service.findAll();
+//    modelMap.addAttribute("exhibits", authors);
+//    return "exhibit/exhibits";
+//  }
+//
+//  @RequestMapping(
+//      method = RequestMethod.GET,
+//      params = {"id"})
+//  public String findById(@RequestParam Long id, ModelMap modelMap) {
+//    Exhibit exhibit = service.findById(id);
+//    modelMap.addAttribute("exhibit", exhibit);
+//    return "exhibit/exhibitInfo";
+//  }
+//
+//  @RequestMapping(value = "/save", method = RequestMethod.POST)
+//  public void save(@Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
+//    service.save(dto);
+//    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
+//    httpServletResponse.setStatus(302);
+//  }
+//
+//  @RequestMapping(value = "/update", method = RequestMethod.POST)
+//  public void update(
+//      @Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
+//    service.update(dto);
+//    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
+//    httpServletResponse.setStatus(302);
+//  }
+//
+//  @RequestMapping(value = "/delete", method = RequestMethod.GET, params = "id")
+//  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+//    service.deleteById(id);
+//    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
+//    httpServletResponse.setStatus(302);
+//  }
 }

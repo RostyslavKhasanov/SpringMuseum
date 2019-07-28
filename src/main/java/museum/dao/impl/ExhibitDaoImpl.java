@@ -2,7 +2,6 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.ExhibitDao;
-import museum.dto.exhibit.ExhibitInfoDto;
 import museum.entity.Exhibit;
 import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +18,15 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
     super(Exhibit.class);
   }
 
-  @PersistenceContext
-  private EntityManager manager;
-
-  @Override
-  public List<ExhibitInfoDto> findExhibitsByHall(Long hallId) {
-    String string =
-        "from Exhibit e where e.hall = :hall_id";
-    Query query = manager.createQuery(string, Exhibit.class).setParameter("hall_id", hallId);
-    List<ExhibitInfoDto> exhibits = query.getResultList();
-    return exhibits;
-  }
+//  @PersistenceContext
+//  private EntityManager manager;
+//
+//  @Override
+//  public List<ExhibitInfoDto> findExhibitsByHall(Long hallId) {
+//    String string =
+//        "from Exhibit e where e.hall = :hall_id";
+//    Query query = manager.createQuery(string, Exhibit.class).setParameter("hall_id", hallId);
+//    List<ExhibitInfoDto> exhibits = query.getResultList();
+//    return exhibits;
+//  }
 }
