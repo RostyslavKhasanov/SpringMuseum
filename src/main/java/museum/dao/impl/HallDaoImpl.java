@@ -5,11 +5,14 @@ import museum.dao.HallDao;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.entity.Hall;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.xml.ws.WebServiceRefs;
 import java.util.List;
 
+@Repository
 public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
   public HallDaoImpl() {
     super(Hall.class);

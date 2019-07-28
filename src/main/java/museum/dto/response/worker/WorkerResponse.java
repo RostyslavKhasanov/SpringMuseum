@@ -1,7 +1,11 @@
 package museum.dto.response.worker;
 
+import lombok.Getter;
+import lombok.Setter;
 import museum.entity.Worker;
 
+@Getter
+@Setter
 public class WorkerResponse {
 
   private Long id;
