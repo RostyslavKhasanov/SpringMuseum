@@ -1,20 +1,24 @@
 package museum.service;
 
-import museum.dto.author.AuthorFirstAndSecondNameDto;
+import museum.dto.request.author.AuthorSaveDtoRequest;
+import museum.dto.request.author.AuthorUpdateDtoRequest;
+import museum.dto.response.author.AuthorDtoResponse;
+import museum.dto.response.author.AuthorIdFirstSecondNameDtoResponse;
 import museum.entity.Author;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface AuthorService {
 
-  void save(AuthorFirstAndSecondNameDto dto);
+  void save(AuthorSaveDtoRequest dto);
 
-  List<AuthorFirstAndSecondNameDto> findAll();
+  List<AuthorIdFirstSecondNameDtoResponse> findAll();
 
-  Author findById(Long id);
+  AuthorDtoResponse findById(Long id);
 
-  Author update(AuthorFirstAndSecondNameDto dto);
+  Author getOneById(Long id);
+
+  void update(AuthorUpdateDtoRequest dto);
 
   void deleteById(Long id);
 }

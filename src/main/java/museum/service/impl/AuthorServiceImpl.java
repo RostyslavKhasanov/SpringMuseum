@@ -1,7 +1,10 @@
 package museum.service.impl;
 
 import museum.dao.AuthorDao;
-import museum.dto.author.AuthorFirstAndSecondNameDto;
+import museum.dto.request.author.AuthorSaveDtoRequest;
+import museum.dto.request.author.AuthorUpdateDtoRequest;
+import museum.dto.response.author.AuthorDtoResponse;
+import museum.dto.response.author.AuthorIdFirstSecondNameDtoResponse;
 import museum.entity.Author;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
@@ -19,54 +22,60 @@ public class AuthorServiceImpl implements AuthorService {
 
   @Transactional
   @Override
-  public void save(AuthorFirstAndSecondNameDto dto) {
-    Author author = authorFistAndSecondNameDtoToAuthor(dto);
+  public void save(AuthorSaveDtoRequest dto) {
+    Author author = new Author();
+    author.setFirstName(dto.getFirstName());
+    author.setSecondName(dto.getSecondName());
     dao.save(author);
   }
 
   @Transactional
   @Override
-  public List<AuthorFirstAndSecondNameDto> findAll() {
+  public List<AuthorIdFirstSecondNameDtoResponse> findAll() {
     return dao.findAll().stream()
-        .map(AuthorFirstAndSecondNameDto::new)
+        .map(AuthorIdFirstSecondNameDtoResponse::new)
         .collect(Collectors.toList());
   }
 
   @Transactional
   @Override
-  public Author findById(Long id) {
+  public AuthorDtoResponse findById(Long id) {
     Author author = dao.findById(id);
     if (author == null) {
-      throw new BadIdException("Author has not row with id " + id);
+      throw new BadIdException("Author has no row with id " + id);
+    }
+    return new AuthorDtoResponse(dao.findById(id));
+  }
+
+  @Override
+  public Author getOneById(Long id) {
+    Author author = dao.findById(id);
+    if (author == null) {
+      throw new BadIdException("Author has no row with id " + id);
     }
     return author;
   }
 
   @Transactional
   @Override
-  public Author update(AuthorFirstAndSecondNameDto dto) {
-    Author author = authorFistAndSecondNameDtoToAuthor(dto);
-    Author update = dao.update(author);
-    if (author == null) {
-      throw new BadIdException("Author has not row with id " + dto.getId());
+  public void update(AuthorUpdateDtoRequest dto) {
+    Author author = new Author();
+    author.setId(dto.getId());
+    author.setFirstName(dto.getFirstName());
+    author.setSecondName(dto.getSecondName());
+    Author newAuthor = dao.update(author);
+    if (newAuthor == null) {
+      throw new BadIdException("Author has no row with id " + dto.getId());
     }
-    return update;
   }
 
   @Transactional
   @Override
   public void deleteById(Long id) {
     Boolean isDeleted = dao.deleteById(id);
-    if (!isDeleted) {
-      throw new BadIdException("Author has not row with id " + id);
-    }
-  }
 
-  private Author authorFistAndSecondNameDtoToAuthor(AuthorFirstAndSecondNameDto dto) {
-    Author author = new Author();
-    author.setId(dto.getId());
-    author.setFirstName(dto.getFirstName());
-    author.setSecondName(dto.getSecondName());
-    return author;
+    if (!isDeleted) {
+      throw new BadIdException("Author has no row with id " + id);
+    }
   }
 }
