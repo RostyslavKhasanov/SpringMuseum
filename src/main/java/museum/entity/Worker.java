@@ -26,9 +26,9 @@ public class Worker {
 
   @ManyToOne private Post post;
 
-  @OneToMany(mappedBy = "worker", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "worker")
   private List<Hall> halls = new ArrayList<>();
 
-  @OneToMany(mappedBy = "worker", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "worker")
   private List<Excursion> excursions = new ArrayList<>();
 }
