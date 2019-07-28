@@ -1,21 +1,21 @@
 package museum.service;
 
-import museum.dto.exhibit.ExhibitDto;
-import museum.dto.exhibit.ExhibitInfoDto;
+import museum.dto.request.exhibit.ExhibitDto;
+import museum.dto.request.exhibit.ExhibitNameDto;
+import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
+import museum.dto.response.exhibit.ExhibitDtoResponse;
 import museum.entity.Exhibit;
 
 import java.util.List;
 
 public interface ExhibitService {
-  void save(ExhibitDto dto);
+  void save(ExhibitSaveDtoRequest dto);
 
-  List<ExhibitDto> findAll();
+  List<ExhibitNameDto> findAll();
 
-  Exhibit findById(Long id);
+  ExhibitDtoResponse findById(Long id);
 
-  Exhibit update(ExhibitDto dto);
+  void update(ExhibitDto dto);
 
   void deleteById(Long id);
-
-  List<ExhibitInfoDto> findByHallId(Long id);
 }

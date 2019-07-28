@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: macbookpro
@@ -14,18 +15,26 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
+<div class="save-author" style="float: right; width: 200px">
+    <form method="post" action="http://localhost:8080/author/save" name="dto">
+        First name:
+        <input type="text" name="firstName">
+        Second name:
+        <input type="text" name="secondName">
+        <input type="submit">
+    </form>
+
+</div>
+
 <c:choose>
     <c:when test="${not empty authors}">
         <div class="list-group">
             <c:forEach items="${authors}" var="item">
+
                 <a href="?id=${item.id}"
                    class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}
-
-               <%-- <form action="/author/delete" method="get">
-                    <input type="hidden" name="id" value="${item.id}">
-                    <input type="submit">
-                </form>--%>
                 </a>
+
             </c:forEach>
         </div>
     </c:when>

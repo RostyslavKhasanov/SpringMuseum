@@ -1,6 +1,7 @@
 package museum.controller;
 
-import museum.dto.exhibit.ExhibitDto;
+import museum.dto.request.exhibit.ExhibitDto;
+import museum.entity.Exhibit;
 import museum.service.ExhibitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/exhibit")
@@ -20,7 +23,8 @@ public class ExhibitController {
 
   @RequestMapping(method = RequestMethod.GET)
   public String findAll(ModelMap modelMap) {
-    modelMap.addAttribute("exhibits", service.findAll());
+    List<ExhibitDto> authors = service.findAll();
+    modelMap.addAttribute("exhibits", authors);
     return "exhibit/exhibits";
   }
 
@@ -28,25 +32,30 @@ public class ExhibitController {
       method = RequestMethod.GET,
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    modelMap.addAttribute("exhibit", service.findById(id));
+    Exhibit exhibit = service.findById(id);
+    modelMap.addAttribute("exhibit", exhibit);
     return "exhibit/exhibitInfo";
   }
 
   @RequestMapping(value = "/save", method = RequestMethod.POST)
-  public String save(@Valid @ModelAttribute ExhibitDto dto) {
+  public void save(@Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
     service.save(dto);
-    return "exhibit/exhibits";
+    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
+    httpServletResponse.setStatus(302);
   }
 
   @RequestMapping(value = "/update", method = RequestMethod.POST)
-  public String update(@Valid @ModelAttribute ExhibitDto dto) {
+  public void update(
+      @Valid @ModelAttribute ExhibitDto dto, HttpServletResponse httpServletResponse) {
     service.update(dto);
-    return "exhibit/exhibits";
+    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
+    httpServletResponse.setStatus(302);
   }
 
   @RequestMapping(value = "/delete", method = RequestMethod.GET, params = "id")
-  public String delete(@RequestParam Long id) {
+  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     service.deleteById(id);
-    return "exhibit/exhibits";
+    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
+    httpServletResponse.setStatus(302);
   }
 }
