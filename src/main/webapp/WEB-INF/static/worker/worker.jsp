@@ -19,9 +19,7 @@
         <div class="col-6">
             <table class="table table-hover" id="workerTable">
                 <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">First name</th>
+                <tr><th scope="col">First name</th>
                     <th scope="col">Last name</th>
                     <th scope="col"></th>
                 </tr>
@@ -29,9 +27,6 @@
                 <tbody>
                 <c:forEach items="${workers}" var="item">
                     <tr>
-                        <th scope="row"><a
-                                href="http://localhost:8080/museum/worker?id=${(item.getId())}">${(item.getId())}</a>
-                        </th>
                         <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a>
                         </td>
                         <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a>

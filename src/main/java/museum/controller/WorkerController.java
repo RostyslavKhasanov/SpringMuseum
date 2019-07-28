@@ -1,5 +1,6 @@
 package museum.controller;
 
+import museum.dto.request.worker.WorkerAddRequestDto;
 import museum.dto.response.worker.WorkerDto;
 import museum.service.HallService;
 import museum.service.PostService;
@@ -8,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/worker")
@@ -18,18 +22,12 @@ public class WorkerController {
   @Autowired private PostService postService;
 
   @PostMapping
-  public String save(
-      @RequestParam(name = "firstName") String fName,
-      @RequestParam(name = "secondName") String sName,
-      @RequestParam(name = "postId") Long postId,
-      ModelMap modelMap) {
-    WorkerDto workerDto = new WorkerDto();
-    workerDto.setFirstName(fName);
-    workerDto.setSecondName(sName);
-    workerDto.setPostId(postId);
-    workerService.save(workerDto);
-    modelMap.addAttribute("message", "Worker " + workerDto.getFirstName() + " is created!");
-    return "worker/successful";
+  public void save(
+      @Valid @ModelAttribute WorkerAddRequestDto workerAddRequestDto,
+      HttpServletResponse httpServletResponse) {
+    workerService.save(workerAddRequestDto);
+    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
+    httpServletResponse.setStatus(302);
   }
 
   @GetMapping
