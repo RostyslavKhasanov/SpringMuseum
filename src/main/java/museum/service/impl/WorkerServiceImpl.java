@@ -5,6 +5,7 @@ import museum.dto.request.worker.WorkerAddRequestDto;
 import museum.dto.response.worker.WorkerDto;
 import museum.dto.response.worker.WorkerResponse;
 import museum.dto.response.worker.WorkerStatDto;
+import museum.entity.Post;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.service.PostService;
@@ -83,6 +84,15 @@ public class WorkerServiceImpl implements WorkerService {
     }
   }
 
+  @Override
+  public Worker getOneById(Long id) {
+    Worker worker = new Worker();
+    if (worker == null) {
+      throw new BadIdException("Author has no row with id " + id);
+    }
+    return worker;
+  }
+
   private WorkerStatDto workerToWorkerStatDto(Worker worker) {
     WorkerStatDto workerStatDto = new WorkerStatDto();
     workerStatDto.setId(worker.getId());
@@ -97,7 +107,7 @@ public class WorkerServiceImpl implements WorkerService {
     Worker worker = new Worker();
     worker.setFirstName(workerAddRequestDto.getFirstName());
     worker.setSecondName(workerAddRequestDto.getSecondName());
-    worker.setPost(postService.findById(workerAddRequestDto.getPostId()));
+    worker.setPost(postService.getOneById(workerAddRequestDto.getPostId()));
     return worker;
   }
 }

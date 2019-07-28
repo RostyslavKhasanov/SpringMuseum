@@ -25,4 +25,6 @@ public interface WorkerService {
   List<WorkerStatDto> findGuidesStat();
 
   void deleteById(Long id);
+
+  Worker getOneById(Long id);
 }
