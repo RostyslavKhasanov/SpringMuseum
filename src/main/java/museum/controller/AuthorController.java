@@ -32,21 +32,21 @@ public class AuthorController {
     return "author/authorInfo";
   }
 
-  @RequestMapping(method = RequestMethod.POST)
+  @RequestMapping(value = "/save", method = RequestMethod.POST)
   public String save(@Valid @ModelAttribute AuthorFirstAndSecondNameDto dto) {
     service.save(dto);
-    return "";
+    return "author/authors";
   }
 
-  @RequestMapping(method = RequestMethod.PUT)
+  @RequestMapping(value = "/update", method = RequestMethod.POST)
   public String update(@Valid @ModelAttribute AuthorFirstAndSecondNameDto dto) {
     service.update(dto);
-    return "";
+    return "author/authors";
   }
 
-  @RequestMapping(method = RequestMethod.DELETE, params = "id")
+  @RequestMapping(value = "/delete", method = RequestMethod.GET, params = "id")
   public String delete(@RequestParam Long id) {
     service.deleteById(id);
-    return "";
+    return "author/authors";
   }
 }
