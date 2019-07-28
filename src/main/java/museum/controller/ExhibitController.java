@@ -32,21 +32,21 @@ public class ExhibitController {
     return "exhibit/exhibitInfo";
   }
 
-  @RequestMapping(method = RequestMethod.POST)
+  @RequestMapping(value = "/save", method = RequestMethod.POST)
   public String save(@Valid @ModelAttribute ExhibitDto dto) {
     service.save(dto);
-    return "";
+    return "exhibit/exhibits";
   }
 
-  @RequestMapping(method = RequestMethod.PUT)
+  @RequestMapping(value = "/update", method = RequestMethod.POST)
   public String update(@Valid @ModelAttribute ExhibitDto dto) {
     service.update(dto);
-    return "";
+    return "exhibit/exhibits";
   }
 
-  @RequestMapping(method = RequestMethod.DELETE, params = "id")
+  @RequestMapping(value = "/delete", method = RequestMethod.GET, params = "id")
   public String delete(@RequestParam Long id) {
     service.deleteById(id);
-    return "";
+    return "exhibit/exhibits";
   }
 }
