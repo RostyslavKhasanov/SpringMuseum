@@ -33,14 +33,14 @@
         <br>
 
         <select name="authorId" class="custom-select">
-            <option selected value="0">Input some</option>
+            <option selected value="0">Select author</option>
             <c:forEach var="author" items="${authors}">
                 <option value="${author.id}">${author.firstName} ${author.secondName}</option>
             </c:forEach>
         </select>
         <br><br>
         <select name="hallId" class="custom-select">
-            <option selected value="0">Input some</option>
+            <option selected value="0">Select hall</option>
             <c:forEach var="hall" items="${halls}">
                 <option value="${hall.id}">${hall.name}</option>
             </c:forEach>
