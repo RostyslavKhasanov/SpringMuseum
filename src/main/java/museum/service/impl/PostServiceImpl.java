@@ -34,11 +34,13 @@ public class PostServiceImpl implements PostService {
     return postToPostResponseDto(post);
   }
 
+  @Transactional
   @Override
   public List<PostNameResponseDto> findAll() {
     return postDao.findAll().stream().map(PostNameResponseDto::new).collect(Collectors.toList());
   }
 
+  @Transactional
   @Override
   public Post getOneById(Long id) {
     Post post = new Post();

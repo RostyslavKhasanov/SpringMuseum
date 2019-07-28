@@ -30,27 +30,30 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public void save(WorkerAddRequestDto workerAddRequestDto) {
-    Worker worker = workerAddRequestDtoToWorker(workerAddRequestDto);
-    workerDao.save(worker);
+    workerDao.save(workerAddRequestDtoToWorker(workerAddRequestDto));
   }
 
+  @Transactional
   @Override
   public List<WorkerResponse> findAll() {
     List<Worker> workers = workerDao.findAll();
     return workers.stream().map(WorkerResponse::new).collect(Collectors.toList());
   }
 
+  @Transactional
   @Override
   public Worker findById(Long id) {
     Worker worker = workerDao.findById(id);
     return worker;
   }
 
+  @Transactional
   @Override
   public Long findWorkerIdByName(String name) {
     return workerDao.findWorkerIdByName(name);
   }
 
+  @Transactional
   @Override
   public List<WorkerDto> findAllFreeGuide() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -59,12 +62,14 @@ public class WorkerServiceImpl implements WorkerService {
     return workers;
   }
 
+  @Transactional
   @Override
   public List<WorkerDto> findAllGuide() {
     List<Worker> workers = workerDao.findAllGuide();
     return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
   }
 
+  @Transactional
   @Override
   public List<WorkerStatDto> findGuidesStat() {
     List<Worker> workers = workerDao.findAllGuide();
@@ -88,7 +93,7 @@ public class WorkerServiceImpl implements WorkerService {
   public Worker getOneById(Long id) {
     Worker worker = new Worker();
     if (worker == null) {
-      throw new BadIdException("Author has no row with id " + id);
+      throw new BadIdException("Worker with id " + id + " doesn't exist");
     }
     return worker;
   }

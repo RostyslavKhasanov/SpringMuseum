@@ -1,6 +1,6 @@
 package museum.service;
 
-import museum.dto.request.excursion.ExcursionRequest;
+import museum.dto.request.excursion.ExcursionRequestDto;
 import museum.dto.response.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 
@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface ExcursionService {
 
-  ExcursionResponse save(ExcursionRequest excursionRequest);
+  void save(ExcursionRequestDto excursionRequestDto);
 
   List<ExcursionResponse> findAll();
 
   Excursion findById(Long id);
 
-  ExcursionResponse update(ExcursionRequest excursionRequest);
+  ExcursionResponse update(ExcursionRequestDto excursionRequestDto);
 
   void deleteById(Long id);
 
