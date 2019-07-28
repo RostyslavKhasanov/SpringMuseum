@@ -14,12 +14,12 @@ import javax.persistence.Persistence;
 @EnableTransactionManagement
 public class JpaConfig {
 
-  @Bean
+  @Bean(name = "entityManagerFactory")
   public EntityManagerFactory entityManagerFactory() {
     return Persistence.createEntityManagerFactory("primary");
   }
 
-  @Bean
+  @Bean(name = "entityManager")
   public EntityManager entityManager() {
     return entityManagerFactory().createEntityManager();
   }

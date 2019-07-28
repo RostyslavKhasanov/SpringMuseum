@@ -1,5 +1,7 @@
 package museum.dao;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
