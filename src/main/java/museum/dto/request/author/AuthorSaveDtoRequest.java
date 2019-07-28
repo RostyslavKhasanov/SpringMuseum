@@ -1,4 +1,4 @@
-package museum.dto.author;
+package museum.dto.request.author;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,22 +7,18 @@ import lombok.Setter;
 import museum.entity.Author;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthorFirstAndSecondNameDto {
-
-  @NotNull private Long id;
+public class AuthorSaveDtoRequest {
 
   @NotBlank private String firstName;
 
   @NotBlank private String secondName;
 
-  public AuthorFirstAndSecondNameDto(Author author) {
-    this.id = author.getId();
+  public AuthorSaveDtoRequest(Author author) {
     this.firstName = author.getFirstName();
     this.secondName = author.getSecondName();
   }

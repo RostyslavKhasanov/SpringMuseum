@@ -1,6 +1,8 @@
-package museum.dto.exhibit;
+package museum.dto.request.exhibit;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Exhibit;
 
@@ -9,10 +11,11 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class ExhibitDto {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ExhibitUpdateDtoRequest {
 
   @NotNull private Long id;
-
   @NotBlank private String name;
   @NotBlank private String material;
   @NotBlank private String technology;
@@ -20,7 +23,7 @@ public class ExhibitDto {
   @NotNull private Long authorId;
   @NotNull private Long hall_id;
 
-  public ExhibitDto(Exhibit exhibit) {
+  public ExhibitUpdateDtoRequest(Exhibit exhibit) {
     this.id = exhibit.getId();
     this.name = exhibit.getName();
     this.material = exhibit.getMaterial();

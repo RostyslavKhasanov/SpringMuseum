@@ -14,13 +14,30 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
+<button type="button" class="btn btn-primary" style="float: right" onclick="deleteAuthor(${author.id})">Delete this
+    author
+</button>
+
 <div class="info" style="margin: 20px">
     <div class="first-name">FistName: ${author.firstName}</div>
     <div class="second-name">SecondName ${author.secondName}</div>
+    <div class="author-exhibits">
+        <c:forEach items="${exhibits}" var="exhibit">
+            <p>${exhibit.id} ${exhibit.name}</p>
+        </c:forEach>
+    </div>
 </div>
 
 
 </body>
+<script>
+    function deleteAuthor(id) {
+        var isDelete = confirm("Do you really want to delete this author?");
+        if (isDelete) {
+            window.location.href = "http://localhost:8080/author/delete?id=" + id;
+        }
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
