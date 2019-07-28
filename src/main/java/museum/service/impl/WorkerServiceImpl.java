@@ -73,6 +73,7 @@ public class WorkerServiceImpl implements WorkerService {
     return workerStatDtos;
   }
 
+  @Transactional
   @Override
   public void deleteById(Long id) {
     Boolean isDeleted = workerDao.deleteById(id);
