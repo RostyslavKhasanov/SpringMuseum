@@ -14,25 +14,15 @@
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <form action="/worker" method="post" class="col-4" id="workerForm">
-        <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2">
-        <br>
-        <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2">
-        <br>
-        <select name="postId" class="custom-select" id="inputGroupSelect02">
-            <option selected value="0">Input some</option>
-            <c:forEach var="post" items="${posts}" varStatus="rowCounter">
-                <option value="${post.getId()}">${post.getName()}</option>
-            </c:forEach>
-        </select>
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="Add worker"/>
-    </form>
+    <div class="col-4"><h1>${message}</h1></div>
     <div class="col-4"></div>
 </div>
 </body>
+<script>
+    setTimeout(function(){
+        window.location.href = "http://localhost:8080/worker";
+    }, 2000);
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

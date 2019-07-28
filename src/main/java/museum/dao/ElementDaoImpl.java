@@ -3,11 +3,13 @@ package museum.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 public class ElementDaoImpl<T> implements ElementDao<T> {
 
-  @Autowired private EntityManager manager;
+  @PersistenceContext
+  private EntityManager manager;
 
   private Class<T> elementClass;
 
@@ -29,9 +31,7 @@ public class ElementDaoImpl<T> implements ElementDao<T> {
 
   @Override
   public void save(T element) {
-    manager.getTransaction().begin();
     manager.persist(element);
-    manager.getTransaction().commit();
   }
 
   @Override

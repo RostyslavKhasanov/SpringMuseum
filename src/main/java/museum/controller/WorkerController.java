@@ -17,19 +17,21 @@ public class WorkerController {
 
   @Autowired private HallService hallService;
 
-  @Autowired
-  private PostService postService;
+  @Autowired private PostService postService;
 
+  @PostMapping
   public String save(
       @RequestParam(name = "firstName") String fName,
       @RequestParam(name = "secondName") String sName,
-      @RequestParam(name = "postId") Long postId) {
+      @RequestParam(name = "postId") Long postId,
+      ModelMap modelMap) {
     WorkerDto workerDto = new WorkerDto();
     workerDto.setFirstName(fName);
     workerDto.setSecondName(sName);
     workerDto.setPostId(postId);
     workerService.save(workerDto);
-    return "worker/addWorker";
+    modelMap.addAttribute("message", "Worker " + workerDto.getFirstName() + " is created!");
+    return "worker/successful";
   }
 
   @GetMapping
@@ -79,5 +81,12 @@ public class WorkerController {
   public String addWorkerPage(ModelMap modelMap) {
     modelMap.addAttribute("posts", postService.findAll());
     return "worker/addWorker";
+  }
+
+  @PostMapping("/delete")
+  public String deleteWorker(@RequestParam(name = "id") Long id, ModelMap modelMap) {
+    workerService.deleteById(id);
+    modelMap.addAttribute("message", "Worker with id " + id + " is deleted!");
+    return "worker/successful";
   }
 }

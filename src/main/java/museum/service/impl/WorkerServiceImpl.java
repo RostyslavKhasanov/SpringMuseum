@@ -4,6 +4,7 @@ import museum.dao.WorkerDao;
 import museum.dto.worker.WorkerDto;
 import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
+import museum.exception.BadIdException;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,14 @@ public class WorkerServiceImpl implements WorkerService {
       workerStatDtos.add(workerToWorkerStatDto(worker));
     }
     return workerStatDtos;
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    Boolean isDeleted = workerDao.deleteById(id);
+    if (!isDeleted) {
+      throw new BadIdException("Worker with entered id doesn't exist");
+    }
   }
 
   private WorkerStatDto workerToWorkerStatDto(Worker worker) {

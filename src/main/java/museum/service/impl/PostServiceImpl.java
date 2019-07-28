@@ -15,6 +15,7 @@ public class PostServiceImpl implements PostService {
 
   @Autowired private PostDao postDao;
 
+  @Transactional
   @Override
   public void save(PostDto postDto) {
     Post post = postDtoToPost(postDto);

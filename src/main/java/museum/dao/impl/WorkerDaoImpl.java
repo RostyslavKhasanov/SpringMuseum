@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
@@ -21,7 +22,8 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
     super(Worker.class);
   }
 
-  @Autowired private EntityManager entityManager;
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @Override
   public Long findWorkerIdByName(String name) {

@@ -17,12 +17,13 @@
         <div class="col">
         </div>
         <div class="col-6">
-            <table class="table table-hover">
+            <table class="table table-hover" id="workerTable">
                 <thead>
                 <tr>
                     <th scope="col">Id</th>
                     <th scope="col">First name</th>
                     <th scope="col">Last name</th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,6 +35,12 @@
                         <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a>
                         </td>
                         <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a>
+                        </td>
+                        <td>
+                            <form action="/worker/delete" style="margin-block-end: 0em;" method="post">
+                                <input type="hidden" name="id" value="${item.getId()}">
+                                <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+                            </form>
                         </td>
                     </tr>
                 </c:forEach>
@@ -53,7 +60,8 @@
                 <br><br>
                 <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
                 <br><br>
-                <button type="button" class="btn btn-primary" onclick="redirectToWorkerAddForm()">Add new worker</button>
+                <button type="button" class="btn btn-primary" onclick="redirectToWorkerAddForm()">Add new worker
+                </button>
             </div>
         </div>
     </div>
@@ -69,6 +77,7 @@
     function addPostForm() {
         document.location.href = "http://localhost:8080/post/add";
     }
+
     function redirectToWorkerAddForm() {
         document.location.href = "http://localhost:8080/worker/add";
     }
