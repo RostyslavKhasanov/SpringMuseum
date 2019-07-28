@@ -4,6 +4,10 @@ import museum.dao.ExhibitDao;
 import museum.dao.HallDao;
 import museum.dto.hall.request.HallRequest;
 import museum.dto.hall.response.HallResponse;
+import museum.dto.request.hall.HallSaveRequest;
+import museum.dto.request.hall.HallUpdateRequest;
+import museum.dto.response.hall.HallDtoResponse;
+import museum.dto.response.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
 import museum.service.HallService;
@@ -27,32 +31,25 @@ public class HallServiceImpl implements HallService {
 
   @Transactional
   @Override
-  public HallResponse save(HallRequest hallRequest) {
+  public void save(HallSaveRequest hallRequest) {
     Hall hall = new Hall();
     hall.setName(hallRequest.getName());
-//    hall.setWorker(workerService.findById(hallRequest.getWorkerId()));
-    return new HallResponse(hall);
+    hallDao.save(hall);
   }
 
   @Transactional
   @Override
-  public List<HallResponse> findAll() {
-    return hallDao.findAll().stream().map(HallResponse::new).collect(Collectors.toList());
+  public List<HallIdNameDtoResponse> findAll() {
+    return hallDao.findAll().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
   }
 
   @Transactional
   @Override
-  public Hall findById(Long id) throws BadIdException {
+  public HallDtoResponse findById(Long id) throws BadIdException {
     if (hallDao == null) {
       throw new BadIdException("Hall with id " + id + " does not exists");
     }
     return hallDao.findById(id);
-  }
-
-  @Transactional
-  @Override
-  public HallResponse update(HallRequest hallRequest) {
-    return  null;
   }
 
   @Transactional
@@ -66,7 +63,7 @@ public class HallServiceImpl implements HallService {
 
   @Transactional
   @Override
-  public List<HallResponse> findByWorkerId(Long id) {
-    return hallDao.findAll().stream().map(HallResponse::new).collect(Collectors.toList());
+  public List<HallDtoResponse> findByWorkerId(Long id) {
+    return hallDao.findAll().stream().map(HallDtoResponse::new).collect(Collectors.toList());
   }
 }

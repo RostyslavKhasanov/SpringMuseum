@@ -1,7 +1,9 @@
 package museum.service.impl;
 
 import museum.dao.WorkerDao;
+import museum.dto.request.worker.WorkerAddRequestDto;
 import museum.dto.response.worker.WorkerDto;
+import museum.dto.response.worker.WorkerResponse;
 import museum.dto.response.worker.WorkerStatDto;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
@@ -26,16 +28,15 @@ public class WorkerServiceImpl implements WorkerService {
 
   @Transactional
   @Override
-  public void save(WorkerDto workerDto) {
-    Worker worker = workerDtoToWorker(workerDto);
+  public void save(WorkerAddRequestDto workerAddRequestDto) {
+    Worker worker = workerAddRequestDtoToWorker(workerAddRequestDto);
      workerDao.save(worker);
   }
 
-
   @Override
-  public List<WorkerDto> findAll() {
+  public List<WorkerResponse> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerResponse::new).collect(Collectors.toList());
   }
 
   @Override
@@ -92,13 +93,11 @@ public class WorkerServiceImpl implements WorkerService {
     return workerStatDto;
   }
 
-  private Worker workerDtoToWorker(WorkerDto workerDto) {
+  private Worker workerAddRequestDtoToWorker(WorkerAddRequestDto workerAddRequestDto) {
     Worker worker = new Worker();
-    worker.setFirstName(workerDto.getFirstName());
-    worker.setSecondName(workerDto.getSecondName());
-    worker.setPost(postService.findById(workerDto.getPostId()));
-    worker.setHalls(workerDto.getHalls());
-    worker.setExcursions(workerDto.getExcursions());
+    worker.setFirstName(workerAddRequestDto.getFirstName());
+    worker.setSecondName(workerAddRequestDto.getSecondName());
+    worker.setPost(postService.findById(workerAddRequestDto.getPostId()));
     return worker;
   }
 }
