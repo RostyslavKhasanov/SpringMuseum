@@ -7,7 +7,12 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
+/**
+ * DTO for worker post request
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
