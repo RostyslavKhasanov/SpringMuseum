@@ -1,6 +1,7 @@
 package museum.controller;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
+import museum.dto.request.worker.WorkerUpdateRequestDto;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -88,6 +89,21 @@ public class WorkerController {
   @GetMapping(value = "/delete", params = "id")
   public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     workerService.deleteById(id);
+    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
+    httpServletResponse.setStatus(302);
+  }
+
+  @GetMapping(value = "/edit", params = "id")
+  public String editWorker(@RequestParam Long id,ModelMap modelMap) {
+    modelMap.addAttribute("worker", workerService.findById(id));
+    modelMap.addAttribute("posts", postService.findAll());
+    return "worker/editWorker";
+  }
+
+  @PostMapping("/update")
+  public void update(
+          @Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto, HttpServletResponse httpServletResponse) {
+    workerService.update(dto);
     httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
     httpServletResponse.setStatus(302);
   }
