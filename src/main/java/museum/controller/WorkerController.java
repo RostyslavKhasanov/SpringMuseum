@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
- * Core servlet controller class for 'worker' page.
+ * Controller class for 'worker' page.
  *
  * @author Rostyslav Khasanov
  * @version 1.0
