@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface HallDao extends ElementDao<Hall> {
 
-    List<HallDtoResponse> findHalLByWorkerId(Long workerId);
+    List<Hall> findHalLByWorkerId(Long workerId);
 
 }

@@ -46,3 +46,8 @@ th a:hover {
 #postForm {
     margin-top: 25px;
 }
+
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}

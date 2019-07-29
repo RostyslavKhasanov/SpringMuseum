@@ -85,10 +85,10 @@ public class WorkerController {
     return "worker/addWorker";
   }
 
-  @PostMapping("/delete")
-  public String deleteWorker(@RequestParam(name = "id") Long id, ModelMap modelMap) {
+  @GetMapping(value = "/delete", params = "id")
+  public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     workerService.deleteById(id);
-    modelMap.addAttribute("message", "Worker with id " + id + " is deleted!");
-    return "worker/successful";
+    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
+    httpServletResponse.setStatus(302);
   }
 }

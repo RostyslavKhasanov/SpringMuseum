@@ -22,10 +22,10 @@ public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
   private EntityManager manager;
 
   @Override
-  public List<HallDtoResponse> findHalLByWorkerId(Long workerId) {
-    String qry = "from Hall h where h.worker_id = :worker_Id";
+  public List<Hall> findHalLByWorkerId(Long workerId) {
+    String qry = "from Hall h where h.worker.id = :worker_Id";
     TypedQuery query = manager.createQuery(qry, Hall.class).setParameter("worker_Id", workerId);
-    List<HallDtoResponse> hallResponses = query.getResultList();
-    return hallResponses;
+    List<Hall> hall = query.getResultList();
+    return hall;
   }
 }

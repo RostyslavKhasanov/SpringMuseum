@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <title>Title</title>
+    <title>New Post</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -15,6 +15,7 @@
 <div class="row">
     <div class="col-4"></div>
     <form action="/post" method="post" class="col-4" id="postForm">
+        <h1>New post: </h1>
         <input type="text" name="Name" class="form-control" placeholder="Name" aria-label="Post name"
                aria-describedby="basic-addon2">
         <br>
