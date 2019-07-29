@@ -9,11 +9,18 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+/**
+ * Configuration for Spring MVC.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Configuration
 @ComponentScan(basePackages = "museum")
 @EnableWebMvc
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
+  /** ViewResolver bean for giving information about jsp resources for Spring. */
   @Bean
   public ViewResolver getViewResolver() {
     InternalResourceViewResolver resolver = new InternalResourceViewResolver();

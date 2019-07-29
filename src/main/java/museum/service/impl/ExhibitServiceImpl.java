@@ -19,6 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for Exhibit logic.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Service
 public class ExhibitServiceImpl implements ExhibitService {
 
@@ -28,6 +34,7 @@ public class ExhibitServiceImpl implements ExhibitService {
 
   @Autowired private HallService hallService;
 
+  /** Method that save new exhibit. */
   @Transactional
   @Override
   public void save(ExhibitSaveDtoRequest dto) {
@@ -40,12 +47,22 @@ public class ExhibitServiceImpl implements ExhibitService {
     dao.save(exhibit);
   }
 
+  /**
+   * Method that return all exhibit dto.
+   *
+   * @return List of ExhibitIdNameDtoResponse.
+   */
   @Transactional
   @Override
   public List<ExhibitIdNameDtoResponse> findAll() {
     return dao.findAll().stream().map(ExhibitIdNameDtoResponse::new).collect(Collectors.toList());
   }
 
+  /**
+   * Method that return exhibit dto by id.
+   *
+   * @return ExhibitDtoResponse - this is dto of exhibit.
+   */
   @Transactional
   @Override
   public ExhibitDtoResponse findById(Long id) {
@@ -56,6 +73,11 @@ public class ExhibitServiceImpl implements ExhibitService {
     return new ExhibitDtoResponse(exhibit);
   }
 
+  /**
+   * Method that return exhibit by id.
+   *
+   * @return Exhibit - this is entity.
+   */
   @Transactional
   @Override
   public Exhibit getOneById(Long id) {
@@ -66,6 +88,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     return exhibit;
   }
 
+  /** Method that update exhibit. */
   @Transactional
   @Override
   public void update(ExhibitUpdateDtoRequest dto) {
@@ -82,6 +105,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
   }
 
+  /** Method that delete exhibit by id. */
   @Transactional
   @Override
   public void deleteById(Long id) {
@@ -91,11 +115,21 @@ public class ExhibitServiceImpl implements ExhibitService {
     }
   }
 
+  /**
+   * Method that for Exhibit material statistic.
+   *
+   * @return List of ExhibitMaterialStat
+   */
   @Override
   public List<ExhibitMaterialStat> getMaterialStat() {
     return dao.getMaterialStat();
   }
 
+  /**
+   * Method that for Exhibit technology statistic.
+   *
+   * @return List of ExhibitTechnologyStat
+   */
   @Override
   public List<ExhibitTechnologyStat> getTechnologyStat() {
     return dao.getTechnologyStat();

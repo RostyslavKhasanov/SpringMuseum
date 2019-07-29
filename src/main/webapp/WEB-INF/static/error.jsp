@@ -13,9 +13,8 @@
 <body>
 <jsp:include page="menu.jsp"/>
 
-<h1>Ooopssss!</h1>
-<br>
-<h3>${message}</h3>
+<h1 style="margin: 20px">Ooopssss! You don`t fill all fields!</h1>
+
 
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
