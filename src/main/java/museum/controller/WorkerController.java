@@ -2,6 +2,8 @@ package museum.controller;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
 import museum.dto.response.worker.WorkerDto;
+import museum.exception.BadIdException;
+import museum.exception.BadNameException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -51,10 +53,18 @@ public class WorkerController {
       method = RequestMethod.GET,
       params = {"name"})
   public String findWorkerExhibits(@RequestParam String name, ModelMap modelMap) {
-    Long id = workerService.findWorkerIdByName(name);
-    modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("halls", hallService.findByWorkerId(id));
-    return "worker/workerExhibits";
+    try {
+      Long id = workerService.findWorkerIdByName(name);
+      modelMap.addAttribute("worker", workerService.findById(id));
+      modelMap.addAttribute("halls", hallService.findByWorkerId(id));
+      return "worker/workerExhibits";
+    } catch (BadNameException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "error";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "error";
+    }
   }
 
   @GetMapping("/guides")
