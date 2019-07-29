@@ -1,5 +1,12 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: macbookpro
+  Date: 7/28/19
+  Time: 6:01 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -10,14 +17,19 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="card">
-    <h6>Exhibits of ${(worker.getFirstName())} ${(worker.getSecondName())} :</h6>
-    <br>
-    <c:forEach items="${halls}" var="item">
-        <c:forEach items="${item.getExhibits()}" var="item1">
-            <h6>${(item1.getName())}</h6>
-        </c:forEach>
-    </c:forEach>
+
+<div class="row">
+    <div class="col-4"></div>
+    <form action="/author/update" method="post" class="col-4" id="workerForm">
+        <input type="hidden" name="id" value="${author.id}">
+        <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
+               aria-describedby="basic-addon2" value="${author.firstName}">
+        <br>
+        <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
+               aria-describedby="basic-addon2" value="${author.secondName}">
+        <br>
+        <input type="submit" class="btn btn-primary" value="Save"/>
+    </form>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

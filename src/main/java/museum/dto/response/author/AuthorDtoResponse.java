@@ -2,7 +2,7 @@ package museum.dto.response.author;
 
 import lombok.Getter;
 import lombok.Setter;
-import museum.dto.request.exhibit.ExhibitNameDto;
+import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
 import museum.entity.Author;
 
 import java.util.List;
@@ -18,13 +18,15 @@ public class AuthorDtoResponse {
 
   private String secondName;
 
-  private List<ExhibitNameDto> exhibits;
+  private List<ExhibitIdNameDtoResponse> exhibits;
 
   public AuthorDtoResponse(Author author) {
     this.id = author.getId();
     this.firstName = author.getFirstName();
     this.secondName = author.getSecondName();
     this.exhibits =
-        author.getExhibits().stream().map(ExhibitNameDto::new).collect(Collectors.toList());
+        author.getExhibits().stream()
+            .map(ExhibitIdNameDtoResponse::new)
+            .collect(Collectors.toList());
   }
 }

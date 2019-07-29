@@ -1,24 +1,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Katay
+  Date: 18.07.2019
+  Time: 21:54
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
 <head>
-    <title>Title</title>
+    <title>Museum</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        <%@include file="../../../resources/index.css"%>
-    </style>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="card">
-    <h6>Exhibits of ${(worker.getFirstName())} ${(worker.getSecondName())} :</h6>
-    <br>
-    <c:forEach items="${halls}" var="item">
-        <c:forEach items="${item.getExhibits()}" var="item1">
-            <h6>${(item1.getName())}</h6>
-        </c:forEach>
-    </c:forEach>
-</div>
+
+<a href="/hall/add" class="btn btn-primary" style="float: right">Add new Hall</a>
+
+<c:choose>
+    <c:when test="${not empty halls}">
+        <div class="list-group">
+            <c:forEach items="${halls}" var="item">
+                <a href="?id=${item.id}" class="list-group-item list-group-item-action disabled">${item.name}</a>
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <h3 class="w3-wide" style="margin: 20px;">Not found any halls!</h3>
+    </c:otherwise>
+</c:choose>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

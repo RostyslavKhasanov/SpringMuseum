@@ -2,6 +2,7 @@ package museum.service;
 
 import museum.dto.request.author.AuthorUpdateDtoRequest;
 import museum.dto.request.hall.HallSaveRequest;
+import museum.dto.request.hall.HallUpdateRequest;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.dto.response.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
@@ -13,9 +14,11 @@ public interface HallService {
 
     List<HallIdNameDtoResponse> findAll();
 
-//    HallDtoResponse findById(Long id);
+    HallDtoResponse findById(Long id);
+
+    Hall getOneById(Long id);
+
+    void update(HallUpdateRequest dto);
 
     void deleteById(Long id);
-
-    List<HallDtoResponse> findByWorkerId(Long id);
 }

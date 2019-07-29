@@ -14,6 +14,13 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
+<a href="/exhibit/edit?id=${exhibit.id}" class="btn btn-primary" style="float: right">Edit</a>
+
+<button type="button" class="btn btn-primary" style="float: right" onclick="deleteExhibit(${exhibit.id})">Delete this
+    exhibit
+</button>
+
+
 <div class="info" style="margin: 20px">
     <div class="name">Name of the exhibit is: ${exhibit.name}</div>
     <div class="material">Material is: ${exhibit.material}</div>
@@ -21,6 +28,14 @@
 </div>
 
 </body>
+<script>
+    function deleteExhibit(id) {
+        var isDelete = confirm("Do you really want to delete this exhibit?");
+        if (isDelete) {
+            window.location.href = "http://localhost:8080/exhibit/delete?id=" + id;
+        }
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

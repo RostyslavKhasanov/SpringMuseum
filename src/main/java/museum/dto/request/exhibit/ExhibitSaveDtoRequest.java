@@ -15,19 +15,18 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ExhibitSaveDtoRequest {
 
-    @NotBlank
-    private String name;
-    @NotBlank private String material;
-    @NotBlank private String technology;
+  @NotBlank private String name;
+  @NotBlank private String material;
+  @NotBlank private String technology;
 
-    @NotNull private Long authorId;
-    @NotNull private Long hall_id;
+  @NotNull private Long authorId;
+  @NotNull private Long hallId;
 
-    public ExhibitSaveDtoRequest(Exhibit exhibit) {
-        this.name = exhibit.getName();
-        this.material = exhibit.getMaterial();
-        this.technology = exhibit.getTechnology();
-        this.authorId = exhibit.getAuthor().getId();
-        this.hall_id = exhibit.getHall().getId();
-    }
+  public ExhibitSaveDtoRequest(Exhibit exhibit) {
+    this.name = exhibit.getName();
+    this.material = exhibit.getMaterial();
+    this.technology = exhibit.getTechnology();
+    this.authorId = exhibit.getAuthor().getId();
+    this.hallId = exhibit.getHall().getId();
+  }
 }

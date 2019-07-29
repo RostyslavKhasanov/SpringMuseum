@@ -19,6 +19,9 @@
 <jsp:include page="../menu.jsp"/>
 
 <button type="button" class="btn btn-primary" style="float: right" onclick="goToStatistic()">Exhibit statistic</button>
+<a href="/exhibit/add" class="btn btn-primary" style="float: right">Add new Exhibit</a>
+
+
 <c:choose>
     <c:when test="${not empty exhibits}">
         <div class="list-group">

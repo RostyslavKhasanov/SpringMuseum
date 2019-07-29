@@ -21,7 +21,7 @@ public class ExhibitUpdateDtoRequest {
   @NotBlank private String technology;
 
   @NotNull private Long authorId;
-  @NotNull private Long hall_id;
+  @NotNull private Long hallId;
 
   public ExhibitUpdateDtoRequest(Exhibit exhibit) {
     this.id = exhibit.getId();
@@ -29,6 +29,6 @@ public class ExhibitUpdateDtoRequest {
     this.material = exhibit.getMaterial();
     this.technology = exhibit.getTechnology();
     this.authorId = exhibit.getAuthor().getId();
-    this.hall_id = exhibit.getHall().getId();
+    this.hallId = exhibit.getHall().getId();
   }
 }

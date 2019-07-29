@@ -14,20 +14,36 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<button type="button" class="btn btn-primary" style="float: right" onclick="deleteAuthor(${author.id})">Delete this
-    author
-</button>
+<div class="container">
+    <div class="row">
 
-<div class="info" style="margin: 20px">
-    <div class="first-name">FistName: ${author.firstName}</div>
-    <div class="second-name">SecondName ${author.secondName}</div>
-    <div class="author-exhibits">
-        <c:forEach items="${exhibits}" var="exhibit">
-            <p>${exhibit.id} ${exhibit.name}</p>
-        </c:forEach>
+        <div class="col-1"></div>
+
+        <div class="author-exhibits col-10">
+
+            <div class="info" style="margin: 20px">
+                <div>Fist name: ${author.firstName}</div>
+                <div>Second name: ${author.secondName}</div>
+            </div>
+
+            <h4>Author`s exhibits:</h4>
+            <c:forEach items="${author.exhibits}" var="exhibit">
+                <p><a href="/exhibit?id=${exhibit.id}">${exhibit.name}</a></p>
+            </c:forEach>
+
+        </div>
+
+
+        <div class="buttons col-1">
+            <a href="/author/edit?id=${author.id}" class="btn btn-primary">Edit</a>
+
+            <button type="button" class="btn btn-primary" onclick="deleteAuthor(${author.id})">Delete this
+                author
+            </button>
+        </div>
+
     </div>
 </div>
-
 
 </body>
 <script>
