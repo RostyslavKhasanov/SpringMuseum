@@ -12,7 +12,9 @@
 <body>
 <jsp:include page="menu.jsp"/>
 <center>
-<h1>Sorry but worker doesn't exist!</h1>
+    <h1>Ooopssss!</h1>
+    <br>
+    <h3>${message}</h3>
 </center>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
