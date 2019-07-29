@@ -14,6 +14,12 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * DTO for Worker response.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,16 +36,22 @@ public class WorkerDtoResponse {
   private List<HallIdNameDtoResponse> halls;
   private List<ExcursionBeginEndDtoResponse> excursions;
 
+  /**
+   * Constructor for class.
+   *
+   * @param worker object of post.
+   */
   public WorkerDtoResponse(Worker worker) {
     this.id = worker.getId();
     this.firstName = worker.getFirstName();
     this.secondName = worker.getSecondName();
     this.postId = worker.getPost().getId();
-    this.halls = worker.getHalls().stream()
-            .map(HallIdNameDtoResponse::new)
-            .collect(Collectors.toList());
-    this.excursions = worker.getExcursions().stream()
+    this.halls =
+        worker.getHalls().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
+    this.excursions =
+        worker.getExcursions().stream()
             .map(ExcursionBeginEndDtoResponse::new)
-            .collect(Collectors.toList());;
+            .collect(Collectors.toList());
+    ;
   }
 }

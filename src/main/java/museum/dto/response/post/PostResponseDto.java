@@ -16,18 +16,17 @@ import museum.entity.Post;
 @NoArgsConstructor
 public class PostResponseDto {
 
-    private Long id;
+  private Long id;
 
-    private String name;
+  private String name;
 
-    /**
-     * Constructor for class.
-     *
-     * @param post object of post.
-     */
-    public PostResponseDto(Post post) {
-        this.id = post.getId();
-        this.name = post.getName();
-    }
-
+  /**
+   * Constructor for class.
+   *
+   * @param post object of post.
+   */
+  public PostResponseDto(Post post) {
+    this.id = post.getId();
+    this.name = post.getName();
+  }
 }

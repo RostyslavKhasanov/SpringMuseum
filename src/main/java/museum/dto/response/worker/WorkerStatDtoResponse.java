@@ -6,6 +6,12 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * DTO for Worker statistic response.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Getter
 @Setter
 public class WorkerStatDtoResponse {
