@@ -2,6 +2,8 @@ package museum.service.impl;
 
 import museum.dao.ExcursionDao;
 import museum.dto.request.excursion.ExcursionRequestDto;
+import museum.dto.request.excursion.ExcursionSaveDtoRequest;
+import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
 import museum.dto.response.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 import museum.exception.BadIdException;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,8 +27,13 @@ public class ExcursionServiceImpl implements ExcursionService {
 
   @Transactional
   @Override
-  public void save(ExcursionRequestDto excursionRequestDto) {
-      excursionDao.save(excursionRequestDtoToExcursion(excursionRequestDto));
+  public void save(ExcursionSaveDtoRequest dtoRequest) {
+    Excursion excursion = new Excursion();
+    excursion.setBegin(dtoRequest.getBegin());
+    excursion.setEnd(dtoRequest.getEnd());
+    excursion.setPrice(dtoRequest.getPrice());
+    excursion.setWorker(workerService.getOneById(dtoRequest.getWorkerId()));
+    excursionDao.save(excursion);
   }
 
   @Transactional
@@ -45,8 +53,17 @@ public class ExcursionServiceImpl implements ExcursionService {
 
   @Transactional
   @Override
-  public ExcursionResponse update(ExcursionRequestDto excursionRequestDto) {
-    return null;
+  public void update(ExcursionUpdateDtoRequest dtoRequest) {
+    Excursion excursion = new Excursion();
+    excursion.setId(dtoRequest.getId());
+    excursion.setBegin(dtoRequest.getBegin());
+    excursion.setEnd(dtoRequest.getEnd());
+    excursion.setPrice(dtoRequest.getPrice());
+    excursion.setWorker(workerService.getOneById(dtoRequest.getWorkerId()));
+    Excursion newExcursion = excursionDao.update(excursion);
+    if (newExcursion == null) {
+      throw new BadIdException("Excursion has no any row with id " + dtoRequest.getId());
+    }
   }
 
   @Transactional
@@ -64,12 +81,11 @@ public class ExcursionServiceImpl implements ExcursionService {
     return excursionDao.findByPeriod(start, end);
   }
 
-  private Excursion excursionRequestDtoToExcursion(ExcursionRequestDto dto) {
-      Excursion excursion = new Excursion();
-      excursion.setBegin(dto.getBegin());
-      excursion.setEnd(dto.getEnd());
-      excursion.setPrice(dto.getPrice());
-      excursion.setWorker(workerService.getOneById(dto.getWorkerId()));
-      return excursion;
+  @Transactional
+  @Override
+  public int findCountByPeriod(LocalDateTime start, LocalDateTime end) {
+    int excursions =
+        excursionDao.findCountByPeriod(start, end);
+    return excursions;
   }
 }

@@ -15,6 +15,10 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
+<a href="/excursion/add" class="btn btn-primary" style="float: right">Add new excursion</a>
+
+<a href="/excursion/excursionForm" class="btn btn-primary" style="float: right">Find by period</a>
+
 <div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
      style="max-width: 800px; margin: 30px">
     <h2 class="w3-wide">Excursions in given time period:</h2>

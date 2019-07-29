@@ -8,5 +8,7 @@ import java.util.List;
 
 public interface ExcursionDao extends ElementDao<Excursion> {
 
-    List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end);
+  List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end);
+
+  Integer findCountByPeriod(LocalDateTime start, LocalDateTime end);
 }

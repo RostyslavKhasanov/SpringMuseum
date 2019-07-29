@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -34,5 +35,22 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
             .setParameter("endTime", end);
     List<ExcursionResponse> excursions = query.getResultList();
     return excursions;
+  }
+
+  @Override
+  public Integer findCountByPeriod(LocalDateTime start, LocalDateTime end) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    String startTime = start.format(formatter);
+    String endTime = end.format(formatter);
+    String string =
+        "select count(*) from Excursion e where e.begin >= :startTime and e.end <= :endTime";
+    TypedQuery<Long> query =
+        manager
+            .createQuery(string, Long.class)
+            .setParameter("startTime", start)
+            .setParameter("endTime", end);
+    Long countL = query.getSingleResult();
+    Integer count = countL.intValue();
+    return count;
   }
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 public class HallUpdateRequest {
 
-  @NotNull private Long id;
+  private Long id;
 
   private String name;
 
