@@ -1,14 +1,20 @@
 package museum.dao;
 
+import museum.dto.response.worker.WorkerDtoResponse;
 import museum.entity.Worker;
-import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.List;
 
-@Repository
-@Transactional
-public class WorkerDao extends ElementDaoImpl<Worker> {
-    public WorkerDao() {
-        super(Worker.class);
-    }
+public interface WorkerDao extends ElementDao<Worker> {
+
+  Long findWorkerIdByName(String name);
+
+  List<WorkerDtoResponse> findAllFreeGuide(LocalDateTime date);
+
+  List<Worker> findAllGuide();
+
+  Integer findCountOfExcursion(Long id);
+
+  Integer findCountOfHours(Long id);
 }
