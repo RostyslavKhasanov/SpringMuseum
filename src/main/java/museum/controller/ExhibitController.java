@@ -6,7 +6,7 @@ import museum.dto.response.exhibit.ExhibitDtoResponse;
 import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
-import museum.service.WorkerService;
+import museum.service.HallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -22,7 +22,7 @@ public class ExhibitController {
 
   @Autowired private ExhibitService service;
   @Autowired private AuthorService authorService;
-  @Autowired private WorkerService workerService;
+  @Autowired private HallService hallService;
 
   @GetMapping
   public String findAll(ModelMap modelMap) {
@@ -64,14 +64,16 @@ public class ExhibitController {
   @RequestMapping("/add")
   public String addExhibitPage(ModelMap modelMap) {
     modelMap.addAttribute("authors", authorService.findAll());
-    modelMap.addAttribute("workers", workerService.findAll());
+    modelMap.addAttribute("halls", hallService.findAll());
     return "exhibit/addExhibit";
   }
 
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
     ExhibitDtoResponse exhibit = service.findById(id);
-    modelMap.addAttribute("author", exhibit);
+    modelMap.addAttribute("exhibit", exhibit);
+    modelMap.addAttribute("authors", authorService.findAll());
+    modelMap.addAttribute("halls", hallService.findAll());
     return "exhibit/editExhibit";
   }
 }

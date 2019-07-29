@@ -4,7 +4,6 @@ import museum.dto.request.hall.HallSaveRequest;
 import museum.dto.request.hall.HallUpdateRequest;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.dto.response.hall.HallIdNameDtoResponse;
-import museum.dto.response.worker.WorkerDto;
 import museum.dto.response.worker.WorkerResponse;
 import museum.service.HallService;
 import museum.service.WorkerService;
@@ -18,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/hall")
 public class HallController {
 
   @Autowired private HallService service;
@@ -42,7 +42,7 @@ public class HallController {
   public void save(
       @Valid @ModelAttribute HallSaveRequest dto, HttpServletResponse httpServletResponse) {
     service.save(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/author");
+    httpServletResponse.setHeader("Location", "http://localhost:8080/hall");
     httpServletResponse.setStatus(302);
   }
 
@@ -50,14 +50,14 @@ public class HallController {
   public void update(
       @Valid @ModelAttribute HallUpdateRequest dto, HttpServletResponse httpServletResponse) {
     service.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/author");
+    httpServletResponse.setHeader("Location", "http://localhost:8080/hall");
     httpServletResponse.setStatus(302);
   }
 
   @GetMapping(value = "/delete", params = "id")
   public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     service.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/author");
+    httpServletResponse.setHeader("Location", "http://localhost:8080/hall");
     httpServletResponse.setStatus(302);
   }
 
