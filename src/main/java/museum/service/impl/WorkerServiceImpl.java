@@ -2,10 +2,9 @@ package museum.service.impl;
 
 import museum.dao.WorkerDao;
 import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.response.worker.WorkerDto;
-import museum.dto.response.worker.WorkerResponse;
-import museum.dto.response.worker.WorkerStatDto;
-import museum.entity.Post;
+import museum.dto.response.worker.WorkerDtoResponse;
+import museum.dto.response.worker.WorkerIdFirstSecondNameDtoResponse;
+import museum.dto.response.worker.WorkerStatDtoResponse;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.service.PostService;
@@ -35,9 +34,9 @@ public class WorkerServiceImpl implements WorkerService {
   }
 
   @Override
-  public List<WorkerResponse> findAll() {
+  public List<WorkerIdFirstSecondNameDtoResponse> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return workers.stream().map(WorkerResponse::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerIdFirstSecondNameDtoResponse::new).collect(Collectors.toList());
   }
 
   @Override
@@ -52,23 +51,23 @@ public class WorkerServiceImpl implements WorkerService {
   }
 
   @Override
-  public List<WorkerDto> findAllFreeGuide() {
+  public List<WorkerDtoResponse> findAllFreeGuide() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     LocalDateTime dateTime = LocalDateTime.now();
-    List<WorkerDto> workers = workerDao.findAllFreeGuide(dateTime);
+    List<WorkerDtoResponse> workers = workerDao.findAllFreeGuide(dateTime);
     return workers;
   }
 
   @Override
-  public List<WorkerDto> findAllGuide() {
+  public List<WorkerDtoResponse> findAllGuide() {
     List<Worker> workers = workerDao.findAllGuide();
-    return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerDtoResponse::new).collect(Collectors.toList());
   }
 
   @Override
-  public List<WorkerStatDto> findGuidesStat() {
+  public List<WorkerStatDtoResponse> findGuidesStat() {
     List<Worker> workers = workerDao.findAllGuide();
-    List<WorkerStatDto> workerStatDtos = new ArrayList<>();
+    List<WorkerStatDtoResponse> workerStatDtos = new ArrayList<>();
     for (Worker worker : workers) {
       workerStatDtos.add(workerToWorkerStatDto(worker));
     }
@@ -93,8 +92,8 @@ public class WorkerServiceImpl implements WorkerService {
     return worker;
   }
 
-  private WorkerStatDto workerToWorkerStatDto(Worker worker) {
-    WorkerStatDto workerStatDto = new WorkerStatDto();
+  private WorkerStatDtoResponse workerToWorkerStatDto(Worker worker) {
+    WorkerStatDtoResponse workerStatDto = new WorkerStatDtoResponse();
     workerStatDto.setId(worker.getId());
     workerStatDto.setFirstName(worker.getFirstName());
     workerStatDto.setSecondName(worker.getSecondName());

@@ -1,8 +1,6 @@
 package museum.controller;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.response.worker.WorkerDto;
-import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;

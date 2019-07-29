@@ -19,15 +19,11 @@
     <diw class="row">
         <div class="col-1"></div>
         <div class="info col-10">
-            <div class="name">Name of the exhibit is: ${exhibit.name}</div>
-            <div class="material">Material is: ${exhibit.material}</div>
-            <div class="technology">Create technology: ${exhibit.technology}</div>
-            <div class="author">Author: <a
-                    href="/author?id=${exhibit.author.id}">${exhibit.author.firstName} ${exhibit.author.secondName}</a>
+            <div class="name">Name of the hall is: ${hall.name}</div>
+            <div class="worker">
+                Responsible worker:
+                <a href="/worker?id=${hall.worker.id}">${hall.worker.firstName} ${hall.worker.secondName}</a>
             </div>
-            <div class="author">Hall: <a href="/hall?id=${exhibit.hall.id}">${exhibit.hall.name}</a></div>
-
-
         </div>
         <div class="col-1">
             <a href="/exhibit/edit?id=${exhibit.id}" class="btn btn-primary">Edit</a>
