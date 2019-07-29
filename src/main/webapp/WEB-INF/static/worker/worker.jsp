@@ -22,6 +22,7 @@
                 <tr><th scope="col">First name</th>
                     <th scope="col">Last name</th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -35,6 +36,12 @@
                             <form action="/worker/delete" style="margin-block-end: 0em;" method="post">
                                 <input type="hidden" name="id" value="${item.getId()}">
                                 <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/worker/edit" style="margin-block-end: 0em;" method="get">
+                                <input type="hidden" name="id" value="${item.getId()}">
+                                <input type="submit" class="btn btn-outline-primary" value="Edit"/>
                             </form>
                         </td>
                     </tr>
@@ -75,6 +82,10 @@
 
     function redirectToWorkerAddForm() {
         document.location.href = "http://localhost:8080/worker/add";
+    }
+
+    function redirectToWorkerEditForm() {
+        document.location.href = "http://localhost:8080/worker/edit";
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

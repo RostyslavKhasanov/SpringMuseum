@@ -95,4 +95,10 @@ public class WorkerController {
     modelMap.addAttribute("message", "Worker with id " + id + " is deleted!");
     return "worker/successful";
   }
+
+  @GetMapping
+  public String editWorker(@RequestParam(name = "id") Long id, ModelMap modelMap) {
+      modelMap.addAttribute("worker", workerService.findById(id));
+      return "worker/editWorker";
+  }
 }
