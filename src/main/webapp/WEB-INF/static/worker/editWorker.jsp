@@ -14,7 +14,9 @@
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <form action="/update" method="post" class="col-4" id="workerForm">
+    <form action="/worker/update" method="post" class="col-4" id="workerFormUpdate">
+        <h1>Edit</h1>
+        <input type="hidden" name="id" value="${worker.getId()}">
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
                aria-describedby="basic-addon2" value="${worker.getFirstName()}">
         <br>
@@ -22,13 +24,13 @@
                aria-describedby="basic-addon2" value="${worker.getSecondName()}">
         <br>
         <select name="postId" class="custom-select" id="inputGroupSelect02">
-            <option selected value="0">Input some</option>
+            <option selected value="${worker.getPost().getId()}">${worker.getPost().getName()}</option>
             <c:forEach var="post" items="${posts}" varStatus="rowCounter">
                 <option value="${post.getId()}">${post.getName()}</option>
             </c:forEach>
         </select>
         <br><br>
-        <input type="submit" class="btn btn-primary" value="Add worker"/>
+        <input type="submit" class="btn btn-primary" value="Submit"/>
     </form>
     <div class="col-4"></div>
 </div>

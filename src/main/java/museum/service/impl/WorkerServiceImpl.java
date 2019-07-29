@@ -2,6 +2,7 @@ package museum.service.impl;
 
 import museum.dao.WorkerDao;
 import museum.dto.request.worker.WorkerAddRequestDto;
+import museum.dto.request.worker.WorkerUpdateRequestDto;
 import museum.dto.response.worker.WorkerDtoResponse;
 import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
 import museum.dto.response.worker.WorkerStatDtoResponse;
@@ -94,6 +95,7 @@ public class WorkerServiceImpl implements WorkerService {
     }
   }
 
+  @Transactional
   @Override
   public Worker getOneById(Long id) {
     Worker worker = workerDao.findById(id);
@@ -101,6 +103,12 @@ public class WorkerServiceImpl implements WorkerService {
       throw new BadIdException("Worker with id " + id + " doesn't exist");
     }
     return worker;
+  }
+
+  @Transactional
+  @Override
+  public void update(WorkerUpdateRequestDto worker) {
+    workerDao.update(workerUpdateRequestDtoToWorker(worker));
   }
 
   private WorkerStatDtoResponse workerToWorkerStatDto(Worker worker) {
@@ -118,6 +126,15 @@ public class WorkerServiceImpl implements WorkerService {
     worker.setFirstName(workerAddRequestDto.getFirstName());
     worker.setSecondName(workerAddRequestDto.getSecondName());
     worker.setPost(postService.getOneById(workerAddRequestDto.getPostId()));
+    return worker;
+  }
+
+  private Worker workerUpdateRequestDtoToWorker(WorkerUpdateRequestDto workerUpdateRequestDto) {
+    Worker worker = new Worker();
+    worker.setId(workerUpdateRequestDto.getId());
+    worker.setFirstName(workerUpdateRequestDto.getFirstName());
+    worker.setSecondName(workerUpdateRequestDto.getSecondName());
+    worker.setPost(postService.getOneById(workerUpdateRequestDto.getPostId()));
     return worker;
   }
 }

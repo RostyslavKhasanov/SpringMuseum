@@ -1,6 +1,7 @@
 package museum.service;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
+import museum.dto.request.worker.WorkerUpdateRequestDto;
 import museum.dto.response.worker.WorkerDtoResponse;
 import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
 import museum.dto.response.worker.WorkerStatDtoResponse;
@@ -27,4 +28,6 @@ public interface WorkerService {
   void deleteById(Long id);
 
   Worker getOneById(Long id);
+
+  void update(WorkerUpdateRequestDto workerUpdateRequestDto);
 }

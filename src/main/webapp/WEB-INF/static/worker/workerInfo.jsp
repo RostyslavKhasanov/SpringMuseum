@@ -33,7 +33,7 @@
         </div>
         <div class="buttons col-1">
             <br>
-            <button type="button" class="btn btn-primary" onclick="redirectToWorkerEditForm()">Edit
+            <button type="button" class="btn btn-primary" onclick="redirectToWorkerEditForm(${worker.id})">Edit
             </button>
             <br><br>
             <button type="button" class="btn btn-primary" onclick="deleteWorker(${worker.id})">Delete this
@@ -46,8 +46,8 @@
 </div>
 </body>
 <script>
-    function redirectToWorkerEditForm() {
-        document.location.href = "http://localhost:8080/worker/edit"
+    function redirectToWorkerEditForm(id) {
+        window.location.href = "http://localhost:8080/worker/edit?id=" + id;
     }
 
     function deleteWorker(id) {
