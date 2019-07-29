@@ -25,7 +25,7 @@ public class WorkerController {
 
   @PostMapping
   public void save(
-      @Valid @ModelAttribute WorkerAddRequestDto workerAddRequestDto,
+      @Valid @ModelAttribute("workerForm") WorkerAddRequestDto workerAddRequestDto,
       HttpServletResponse httpServletResponse) {
     workerService.save(workerAddRequestDto);
     httpServletResponse.setHeader("Location", "http://localhost:8080/worker");

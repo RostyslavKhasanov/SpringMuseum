@@ -91,7 +91,7 @@ public class WorkerServiceImpl implements WorkerService {
 
   @Override
   public Worker getOneById(Long id) {
-    Worker worker = new Worker();
+    Worker worker = workerDao.findById(id);
     if (worker == null) {
       throw new BadIdException("Worker with id " + id + " doesn't exist");
     }

@@ -14,7 +14,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="menu.jsp"/>
+<jsp:include page="../menu.jsp"/>
 <div class="container" style="display: flex; flex-wrap: nowrap; justify-content: space-between">
     <div class="material-container">
         <table class="table text-muted">
