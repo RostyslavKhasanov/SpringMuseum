@@ -10,6 +10,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+/**
+ * DTO for Post id, name, workers response
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,6 +27,11 @@ public class PostDto {
 
   private List<Worker> workers;
 
+  /**
+   * Constructor for class.
+   *
+   * @param post object of post.
+   */
   public PostDto(Post post) {
     this.id = post.getId();
     this.name = post.getName();
