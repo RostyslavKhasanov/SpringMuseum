@@ -15,6 +15,10 @@
     <h1>Ooopssss!</h1>
     <br>
     <h3>${message}</h3>
+    <br>
+    <form>
+        <input type="button" class="btn btn-primary" value="okay" onClick="javascript:history.go(-1)" />
+    </form>
 </center>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
