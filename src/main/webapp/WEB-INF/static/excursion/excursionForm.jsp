@@ -20,7 +20,7 @@
 <h2 style="margin: 10px">Please, enter the period you want to visit excursion in our museum.</h2>
 
 <div style="margin: 10px">
-    <form action="/excursion/excursions" method="get">
+    <form action="/excursion/byPeriod" method="get">
         <label for="start">Start:</label>
         <input id="start" type="datetime-local" name="start"><br>
         <label for="end">End:</label>

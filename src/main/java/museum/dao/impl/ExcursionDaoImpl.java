@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -25,12 +26,14 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
   @Override
   public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    String startTime = start.format(formatter);
-    String endTime = end.format(formatter);
-    String string = "from Excursion e where e.begin >= :startTime and e.end <= :endTime";
+    String string = "select *  from museum.excursion where begin >= '"
+            + start.format(formatter)
+            + "' and end <= '"
+            + end.format(formatter)
+            + "'";
     Query query =
         manager
-            .createQuery(string, Excursion.class)
+            .createNativeQuery(string, Excursion.class)
             .setParameter("startTime", start)
             .setParameter("endTime", end);
     List<ExcursionResponse> excursions = query.getResultList();
@@ -40,17 +43,19 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
   @Override
   public Integer findCountByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    String startTime = start.format(formatter);
-    String endTime = end.format(formatter);
-    String string =
-        "select count(*) from Excursion e where e.begin >= :startTime and e.end <= :endTime";
-    TypedQuery<Long> query =
+    String string = "select count(*) as c "
+            + "from museum.excursion where begin >= '"
+            + start.format(formatter)
+            + "' and end <= '"
+            + end.format(formatter)
+            + "'";
+    Query query =
         manager
-            .createQuery(string, Long.class)
+            .createNativeQuery(string, Long.class)
             .setParameter("startTime", start)
             .setParameter("endTime", end);
-    Long countL = query.getSingleResult();
-    Integer count = countL.intValue();
+    BigDecimal countB = (BigDecimal) query.getSingleResult();
+    Integer count = countB.intValue();
     return count;
   }
 }

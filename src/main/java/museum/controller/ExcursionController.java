@@ -25,10 +25,6 @@ public class ExcursionController {
 
   @Autowired private WorkerService workerService;
 
-  //  @RequestMapping("/excursion")
-  //  public String addExhibitPage(ModelMap modelMap) {
-  //    return "/excursion";
-  //  }
 
   @GetMapping
   public String findAll(ModelMap modelMap) {
@@ -37,16 +33,23 @@ public class ExcursionController {
     return "excursion/excursions";
   }
 
+  @RequestMapping("/byPeriodForm")
+  public String showFormPage(ModelMap modelMap){
+    return "/excursion/excursionForm";
+  }
+
   @RequestMapping(
+      value = "/byPeriod",
       method = RequestMethod.GET,
       params = {"start", "end"})
   public String findByPeriod(
-      @RequestParam String start, @RequestParam String end, ModelMap modelMap) {
+          @RequestParam(name="start") String from,
+          @RequestParam(name="end") String to, ModelMap modelMap) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    LocalDateTime from = LocalDateTime.parse(start, formatter);
-    LocalDateTime to = LocalDateTime.parse(end, formatter);
+    LocalDateTime start = LocalDateTime.parse(from, formatter);
+    LocalDateTime end = LocalDateTime.parse(to, formatter);
 
-    List<ExcursionResponse> excursions = excursionService.findByPeriod(from, to);
+    List<ExcursionResponse> excursions = excursionService.findByPeriod(start, end);
     modelMap.addAttribute("excursions", excursions);
     return "/excursion/excursionForm";
   }
@@ -85,9 +88,10 @@ public class ExcursionController {
       value = "/stat",
       params = {"start", "end"})
   public String findCountByPeriod(
-      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime start,
-      @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") LocalDateTime end,
-      ModelMap modelMap) {
+          @RequestParam String from, @RequestParam String to, ModelMap modelMap) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    LocalDateTime start = LocalDateTime.parse(from, formatter);
+    LocalDateTime end = LocalDateTime.parse(to, formatter);
     int excursionsStatistic = excursionService.findCountByPeriod(start, end);
     modelMap.addAttribute("excursionsStatistic", excursionsStatistic);
     return "excursion/excursionsStatistic";
