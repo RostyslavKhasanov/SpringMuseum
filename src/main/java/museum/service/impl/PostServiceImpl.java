@@ -50,6 +50,15 @@ public class PostServiceImpl implements PostService {
     return post;
   }
 
+  @Transactional
+  @Override
+  public void delete(Long id) {
+    Boolean isDeleted = postDao.deleteById(id);
+    if (!isDeleted) {
+      throw new BadIdException("Post with entered id doesn't exist");
+    }
+  }
+
   private Post postRequestDtoToPost(PostRequestDto postRequestDto) {
     Post post = new Post();
     post.setName(postRequestDto.getName());

@@ -15,4 +15,6 @@ public interface PostService {
   List<PostResponseDto> findAll();
 
   Post getOneById(Long id);
+
+  void delete(Long id);
 }

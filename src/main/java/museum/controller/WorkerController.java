@@ -35,6 +35,7 @@ public class WorkerController {
   @GetMapping
   public String findAll(ModelMap modelMap) {
     modelMap.addAttribute("workers", workerService.findAll());
+    modelMap.addAttribute("posts", postService.findAll());
     return "worker/worker";
   }
 
@@ -94,7 +95,7 @@ public class WorkerController {
   }
 
   @GetMapping(value = "/edit", params = "id")
-  public String editWorker(@RequestParam Long id,ModelMap modelMap) {
+  public String editWorker(@RequestParam Long id, ModelMap modelMap) {
     modelMap.addAttribute("worker", workerService.findById(id));
     modelMap.addAttribute("posts", postService.findAll());
     return "worker/editWorker";
@@ -102,7 +103,8 @@ public class WorkerController {
 
   @PostMapping("/update")
   public void update(
-          @Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto, HttpServletResponse httpServletResponse) {
+      @Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto,
+      HttpServletResponse httpServletResponse) {
     workerService.update(dto);
     httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
     httpServletResponse.setStatus(302);

@@ -4,9 +4,7 @@ import museum.dto.request.post.PostRequestDto;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -29,5 +27,12 @@ public class PostController {
   @RequestMapping("/add")
   public String addPostPage() {
     return "worker/addPost";
+  }
+
+  @GetMapping(value = "/delete", params = "id")
+  public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+    postService.delete(id);
+    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
+    httpServletResponse.setStatus(302);
   }
 }
