@@ -19,42 +19,27 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<div class="row">
-    <div class="col-4"></div>
-    <form action="/exhibit/update" method="post" class="col-4" id="workerForm">
-        <input type="hidden" name="id" value="${exhibit.id}">
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <form action="/hall/update" method="post" class="col-4">
+            <input type="hidden" name="id" value="${hall.id}">
+            <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
+                   value="${hall.name}">
+            <br>
 
-        Name: <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-               aria-describedby="basic-addon2" value="${exhibit.name}">
-        <br>
-        Material: <input type="text" name="material" class="form-control" placeholder="Material" aria-label="Material"
-               aria-describedby="basic-addon2" value="${exhibit.material}">
-        <br>
+            <select name="workerId" class="custom-select">
+                <c:forEach var="worker" items="${workers}">
+                    <option
+                            <c:if test="${worker.id == hall.worker.id}">selected</c:if>
+                            value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
+                </c:forEach>
+            </select>
 
-        Technology: <input type="text" name="technology" class="form-control" placeholder="Technology" aria-label="Technology"
-               aria-describedby="basic-addon2" value="${exhibit.technology}">
-        <br>
-
-        Author: <select name="authorId" class="custom-select">
-            <c:forEach var="author" items="${authors}">
-                <option
-                        <c:if test="${author.id == exhibit.author.id}">selected</c:if>
-                        value="${author.id}">${author.firstName} ${author.secondName}
-                </option>
-            </c:forEach>
-        </select>
-        <br><br>
-        Hall: <select name="hallId" class="custom-select">
-            <c:forEach var="hall" items="${halls}">
-                <option
-                        <c:if test="${hall.id == exhibit.hall.id}">selected</c:if>
-                        value="${hall.id}">${hall.name}
-                </option>
-            </c:forEach>
-        </select>
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="Save"/>
-    </form>
+            <br><br>
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </form>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

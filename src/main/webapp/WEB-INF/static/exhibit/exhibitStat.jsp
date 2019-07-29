@@ -9,12 +9,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Exhibit statistic</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-<jsp:include page="menu.jsp"/>
+<jsp:include page="../menu.jsp"/>
 <div class="container" style="display: flex; flex-wrap: nowrap; justify-content: space-between">
     <div class="material-container">
         <table class="table text-muted">
@@ -23,7 +23,7 @@
                 <th scope="col">Count of material</th>
             </tr>
             <tbody>
-            <c:forEach items="${exhibitMaterials}" var="item">
+            <c:forEach items="${exhibitMaterialStats}" var="item">
                 <tr>
                     <th scope="row">${item.materialName}</th>
                     <th scope="row">${item.materialCount}</th>
@@ -40,7 +40,7 @@
                 <th scope="col">Count of technology</th>
             </tr>
             <tbody>
-            <c:forEach items="${exhibitTechnologies}" var="item">
+            <c:forEach items="${exhibitTechnologyStats}" var="item">
                 <tr>
                     <th scope="row">${item.technologyName}</th>
                     <th scope="row">${item.technologyCount}</th>

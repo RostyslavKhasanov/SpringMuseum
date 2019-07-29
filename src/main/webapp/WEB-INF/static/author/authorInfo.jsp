@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Author information</title>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
@@ -21,7 +21,7 @@
 
         <div class="author-exhibits col-10">
 
-            <div class="info" style="margin: 20px">
+            <div class="info">
                 <div>Fist name: ${author.firstName}</div>
                 <div>Second name: ${author.secondName}</div>
             </div>

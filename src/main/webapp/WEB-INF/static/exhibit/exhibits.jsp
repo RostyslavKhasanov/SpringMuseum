@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Museum</title>
+    <title>Exhibits</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -39,7 +39,7 @@
 </body>
 <script>
     function goToStatistic() {
-        window.location.href = "http://localhost:8080/exhibit?stat=s"
+        window.location.href = "http://localhost:8080/exhibit/stat"
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

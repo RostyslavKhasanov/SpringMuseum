@@ -19,15 +19,20 @@
     <diw class="row">
         <div class="col-1"></div>
         <div class="info col-10">
-            <div class="name">Name of the hall is: ${hall.name}</div>
+            <div class="name">Name of the hall: ${hall.name}</div>
             <div class="worker">
                 Responsible worker:
                 <a href="/worker?id=${hall.worker.id}">${hall.worker.firstName} ${hall.worker.secondName}</a>
             </div>
+
+            <h4>Hall`s exhibits:</h4>
+            <c:forEach items="${hall.exhibits}" var="exhibit">
+                <p><a href="/exhibit?id=${exhibit.id}">${exhibit.name}</a></p>
+            </c:forEach>
         </div>
         <div class="col-1">
-            <a href="/exhibit/edit?id=${exhibit.id}" class="btn btn-primary">Edit</a>
-            <button type="button" class="btn btn-primary" onclick="deleteExhibit(${exhibit.id})">Delete this
+            <a href="/hall/edit?id=${hall.id}" class="btn btn-primary">Edit</a>
+            <button type="button" class="btn btn-primary" onclick="deleteExhibit(${hall.id})">Delete this
                 exhibit
             </button>
         </div>
@@ -39,7 +44,7 @@
     function deleteExhibit(id) {
         var isDelete = confirm("Do you really want to delete this exhibit?");
         if (isDelete) {
-            window.location.href = "http://localhost:8080/exhibit/delete?id=" + id;
+            window.location.href = "http://localhost:8080/hall/delete?id=" + id;
         }
     }
 </script>

@@ -1,6 +1,7 @@
 package museum.controller;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
+import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,13 @@ public class WorkerController {
 
   @Autowired private WorkerService workerService;
 
+  @Autowired private HallService hallService;
+
   @Autowired private PostService postService;
 
   @PostMapping
   public void save(
-      @Valid @ModelAttribute WorkerAddRequestDto workerAddRequestDto,
+      @Valid @ModelAttribute("workerForm") WorkerAddRequestDto workerAddRequestDto,
       HttpServletResponse httpServletResponse) {
     workerService.save(workerAddRequestDto);
     httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
@@ -39,7 +42,7 @@ public class WorkerController {
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     modelMap.addAttribute("worker", workerService.findById(id));
-   /* modelMap.addAttribute("halls", hallService.findByWorkerId(id));*/
+    modelMap.addAttribute("halls", hallService.findByWorkerId(id));
     return "worker/workerInfo";
   }
 
@@ -47,10 +50,15 @@ public class WorkerController {
       method = RequestMethod.GET,
       params = {"name"})
   public String findWorkerExhibits(@RequestParam String name, ModelMap modelMap) {
-    Long id = workerService.findWorkerIdByName(name);
-    modelMap.addAttribute("worker", workerService.findById(id));
-   /* modelMap.addAttribute("halls", hallService.findByWorkerId(id));*/
-    return "worker/workerExhibits";
+    try {
+      Long id = workerService.findWorkerIdByName(name);
+      modelMap.addAttribute("worker", workerService.findById(id));
+      modelMap.addAttribute("halls", hallService.findByWorkerId(id));
+      return "worker/workerExhibits";
+    } catch (Exception e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "error";
+    }
   }
 
   @GetMapping("/guides")

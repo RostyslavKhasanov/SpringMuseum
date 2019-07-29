@@ -4,6 +4,8 @@ import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
 import museum.dto.request.exhibit.ExhibitUpdateDtoRequest;
 import museum.dto.response.exhibit.ExhibitDtoResponse;
 import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
+import museum.dto.response.exhibit.ExhibitMaterialStat;
+import museum.dto.response.exhibit.ExhibitTechnologyStat;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
@@ -75,5 +77,14 @@ public class ExhibitController {
     modelMap.addAttribute("authors", authorService.findAll());
     modelMap.addAttribute("halls", hallService.findAll());
     return "exhibit/editExhibit";
+  }
+
+  @RequestMapping("/stat")
+  public String getStatistic(ModelMap modelMap) {
+    List<ExhibitMaterialStat> exhibitMaterialStats = service.getMaterialStat();
+    modelMap.addAttribute("exhibitMaterialStats", exhibitMaterialStats);
+    List<ExhibitTechnologyStat> exhibitTechnologyStats = service.getTechnologyStat();
+    modelMap.addAttribute("exhibitTechnologyStats", exhibitTechnologyStats);
+    return "exhibit/exhibitStat";
   }
 }

@@ -2,7 +2,7 @@ package museum.service;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
 import museum.dto.response.worker.WorkerDtoResponse;
-import museum.dto.response.worker.WorkerIdFirstSecondNameDtoResponse;
+import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
 import museum.dto.response.worker.WorkerStatDtoResponse;
 import museum.entity.Worker;
 
@@ -12,7 +12,7 @@ public interface WorkerService {
 
   void save(WorkerAddRequestDto workerAddRequestDto);
 
-  List<WorkerIdFirstSecondNameDtoResponse> findAll();
+  List<WorkerFirstSecondNameDtoResponse> findAll();
 
   Worker findById(Long id);
 

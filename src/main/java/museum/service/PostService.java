@@ -1,8 +1,6 @@
 package museum.service;
 
 import museum.dto.request.post.PostRequestDto;
-import museum.dto.response.post.PostDto;
-import museum.dto.response.post.PostNameResponseDto;
 import museum.dto.response.post.PostResponseDto;
 import museum.entity.Post;
 
@@ -14,7 +12,7 @@ public interface PostService {
 
   PostResponseDto findById(Long id);
 
-  List<PostNameResponseDto> findAll();
+  List<PostResponseDto> findAll();
 
   Post getOneById(Long id);
 }

@@ -5,6 +5,8 @@ import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
 import museum.dto.request.exhibit.ExhibitUpdateDtoRequest;
 import museum.dto.response.exhibit.ExhibitDtoResponse;
 import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
+import museum.dto.response.exhibit.ExhibitMaterialStat;
+import museum.dto.response.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
@@ -87,5 +89,15 @@ public class ExhibitServiceImpl implements ExhibitService {
     if (!isDeleted) {
       throw new BadIdException("Exhibit has no any row with id " + id);
     }
+  }
+
+  @Override
+  public List<ExhibitMaterialStat> getMaterialStat() {
+    return dao.getMaterialStat();
+  }
+
+  @Override
+  public List<ExhibitTechnologyStat> getTechnologyStat() {
+    return dao.getTechnologyStat();
   }
 }

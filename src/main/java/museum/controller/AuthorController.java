@@ -8,6 +8,7 @@ import museum.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -67,5 +68,10 @@ public class AuthorController {
     AuthorDtoResponse author = service.findById(id);
     modelMap.addAttribute("author", author);
     return "author/editAuthor";
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public String validationError() {
+    return "error";
   }
 }

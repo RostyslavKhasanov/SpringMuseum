@@ -11,16 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExcursionRequest {
+public class ExcursionRequestDto {
 
-    @NotNull
-    private LocalDateTime begin;
+  @NotNull private LocalDateTime begin;
 
-    @NotNull private LocalDateTime end;
+  @NotNull private LocalDateTime end;
 
-    @NotNull private Double price;
+  @NotNull private Double price;
 
-    @NotBlank
-    private String workerId;
-
+  @NotBlank private Long workerId;
 }

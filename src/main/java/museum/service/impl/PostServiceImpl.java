@@ -34,14 +34,16 @@ public class PostServiceImpl implements PostService {
     return postToPostResponseDto(post);
   }
 
+  @Transactional
   @Override
-  public List<PostNameResponseDto> findAll() {
-    return postDao.findAll().stream().map(PostNameResponseDto::new).collect(Collectors.toList());
+  public List<PostResponseDto> findAll() {
+    return postDao.findAll().stream().map(PostResponseDto::new).collect(Collectors.toList());
   }
 
+  @Transactional
   @Override
   public Post getOneById(Long id) {
-    Post post = new Post();
+    Post post = postDao.findById(id);
     if (post == null) {
       throw new BadIdException("Post with id " + id + " doesn't exist");
     }

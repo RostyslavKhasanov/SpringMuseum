@@ -4,6 +4,7 @@ import museum.dto.request.hall.HallSaveRequest;
 import museum.dto.request.hall.HallUpdateRequest;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.dto.response.hall.HallIdNameDtoResponse;
+import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
 import museum.dto.response.worker.WorkerIdFirstSecondNameDtoResponse;
 import museum.service.HallService;
 import museum.service.WorkerService;
@@ -63,7 +64,7 @@ public class HallController {
 
   @RequestMapping("/add")
   public String addAuthorPage(ModelMap modelMap) {
-    List<WorkerIdFirstSecondNameDtoResponse> workers = workerService.findAll();
+    List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "hall/addHall";
   }
@@ -71,8 +72,8 @@ public class HallController {
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
     HallDtoResponse hall = service.findById(id);
-    modelMap.addAttribute("author", hall);
-    List<WorkerIdFirstSecondNameDtoResponse> workers = workerService.findAll();
+    modelMap.addAttribute("hall", hall);
+    List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "hall/editHall";
   }

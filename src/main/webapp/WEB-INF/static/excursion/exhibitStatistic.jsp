@@ -2,8 +2,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: macbookpro
-  Date: 7/28/19
-  Time: 5:31 PM
+  Date: 7/21/19
+  Time: 12:07 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,30 +12,42 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <style>
-        <%@include file="../../../resources/index.css"%>
-    </style>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="container">
-    <div class="row">
-        <div class="col-4"></div>
-        <form action="/hall/save" method="post" class="col-4" id="workerForm">
-            <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-                   aria-describedby="basic-addon2">
-            <br>
+<div class="container" style="display: flex; flex-wrap: nowrap; justify-content: space-between">
+    <div class="material-container">
+        <table class="table text-muted">
+            <tr>
+                <th scope="col">Material name</th>
+                <th scope="col">Count of material</th>
+            </tr>
+            <tbody>
+            <c:forEach items="${exhibitMaterials}" var="item">
+                <tr>
+                    <th scope="row">${item.materialName}</th>
+                    <th scope="row">${item.materialCount}</th>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 
-            <select name="workerId" class="custom-select">
-                <option selected value="0">Select worker</option>
-                <c:forEach var="worker" items="${workers}">
-                    <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
-                </c:forEach>
-            </select>
-
-            <br><br>
-            <input type="submit" class="btn btn-primary" value="Save"/>
-        </form>
+    <div class="technology-container">
+        <table class="table text-muted">
+            <tr>
+                <th scope="col">Technology name</th>
+                <th scope="col">Count of technology</th>
+            </tr>
+            <tbody>
+            <c:forEach items="${exhibitTechnologies}" var="item">
+                <tr>
+                    <th scope="row">${item.technologyName}</th>
+                    <th scope="row">${item.technologyCount}</th>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </div>
 </div>
 </body>
