@@ -21,4 +21,6 @@ public interface HallService {
     void update(HallUpdateRequest dto);
 
     void deleteById(Long id);
+
+    List<HallDtoResponse> findByWorkerId(Long id);
 }
