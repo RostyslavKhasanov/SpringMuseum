@@ -22,8 +22,8 @@
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
                aria-describedby="basic-addon2" required pattern="^[a-zA-Z]+$">
         <br>
-        <select name="postId" class="custom-select" id="inputGroupSelect02">
-            <option selected value="0">Input some</option>
+        <select name="postId" class="custom-select" id="inputGroupSelect02" required>
+            <option selected value="">Input some</option>
             <c:forEach var="post" items="${posts}" varStatus="rowCounter">
                 <option value="${post.getId()}">${post.getName()}</option>
             </c:forEach>
