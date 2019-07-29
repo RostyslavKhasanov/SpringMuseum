@@ -8,12 +8,14 @@ import museum.dto.response.worker.WorkerStatDto;
 import museum.entity.Post;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
+import museum.exception.BadNameException;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -50,7 +52,11 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public Long findWorkerIdByName(String name) {
-    return workerDao.findWorkerIdByName(name);
+      try {
+          return workerDao.findWorkerIdByName(name);
+      } catch (NoResultException e) {
+          throw new BadNameException("Worker with name " + name + " doesn't exist");
+      }
   }
 
   @Transactional
