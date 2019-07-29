@@ -9,6 +9,12 @@ import museum.entity.Worker;
 
 import java.util.List;
 
+/**
+ * Service interface for Worker entity.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 public interface WorkerService {
 
   void save(WorkerAddRequestDto workerAddRequestDto);
