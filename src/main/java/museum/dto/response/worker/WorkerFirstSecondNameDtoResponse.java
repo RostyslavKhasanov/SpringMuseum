@@ -6,7 +6,7 @@ import museum.entity.Worker;
 
 @Getter
 @Setter
-public class WorkerResponse {
+public class WorkerFirstSecondNameDtoResponse {
 
   private Long id;
 
@@ -14,7 +14,7 @@ public class WorkerResponse {
 
   private String secondName;
 
-  public WorkerResponse(Worker worker) {
+  public WorkerFirstSecondNameDtoResponse(Worker worker) {
     this.id = worker.getId();
     this.firstName = worker.getFirstName();
     this.secondName = worker.getSecondName();

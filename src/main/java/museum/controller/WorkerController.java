@@ -1,9 +1,6 @@
 package museum.controller;
 
 import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.response.worker.WorkerDto;
-import museum.exception.BadIdException;
-import museum.exception.BadNameException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 
 @Controller
 @RequestMapping("/worker")
@@ -94,11 +90,5 @@ public class WorkerController {
     workerService.deleteById(id);
     modelMap.addAttribute("message", "Worker with id " + id + " is deleted!");
     return "worker/successful";
-  }
-
-  @GetMapping
-  public String editWorker(@RequestParam(name = "id") Long id, ModelMap modelMap) {
-      modelMap.addAttribute("worker", workerService.findById(id));
-      return "worker/editWorker";
   }
 }

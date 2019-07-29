@@ -2,10 +2,9 @@ package museum.service.impl;
 
 import museum.dao.WorkerDao;
 import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.response.worker.WorkerDto;
-import museum.dto.response.worker.WorkerResponse;
-import museum.dto.response.worker.WorkerStatDto;
-import museum.entity.Post;
+import museum.dto.response.worker.WorkerDtoResponse;
+import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.response.worker.WorkerStatDtoResponse;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
@@ -37,9 +36,9 @@ public class WorkerServiceImpl implements WorkerService {
 
   @Transactional
   @Override
-  public List<WorkerResponse> findAll() {
+  public List<WorkerFirstSecondNameDtoResponse> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return workers.stream().map(WorkerResponse::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerFirstSecondNameDtoResponse::new).collect(Collectors.toList());
   }
 
   @Transactional
@@ -61,29 +60,29 @@ public class WorkerServiceImpl implements WorkerService {
 
   @Transactional
   @Override
-  public List<WorkerDto> findAllFreeGuide() {
+  public List<WorkerDtoResponse> findAllFreeGuide() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     LocalDateTime dateTime = LocalDateTime.now();
-    List<WorkerDto> workers = workerDao.findAllFreeGuide(dateTime);
+    List<WorkerDtoResponse> workers = workerDao.findAllFreeGuide(dateTime);
     return workers;
   }
 
   @Transactional
   @Override
-  public List<WorkerDto> findAllGuide() {
+  public List<WorkerDtoResponse> findAllGuide() {
     List<Worker> workers = workerDao.findAllGuide();
-    return workers.stream().map(WorkerDto::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerDtoResponse::new).collect(Collectors.toList());
   }
 
   @Transactional
   @Override
-  public List<WorkerStatDto> findGuidesStat() {
+  public List<WorkerStatDtoResponse> findGuidesStat() {
     List<Worker> workers = workerDao.findAllGuide();
-    List<WorkerStatDto> workerStatDtos = new ArrayList<>();
+    List<WorkerStatDtoResponse> workerStatDtoResponses = new ArrayList<>();
     for (Worker worker : workers) {
-      workerStatDtos.add(workerToWorkerStatDto(worker));
+      workerStatDtoResponses.add(workerToWorkerStatDto(worker));
     }
-    return workerStatDtos;
+    return workerStatDtoResponses;
   }
 
   @Transactional
@@ -104,14 +103,14 @@ public class WorkerServiceImpl implements WorkerService {
     return worker;
   }
 
-  private WorkerStatDto workerToWorkerStatDto(Worker worker) {
-    WorkerStatDto workerStatDto = new WorkerStatDto();
-    workerStatDto.setId(worker.getId());
-    workerStatDto.setFirstName(worker.getFirstName());
-    workerStatDto.setSecondName(worker.getSecondName());
-    workerStatDto.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
-    workerStatDto.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
-    return workerStatDto;
+  private WorkerStatDtoResponse workerToWorkerStatDto(Worker worker) {
+    WorkerStatDtoResponse workerStatDtoResponse = new WorkerStatDtoResponse();
+    workerStatDtoResponse.setId(worker.getId());
+    workerStatDtoResponse.setFirstName(worker.getFirstName());
+    workerStatDtoResponse.setSecondName(worker.getSecondName());
+    workerStatDtoResponse.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
+    workerStatDtoResponse.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
+    return workerStatDtoResponse;
   }
 
   private Worker workerAddRequestDtoToWorker(WorkerAddRequestDto workerAddRequestDto) {

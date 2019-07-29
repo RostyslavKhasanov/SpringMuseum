@@ -1,6 +1,6 @@
 package museum.dao;
 
-import museum.dto.response.worker.WorkerDto;
+import museum.dto.response.worker.WorkerDtoResponse;
 import museum.entity.Worker;
 
 import java.time.LocalDateTime;
@@ -10,7 +10,7 @@ public interface WorkerDao extends ElementDao<Worker> {
 
   Long findWorkerIdByName(String name);
 
-  List<WorkerDto> findAllFreeGuide(LocalDateTime date);
+  List<WorkerDtoResponse> findAllFreeGuide(LocalDateTime date);
 
   List<Worker> findAllGuide();
 

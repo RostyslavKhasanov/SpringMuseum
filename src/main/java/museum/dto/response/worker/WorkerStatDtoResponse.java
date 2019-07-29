@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class WorkerStatDto {
+public class WorkerStatDtoResponse {
 
-  @NotNull private Long id;
+  private Long id;
 
-  @NotBlank private String firstName;
+  private String firstName;
 
-  @NotBlank private String secondName;
+  private String secondName;
 
   private int countOfExcursion;
 
