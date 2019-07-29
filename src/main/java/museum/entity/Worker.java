@@ -8,6 +8,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Pojo class for 'worker' database entity.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Entity
 @Getter
 @Setter
