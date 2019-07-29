@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/worker")
@@ -58,10 +59,7 @@ public class WorkerController {
       modelMap.addAttribute("worker", workerService.findById(id));
       modelMap.addAttribute("halls", hallService.findByWorkerId(id));
       return "worker/workerExhibits";
-    } catch (BadNameException e) {
-      modelMap.addAttribute("message", e.getMessage());
-      return "error";
-    } catch (BadIdException e) {
+    } catch (Exception e) {
       modelMap.addAttribute("message", e.getMessage());
       return "error";
     }
