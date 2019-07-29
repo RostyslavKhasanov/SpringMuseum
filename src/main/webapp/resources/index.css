@@ -48,6 +48,15 @@ th a:hover {
 }
 
 .no-gutter > [class*='col-'] {
-    padding-right:0;
-    padding-left:0;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);;
+}
+
+/* Show green borders when valid */
+input:valid {
+    border-color: hsl(120, 76%, 50%);
 }

@@ -17,9 +17,9 @@
     <form action="/post" method="post" class="col-4" id="postForm">
         <h1>New post: </h1>
         <input type="text" name="Name" class="form-control" placeholder="Name" aria-label="Post name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]+$">
         <br>
-        <input type="submit" class="btn btn-primary" value="Add post"/>
+        <button type="submit" class="btn btn-primary" value="Add post">Add post</button>
     </form>
     <div class="col-4"></div>
 </div>

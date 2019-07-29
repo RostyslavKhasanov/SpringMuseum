@@ -33,13 +33,25 @@
         <div class="col-10">
             <div class="input-group input-group-sm mb-3">
                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                       placeholder="Surname" id="name">
+                       placeholder="Surname" id="name" required pattern="^[a-zA-Z]+$">
             </div>
             <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
             <br><br>
             <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
             <br><br>
             <button type="button" class="btn btn-primary" onclick="redirectToWorkerAddForm()">Add new worker
+            </button>
+            <br><br><br>
+            <h6>Delete post:</h6>
+            <br>
+            <select name="postId" class="custom-select" id="postId">
+                <option selected value=""></option>
+                <c:forEach var="post" items="${posts}" varStatus="rowCounter">
+                    <option value="${post.getId()}">${post.getName()}</option>
+                </c:forEach>
+            </select>
+            <br><br>
+            <button type="button" class="btn btn-danger" onclick="deletePost()">Delete
             </button>
         </div>
     </div>
@@ -57,6 +69,16 @@
 
     function redirectToWorkerAddForm() {
         document.location.href = "http://localhost:8080/worker/add";
+    }
+
+    function deletePost() {
+        var e = document.getElementById("postId");
+        var strUser = e.options[e.selectedIndex].value;
+        if (strUser == "") {
+            alert("Choose one!")
+        } else {
+        document.location.href = "http://localhost:8080/post/delete?id=" + strUser;
+        }
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

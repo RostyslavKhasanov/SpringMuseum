@@ -16,9 +16,9 @@
     <div class="col-4"></div>
     <form action="/worker/update" method="post" class="col-4" id="workerFormUpdate">
         <h1>Edit</h1>
-        <input type="hidden" name="id" value="${worker.getId()}">
+        <input type="hidden" name="id" value="${worker.getId()}" required pattern="^[a-zA-Z]+$">
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2" value="${worker.getFirstName()}">
+               aria-describedby="basic-addon2" value="${worker.getFirstName()}" required pattern="^[a-zA-Z]+$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
                aria-describedby="basic-addon2" value="${worker.getSecondName()}">
@@ -30,7 +30,7 @@
             </c:forEach>
         </select>
         <br><br>
-        <input type="submit" class="btn btn-primary" value="Submit"/>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <div class="col-4"></div>
 </div>

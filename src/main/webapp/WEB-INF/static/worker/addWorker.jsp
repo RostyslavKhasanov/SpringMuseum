@@ -17,10 +17,10 @@
     <form action="/worker" method="post" class="col-4" id="workerForm">
         <h1>New worker: </h1>
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]+$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]+$">
         <br>
         <select name="postId" class="custom-select" id="inputGroupSelect02">
             <option selected value="0">Input some</option>
@@ -29,7 +29,7 @@
             </c:forEach>
         </select>
         <br><br>
-        <input type="submit" class="btn btn-primary" value="Add worker"/>
+        <button type="submit" class="btn btn-primary">Add worker</button>
     </form>
     <div class="col-4"></div>
 </div>
