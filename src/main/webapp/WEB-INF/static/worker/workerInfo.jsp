@@ -12,13 +12,6 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="col-6">
-    <div class="10">
-
-    </div>
-</div>
-<div class="col-6">
-</div>
 <div class="container">
     <div class="row no-gutter">
         <div class="col-1"></div>
@@ -39,17 +32,17 @@
             </div>
         </div>
         <div class="buttons col-1">
-                <br>
-                <button type="button" class="btn btn-primary" onclick="redirectToWorkerEditForm()">Edit
-                </button>
-                <br><br>
-                <button type="button" class="btn btn-primary" onclick="deleteWorker(${worker.id})">Delete this
-                    worker
-                </button>
-            </div>
+            <br>
+            <button type="button" class="btn btn-primary" onclick="redirectToWorkerEditForm()">Edit
+            </button>
+            <br><br>
+            <button type="button" class="btn btn-primary" onclick="deleteWorker(${worker.id})">Delete this
+                worker
+            </button>
         </div>
-
     </div>
+
+</div>
 </div>
 </body>
 <script>
