@@ -32,7 +32,7 @@ public class WorkerController {
   /**
    * Handles request to post worker into db.
    *
-   * @param workerAddRequestDto Redirect modelMap.
+   * @param workerAddRequestDto worker request dto from jsp.
    * @param httpServletResponse http response.
    */
   @PostMapping
