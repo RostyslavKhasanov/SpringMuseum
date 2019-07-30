@@ -3,32 +3,34 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <title>Title</title>
+    <title>Edit worker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-        <%@include file="../style/index.css"%>
+        <%@include file="../../../resources/index.css"%>
     </style>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <form action="/update" method="post" class="col-4" id="workerForm">
+    <form action="/worker/update" method="post" class="col-4" id="workerFormUpdate">
+        <h1>Edit</h1>
+        <input type="hidden" name="id" value="${worker.getId()}" required pattern="^[a-zA-Z]+$">
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2" value="${worker.getFirstName()}">
+               aria-describedby="basic-addon2" value="${worker.getFirstName()}" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2" value="${worker.getSecondName()}">
+               aria-describedby="basic-addon2" value="${worker.getSecondName()}" pattern="^[a-zA-Z]{1,20}$">
         <br>
         <select name="postId" class="custom-select" id="inputGroupSelect02">
-            <option selected value="0">Input some</option>
+            <option selected value="${worker.getPost().getId()}">${worker.getPost().getName()}</option>
             <c:forEach var="post" items="${posts}" varStatus="rowCounter">
                 <option value="${post.getId()}">${post.getName()}</option>
             </c:forEach>
         </select>
         <br><br>
-        <input type="submit" class="btn btn-primary" value="Add worker"/>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <div class="col-4"></div>
 </div>

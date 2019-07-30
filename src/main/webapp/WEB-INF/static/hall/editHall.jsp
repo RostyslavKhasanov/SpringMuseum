@@ -22,13 +22,14 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/hall/update" method="post" class="col-4">
+        <form action="/hall/update" method="post" class="hall-Form col-4">
             <input type="hidden" name="id" value="${hall.id}">
             <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-                   value="${hall.name}">
+                   value="${hall.name}" required
+                   pattern="^[a-zA-Z]{1,30}$">
             <br>
 
-            <select name="workerId" class="custom-select">
+            <select name="workerId" class="custom-select" required>
                 <c:forEach var="worker" items="${workers}">
                     <option
                             <c:if test="${worker.id == hall.worker.id}">selected</c:if>

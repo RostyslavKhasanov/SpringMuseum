@@ -18,6 +18,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Controller for Exhibit logic.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/exhibit")
 public class ExhibitController {
@@ -26,6 +32,7 @@ public class ExhibitController {
   @Autowired private AuthorService authorService;
   @Autowired private HallService hallService;
 
+  /** Method that return all exhibit. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
     List<ExhibitIdNameDtoResponse> authors = service.findAll();
@@ -33,6 +40,7 @@ public class ExhibitController {
     return "exhibit/exhibits";
   }
 
+  /** Method that return exhibit by id. */
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     ExhibitDtoResponse exhibit = service.findById(id);
@@ -40,6 +48,7 @@ public class ExhibitController {
     return "exhibit/exhibitInfo";
   }
 
+  /** Method that save new exhibit. */
   @PostMapping("/save")
   public void save(
       @Valid @ModelAttribute ExhibitSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
@@ -48,6 +57,7 @@ public class ExhibitController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method that update exhibit. */
   @PostMapping("/update")
   public void update(
       @Valid @ModelAttribute ExhibitUpdateDtoRequest dto, HttpServletResponse httpServletResponse) {
@@ -56,6 +66,7 @@ public class ExhibitController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method that delete exhibit by id. */
   @GetMapping("/delete")
   public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     service.deleteById(id);
@@ -63,13 +74,14 @@ public class ExhibitController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addExhibitPage(ModelMap modelMap) {
     modelMap.addAttribute("authors", authorService.findAll());
     modelMap.addAttribute("halls", hallService.findAll());
     return "exhibit/addExhibit";
   }
-
+  /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
     ExhibitDtoResponse exhibit = service.findById(id);
@@ -79,6 +91,7 @@ public class ExhibitController {
     return "exhibit/editExhibit";
   }
 
+  /** Method for jsp statistic page. */
   @RequestMapping("/stat")
   public String getStatistic(ModelMap modelMap) {
     List<ExhibitMaterialStat> exhibitMaterialStats = service.getMaterialStat();

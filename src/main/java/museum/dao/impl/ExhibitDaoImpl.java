@@ -13,6 +13,12 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repository for Exhibit logic.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Repository
 public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDao {
   @Autowired private EntityManager manager;
@@ -21,12 +27,16 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
     super(Exhibit.class);
   }
 
+  /**
+   * Method for Exhibit material statistic.
+   *
+   * @return List of ExhibitMaterialStat
+   */
   @Override
   public List<ExhibitMaterialStat> getMaterialStat() {
     List<Object[]> resultList =
         manager
-            .createNativeQuery(
-                "select material, count(material) from exhibit group by material")
+            .createNativeQuery("select material, count(material) from exhibit group by material")
             .getResultList();
 
     List<ExhibitMaterialStat> exhibitTechnologyStats = new ArrayList<>();
@@ -37,6 +47,11 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
     return exhibitTechnologyStats;
   }
 
+  /**
+   * Method for Exhibit technology statistic.
+   *
+   * @return List of ExhibitMaterialStat
+   */
   @Override
   public List<ExhibitTechnologyStat> getTechnologyStat() {
 

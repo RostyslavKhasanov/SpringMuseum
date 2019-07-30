@@ -107,6 +107,6 @@ public class HallServiceImpl implements HallService {
   @Transactional
   @Override
   public List<HallDtoResponse> findByWorkerId(Long id) {
-    return dao.findAll().stream().map(HallDtoResponse::new).collect(Collectors.toList());
+    return dao.findHalLByWorkerId(id).stream().map(HallDtoResponse::new).collect(Collectors.toList());
   }
 }

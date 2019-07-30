@@ -12,6 +12,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <style>
         <%@include file="../../../resources/index.css"%>
     </style>
@@ -21,13 +22,14 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/hall/save" method="post" class="col-4" id="workerForm">
+        <form action="/hall/save" method="post" class="hall-Form col-4">
             <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-                   aria-describedby="basic-addon2">
+                   aria-describedby="basic-addon2" required
+                   pattern="^[a-zA-Z]{1,30}$">
             <br>
 
-            <select name="workerId" class="custom-select">
-                <option selected value="0">Select worker</option>
+            <select name="workerId" class="custom-select" required>
+                <option selected value="">Select worker</option>
                 <c:forEach var="worker" items="${workers}">
                     <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
                 </c:forEach>

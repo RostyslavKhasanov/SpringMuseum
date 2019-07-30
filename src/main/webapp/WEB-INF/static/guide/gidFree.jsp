@@ -1,43 +1,42 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<c:set var="count" value="0" scope="request" />
+<html>
 <head>
-    <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Workers</title>
     <style>
         <%@include file="../../../resources/index.css"%>
     </style>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="row">
-    <div class="col"></div>
-    <div class="col-6">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                </tr>
-                </thead>
-                <c:forEach items="${guides}" var="item">
-                    <tr>
-                        <th scope="row"><a
-                                href="http://localhost:8080/museum/worker?id=${(item.getId())}">${(item.getId())}</a>
-                        </th>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a></td>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a></td>
-                    </tr>
-                </c:forEach>
-            </table>
-    </div>
-    <div class="col">
+<div class="row no-gutter">
+    <div class="col-md-12">
+        <c:choose>
+            <c:when test="${not empty guides}">
+                <div class="list-group">
+                    <c:forEach items="${guides}" var="item">
+                        <a href="http://localhost:8080/worker?id=${item.id}"
+                           class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}
+                        </a>
+                    </c:forEach>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <h3 class="w3-wide" style="margin: 20px;">Not found any guide!</h3>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </body>
+<script>
+    function redirect() {
+        document.location.href = "http://localhost:8080/worker/guides/free";
+    }
+    function redirectStat() {
+        document.location.href = "http://localhost:8080/worker/guides/stat";
+    }
+</script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <title>Title</title>
+    <title>New worker</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -15,20 +15,21 @@
 <div class="row">
     <div class="col-4"></div>
     <form action="/worker" method="post" class="col-4" id="workerForm">
+        <h1>New worker: </h1>
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
         <br>
-        <select name="postId" class="custom-select" id="inputGroupSelect02">
-            <option selected value="0">Input some</option>
+        <select name="postId" class="custom-select" id="inputGroupSelect02" required>
+            <option selected value="">Input some</option>
             <c:forEach var="post" items="${posts}" varStatus="rowCounter">
                 <option value="${post.getId()}">${post.getName()}</option>
             </c:forEach>
         </select>
         <br><br>
-        <input type="submit" class="btn btn-primary" value="Add worker"/>
+        <button type="submit" class="btn btn-primary">Add worker</button>
     </form>
     <div class="col-4"></div>
 </div>
