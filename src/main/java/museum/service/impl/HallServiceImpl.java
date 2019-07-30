@@ -16,6 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for Hall logic.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Service
 public class HallServiceImpl implements HallService {
 

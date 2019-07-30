@@ -24,7 +24,7 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/excursion/save" method="post" class="col-4" id="workerForm">
+        <form action="/save" method="post" class="col-4" id="workerForm">
             <label for="startTime">Start:</label>
             <input id="startTime" type="datetime-local" name="startTime"><br>
             <label for="endTime">End:</label>

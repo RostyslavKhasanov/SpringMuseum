@@ -42,6 +42,12 @@
                                 <td>${item.begin}</td>
                                 <td>${item.end}</td>
                                 <td>${item.price}</td>
+                                <td>
+                                    <form action="/delete" style="margin-block-end: 0em;" method="post">
+                                        <input type="hidden" name="id" value="${item.getId()}">
+                                        <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

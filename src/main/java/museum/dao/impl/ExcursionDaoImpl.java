@@ -15,6 +15,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Repository for Excursion logic.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Repository
 public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements ExcursionDao {
   public ExcursionDaoImpl() {
@@ -26,16 +32,12 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
   @Override
   public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    String string = "select *  from museum.excursion where begin >= '"
-            + start.format(formatter)
-            + "' and end <= '"
-            + end.format(formatter)
-            + "'";
-    Query query =
-        manager
-            .createNativeQuery(string, Excursion.class)
-            .setParameter("startTime", start)
-            .setParameter("endTime", end);
+    String query1 = "select e from Excursion e where e.begin >= :begin and e.end <= :end";
+    TypedQuery query =
+            manager
+                    .createQuery(query1, Excursion.class)
+                    .setParameter("begin", start)
+                    .setParameter("end", end);
     List<ExcursionResponse> excursions = query.getResultList();
     return excursions;
   }

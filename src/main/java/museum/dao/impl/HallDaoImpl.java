@@ -12,6 +12,12 @@ import javax.persistence.TypedQuery;
 import javax.xml.ws.WebServiceRefs;
 import java.util.List;
 
+/**
+ * Repository for Hall logic.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Repository
 public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
   public HallDaoImpl() {

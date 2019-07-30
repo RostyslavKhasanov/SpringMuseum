@@ -5,7 +5,6 @@ import museum.dto.request.hall.HallUpdateRequest;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.dto.response.hall.HallIdNameDtoResponse;
 import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
-import museum.dto.response.worker.WorkerIdFirstSecondNameDtoResponse;
 import museum.service.HallService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Controller for Hall logic.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Controller
 @RequestMapping("/hall")
 public class HallController {

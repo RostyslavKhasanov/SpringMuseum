@@ -8,6 +8,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Hall entity.
+ *
+ * @author Katerena Horokh
+ * @version 1.0
+ */
 @Entity
 @Getter
 @Setter

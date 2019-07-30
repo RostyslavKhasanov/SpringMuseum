@@ -18,6 +18,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for Excursion logic.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Service
 public class ExcursionServiceImpl implements ExcursionService {
 
@@ -78,14 +84,21 @@ public class ExcursionServiceImpl implements ExcursionService {
   @Transactional
   @Override
   public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end) {
-    return excursionDao.findByPeriod(start, end);
+    if (start != null && end != null) {
+      if (start.isBefore(end)) {
+        return excursionDao.findByPeriod(start, end);
+      } else {
+        throw new IllegalArgumentException("Second date value has to be bigger.");
+      }
+    } else {
+      throw new IllegalArgumentException("Date must have a value and not to be null.");
+    }
   }
 
   @Transactional
   @Override
   public int findCountByPeriod(LocalDateTime start, LocalDateTime end) {
-    int excursions =
-        excursionDao.findCountByPeriod(start, end);
+    int excursions = excursionDao.findCountByPeriod(start, end);
     return excursions;
   }
 }
