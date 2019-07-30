@@ -52,11 +52,38 @@ th a:hover {
     padding-left: 0;
 }
 
-input:not(:placeholder-shown) {
+#postForm input:not(:placeholder-shown) {
     border-color: hsl(0, 76%, 50%);;
 }
 
 /* Show green borders when valid */
-input:valid {
+#postForm input:valid {
+    border-color: hsl(120, 76%, 50%);
+}
+
+#workerForm input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);;
+}
+
+/* Show green borders when valid */
+#workerForm input:valid {
+    border-color: hsl(120, 76%, 50%);
+}
+
+#workerFormUpdate input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);;
+}
+
+/* Show green borders when valid */
+#workerFormUpdate input:valid {
+    border-color: hsl(120, 76%, 50%);
+}
+
+#workerExhibits input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);;
+}
+
+/* Show green borders when valid */
+#workerExhibits input:valid {
     border-color: hsl(120, 76%, 50%);
 }

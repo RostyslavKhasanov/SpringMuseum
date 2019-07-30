@@ -18,10 +18,10 @@
         <h1>Edit</h1>
         <input type="hidden" name="id" value="${worker.getId()}" required pattern="^[a-zA-Z]+$">
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2" value="${worker.getFirstName()}" required pattern="^[a-zA-Z]+$">
+               aria-describedby="basic-addon2" value="${worker.getFirstName()}" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2" value="${worker.getSecondName()}">
+               aria-describedby="basic-addon2" value="${worker.getSecondName()}" pattern="^[a-zA-Z]{1,20}$">
         <br>
         <select name="postId" class="custom-select" id="inputGroupSelect02">
             <option selected value="${worker.getPost().getId()}">${worker.getPost().getName()}</option>

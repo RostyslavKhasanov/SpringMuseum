@@ -30,10 +30,10 @@
         </c:choose>
     </div>
     <div class="col-md-2">
-        <div class="col-10">
+        <div class="col-10" id="workerExhibits">
             <div class="input-group input-group-sm mb-3">
                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                       placeholder="Surname" id="name" required pattern="^[a-zA-Z]+$">
+                       placeholder="Surname" id="name" required pattern="^[a-zA-Z]{1,20}$">
             </div>
             <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
             <br><br>
@@ -77,7 +77,7 @@
         if (strUser == "") {
             alert("Choose one!")
         } else {
-        document.location.href = "http://localhost:8080/post/delete?id=" + strUser;
+            document.location.href = "http://localhost:8080/post/delete?id=" + strUser;
         }
     }
 </script>

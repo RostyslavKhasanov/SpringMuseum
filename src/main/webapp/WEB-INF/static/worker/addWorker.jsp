@@ -17,10 +17,10 @@
     <form action="/worker" method="post" class="col-4" id="workerForm">
         <h1>New worker: </h1>
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]+$">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]+$">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <select name="postId" class="custom-select" id="inputGroupSelect02" required>
             <option selected value="">Input some</option>
