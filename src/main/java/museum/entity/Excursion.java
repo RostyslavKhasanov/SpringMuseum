@@ -7,6 +7,12 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * Excursion entity.
+ *
+ * @author Katerena Horokh
+ * @version 1.0
+ */
 @Entity
 @Getter
 @Setter

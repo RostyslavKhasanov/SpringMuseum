@@ -12,6 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ExcursionResponse {
 
+    private Long id;
+
     private LocalDateTime begin;
 
     private LocalDateTime end;
@@ -23,6 +25,7 @@ public class ExcursionResponse {
     private String workerSecondName;
 
     public ExcursionResponse(Excursion excursion) {
+        this.id = excursion.getId();
         this.begin = excursion.getBegin();
         this.end = excursion.getEnd();
         this.price = excursion.getPrice();

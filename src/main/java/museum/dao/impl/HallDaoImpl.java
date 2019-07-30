@@ -12,6 +12,12 @@ import javax.persistence.TypedQuery;
 import javax.xml.ws.WebServiceRefs;
 import java.util.List;
 
+/**
+ * Repository for Hall logic.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Repository
 public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
   public HallDaoImpl() {
@@ -21,6 +27,11 @@ public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
   @Autowired
   private EntityManager manager;
 
+  /** Method that find hall by worker id.
+   *
+   * @param workerId
+   * @return List of HallDtoResponse.
+   * */
   @Override
   public List<Hall> findHalLByWorkerId(Long workerId) {
     String qry = "from Hall h where h.worker.id = :worker_Id";

@@ -4,7 +4,11 @@
 
 <html>
 <head>
+    <style>
+        <%@include file="../../../resources/index.css"%>
+    </style>
     <title>Museum</title>
+    <link rel="stylesheet" href="../../../resources/index.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -14,14 +18,22 @@
 <h2 style="margin: 10px">Please, enter the period you want to visit excursion in our museum.</h2>
 
 <div style="margin: 10px">
-    <form method="post">
-        <label for="startTime">Start:</label>
-        <input id="startTime" type="datetime-local" name="startTime"><br>
-        <label for="endTime">End:</label>
-        <input id="endTime" type="datetime-local" name="endTime"><br>
-        <input type="submit" value="Submit" style="margin: 20px 0">
-    </form>
+    <label for="start">Start:</label>
+    <input id="start" type="datetime-local" name="start"><br>
+    <label for="end">End:</label>
+    <input id="end" type="datetime-local" name="end"><br>
+    <button type="button" class="button btn-btn-primary" onclick="ddd()">Submit</button>
 </div>
+</body>
+
+<script>
+    function ddd() {
+        var start = document.getElementById("start").value;
+        var end = document.getElementById("end").value;
+        alert(start);
+        document.location.href = "http://localhost:8080//excursion/byPeriod?start=" + start + "&end=" + end;
+    }
+</script>
 </body>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

@@ -15,6 +15,10 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
+<a href="/excursion/add" class="btn btn-primary" style="float: right">Add new excursion</a>
+
+<a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right">Find by period</a>
+
 <div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
      style="max-width: 800px; margin: 30px">
     <h2 class="w3-wide">Excursions in given time period:</h2>
@@ -38,11 +42,16 @@
                                 <td>${item.begin}</td>
                                 <td>${item.end}</td>
                                 <td>${item.price}</td>
+                                <td>
+                                    <form action="/excursion/delete" style="margin-block-end: 0em;" method="post">
+                                        <input type="hidden" name="id" value="${item.id}">
+                                        <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+                                    </form>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
-                    <h5>Count of excursions at this period: ${excursionsStatistic}</h5>
                 </div>
             </div>
         </c:when>
