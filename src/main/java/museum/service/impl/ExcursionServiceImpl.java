@@ -131,7 +131,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    */
   @Transactional
   @Override
-  public int findCountByPeriod(LocalDateTime start, LocalDateTime end) {
+  public Integer findCountByPeriod(LocalDateTime start, LocalDateTime end) {
     int excursions = excursionDao.findCountByPeriod(start, end);
     return excursions;
   }

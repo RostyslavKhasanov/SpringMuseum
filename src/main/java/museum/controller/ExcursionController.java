@@ -36,7 +36,7 @@ public class ExcursionController {
   public String findAll(ModelMap modelMap) {
     List<ExcursionResponse> excursions = excursionService.findAll();
     modelMap.addAttribute("excursions", excursions);
-    return "excursion/excursions";
+    return "excursion/excursionsInfo";
   }
 
   /**
@@ -54,7 +54,6 @@ public class ExcursionController {
    *
    * @param from start of time slot to search in
    * @param to end of time slot to search in
-   * @return "/excursion/excursions"
    * @exception Exception
    */
   @RequestMapping(
@@ -92,9 +91,13 @@ public class ExcursionController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addExcursionPage(ModelMap modelMap) {
-    List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
-    modelMap.addAttribute("workers", workers);
-    return "excursion/addExcursion";
+    try {
+      List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
+      modelMap.addAttribute("workers", workers);
+      return "excursion/addExcursion";
+    } catch (Exception e) {
+      return "errorMessage";
+    }
   }
 
   /** Method that update excursion. */
@@ -108,11 +111,11 @@ public class ExcursionController {
   }
 
   /** Method that delete excursion. */
-  @PostMapping("/delete")
-  public String deleteExcursion(@RequestParam(name = "id") Long id, ModelMap modelMap) {
+  @PostMapping(value = "/delete", params = "id")
+  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     excursionService.deleteById(id);
-    modelMap.addAttribute("message", "Excursion with id " + id + " is deleted!");
-    return "excursion/successful";
+    httpServletResponse.setHeader("Location", "http://localhost:8080/excursion");
+    httpServletResponse.setStatus(302);
   }
 
   /**
@@ -123,15 +126,19 @@ public class ExcursionController {
    * @return "excursion/excursionsStatistic"
    */
   @RequestMapping(
-      value = "/stat",
+      method = RequestMethod.GET,
       params = {"start", "end"})
   public String findCountByPeriod(
-      @RequestParam String from, @RequestParam String to, ModelMap modelMap) {
+      @RequestParam(name = "start") String from,
+      @RequestParam(name = "end") String to,
+      ModelMap modelMap) {
+    String fromS = from.replaceAll("T", " ");
+    String toS = to.replaceAll("T", " ");
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    LocalDateTime start = LocalDateTime.parse(from, formatter);
-    LocalDateTime end = LocalDateTime.parse(to, formatter);
+    LocalDateTime start = LocalDateTime.parse(fromS, formatter);
+    LocalDateTime end = LocalDateTime.parse(toS, formatter);
     int excursionsStatistic = excursionService.findCountByPeriod(start, end);
     modelMap.addAttribute("excursionsStatistic", excursionsStatistic);
-    return "excursion/excursionsStatistic";
+    return "/excursion/excursions";
   }
 }

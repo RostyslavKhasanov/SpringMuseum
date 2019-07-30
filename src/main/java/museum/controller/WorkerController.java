@@ -57,7 +57,7 @@ public class WorkerController {
       return "worker/workerExhibits";
     } catch (Exception e) {
       modelMap.addAttribute("message", e.getMessage());
-      return "error";
+      return "errorMessage";
     }
   }
 

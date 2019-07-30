@@ -23,5 +23,5 @@ public interface ExcursionService {
 
   List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end);
 
-  int findCountByPeriod(LocalDateTime start, LocalDateTime end);
+  Integer findCountByPeriod(LocalDateTime start, LocalDateTime end);
 }

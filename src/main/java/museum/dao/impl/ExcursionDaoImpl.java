@@ -41,10 +41,10 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     String query1 = "select e from Excursion e where e.begin >= :begin and e.end <= :end";
     TypedQuery query =
-            manager
-                    .createQuery(query1, Excursion.class)
-                    .setParameter("begin", start)
-                    .setParameter("end", end);
+        manager
+            .createQuery(query1, Excursion.class)
+            .setParameter("begin", start)
+            .setParameter("end", end);
     List<ExcursionResponse> excursions = query.getResultList();
     return excursions;
   }
@@ -59,19 +59,14 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
   @Override
   public Integer findCountByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    String string = "select count(*) as c "
-            + "from museum.excursion where begin >= '"
-            + start.format(formatter)
-            + "' and end <= '"
-            + end.format(formatter)
-            + "'";
-    Query query =
+    String string = "select count(e) from Excursion e where e.begin >= :begin and e.end <= :end";
+    TypedQuery<Long> query =
         manager
-            .createNativeQuery(string, Long.class)
-            .setParameter("startTime", start)
-            .setParameter("endTime", end);
-    BigDecimal countB = (BigDecimal) query.getSingleResult();
-    Integer count = countB.intValue();
+            .createQuery(string, Long.class)
+            .setParameter("begin", start)
+            .setParameter("end", end);
+    Long countL = query.getSingleResult();
+    Integer count = countL.intValue();
     return count;
   }
 }

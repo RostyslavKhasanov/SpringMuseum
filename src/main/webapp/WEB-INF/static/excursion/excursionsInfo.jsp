@@ -21,7 +21,7 @@
 
 <div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
      style="max-width: 800px; margin: 30px">
-    <h2 class="w3-wide">Excursions in given time period:</h2>
+    <h2 class="w3-wide">Our excursions:</h2>
     <c:choose>
         <c:when test="${not empty excursions}">
             <div class="list-group">
