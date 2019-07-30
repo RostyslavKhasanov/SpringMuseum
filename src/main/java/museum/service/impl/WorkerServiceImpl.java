@@ -1,17 +1,17 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.WorkerDao;
-import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.request.worker.WorkerUpdateRequestDto;
-import museum.dto.response.worker.WorkerDtoResponse;
-import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
-import museum.dto.response.worker.WorkerStatDtoResponse;
+import museum.dto.worker.WorkerAddRequestDto;
+import museum.dto.worker.WorkerUpdateRequestDto;
+import museum.dto.worker.WorkerDtoResponse;
+import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.worker.WorkerStatDtoResponse;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.service.PostService;
 import museum.service.WorkerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,11 +29,12 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class WorkerServiceImpl implements WorkerService {
 
-  @Autowired private WorkerDao workerDao;
+  private WorkerDao workerDao;
 
-  @Autowired private PostService postService;
+  private PostService postService;
 
   /**
    * Save worker.

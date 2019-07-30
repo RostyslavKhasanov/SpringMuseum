@@ -2,8 +2,8 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.ExhibitDao;
-import museum.dto.response.exhibit.ExhibitMaterialStat;
-import museum.dto.response.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.ExhibitMaterialStat;
+import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

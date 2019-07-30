@@ -1,9 +1,9 @@
 package museum.controller;
 
-import museum.dto.request.excursion.ExcursionSaveDtoRequest;
-import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
-import museum.dto.response.excursion.ExcursionResponse;
-import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.excursion.ExcursionSaveDtoRequest;
+import museum.dto.excursion.ExcursionUpdateDtoRequest;
+import museum.dto.excursion.ExcursionResponse;
+import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;

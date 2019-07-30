@@ -1,6 +1,6 @@
 package museum.controller;
 
-import museum.dto.request.post.PostRequestDto;
+import museum.dto.post.PostRequestDto;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

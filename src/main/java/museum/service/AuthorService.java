@@ -1,9 +1,9 @@
 package museum.service;
 
-import museum.dto.request.author.AuthorSaveDtoRequest;
-import museum.dto.request.author.AuthorUpdateDtoRequest;
-import museum.dto.response.author.AuthorDtoResponse;
-import museum.dto.response.author.AuthorIdFirstSecondNameDtoResponse;
+import museum.dto.author.AuthorSaveDtoRequest;
+import museum.dto.author.AuthorUpdateDtoRequest;
+import museum.dto.author.AuthorDtoResponse;
+import museum.dto.author.AuthorIdFirstSecondNameDtoResponse;
 import museum.entity.Author;
 
 import java.util.List;

@@ -2,7 +2,7 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.WorkerDao;
-import museum.dto.response.worker.WorkerDtoResponse;
+import museum.dto.worker.WorkerDtoResponse;
 import museum.entity.Worker;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
