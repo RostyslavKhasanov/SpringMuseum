@@ -1,10 +1,10 @@
 package museum.service.impl;
 
 import museum.dao.AuthorDao;
-import museum.dto.request.author.AuthorSaveDtoRequest;
-import museum.dto.request.author.AuthorUpdateDtoRequest;
-import museum.dto.response.author.AuthorDtoResponse;
-import museum.dto.response.author.AuthorIdFirstSecondNameDtoResponse;
+import museum.dto.author.AuthorSaveDtoRequest;
+import museum.dto.author.AuthorUpdateDtoRequest;
+import museum.dto.author.AuthorDtoResponse;
+import museum.dto.author.AuthorIdFirstSecondNameDtoResponse;
 import museum.entity.Author;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
@@ -95,7 +95,7 @@ public class AuthorServiceImpl implements AuthorService {
   /** Method that delete author by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws BadIdException{
     Boolean isDeleted = dao.deleteById(id);
 
     if (!isDeleted) {

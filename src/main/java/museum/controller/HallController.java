@@ -1,10 +1,10 @@
 package museum.controller;
 
-import museum.dto.request.hall.HallSaveRequest;
-import museum.dto.request.hall.HallUpdateRequest;
-import museum.dto.response.hall.HallDtoResponse;
-import museum.dto.response.hall.HallIdNameDtoResponse;
-import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.hall.HallSaveRequest;
+import museum.dto.hall.HallUpdateRequest;
+import museum.dto.hall.HallDtoResponse;
+import museum.dto.hall.HallIdNameDtoResponse;
+import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
 import museum.service.HallService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;

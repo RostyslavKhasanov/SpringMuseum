@@ -1,9 +1,8 @@
 package museum.service;
 
-import museum.dto.request.excursion.ExcursionRequestDto;
-import museum.dto.request.excursion.ExcursionSaveDtoRequest;
-import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
-import museum.dto.response.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionSaveDtoRequest;
+import museum.dto.excursion.ExcursionUpdateDtoRequest;
+import museum.dto.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 
 import java.time.LocalDateTime;

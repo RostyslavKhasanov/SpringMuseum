@@ -1,10 +1,8 @@
 package museum.service.impl;
 
 import museum.dao.PostDao;
-import museum.dto.request.post.PostRequestDto;
-import museum.dto.response.post.PostDto;
-import museum.dto.response.post.PostNameResponseDto;
-import museum.dto.response.post.PostResponseDto;
+import museum.dto.post.PostRequestDto;
+import museum.dto.post.PostResponseDto;
 import museum.entity.Post;
 import museum.exception.BadIdException;
 import museum.service.PostService;

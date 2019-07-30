@@ -1,10 +1,10 @@
 package museum.service;
 
-import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.request.worker.WorkerUpdateRequestDto;
-import museum.dto.response.worker.WorkerDtoResponse;
-import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
-import museum.dto.response.worker.WorkerStatDtoResponse;
+import museum.dto.worker.WorkerAddRequestDto;
+import museum.dto.worker.WorkerUpdateRequestDto;
+import museum.dto.worker.WorkerDtoResponse;
+import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.worker.WorkerStatDtoResponse;
 import museum.entity.Worker;
 
 import java.util.List;

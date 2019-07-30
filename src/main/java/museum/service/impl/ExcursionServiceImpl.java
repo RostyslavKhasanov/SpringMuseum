@@ -1,9 +1,9 @@
 package museum.service.impl;
 
 import museum.dao.ExcursionDao;
-import museum.dto.request.excursion.ExcursionSaveDtoRequest;
-import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
-import museum.dto.response.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionSaveDtoRequest;
+import museum.dto.excursion.ExcursionUpdateDtoRequest;
+import museum.dto.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 import museum.exception.BadIdException;
 import museum.service.ExcursionService;

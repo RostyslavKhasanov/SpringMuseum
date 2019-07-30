@@ -1,11 +1,11 @@
 package museum.service;
 
-import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
-import museum.dto.request.exhibit.ExhibitUpdateDtoRequest;
-import museum.dto.response.exhibit.ExhibitDtoResponse;
-import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
-import museum.dto.response.exhibit.ExhibitMaterialStat;
-import museum.dto.response.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.ExhibitSaveDtoRequest;
+import museum.dto.exhibit.ExhibitUpdateDtoRequest;
+import museum.dto.exhibit.ExhibitDtoResponse;
+import museum.dto.exhibit.ExhibitIdNameDtoResponse;
+import museum.dto.exhibit.ExhibitMaterialStat;
+import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
 
 import java.util.List;
