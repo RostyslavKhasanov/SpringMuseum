@@ -15,15 +15,26 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * DAO implementation for Worker entity.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Repository
 public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
   public WorkerDaoImpl() {
     super(Worker.class);
   }
 
-  @PersistenceContext
-  private EntityManager entityManager;
+  @PersistenceContext private EntityManager entityManager;
 
+  /**
+   * Gets worker id by name.
+   *
+   * @param name worker name.
+   * @return id of worker.
+   */
   @Override
   public Long findWorkerIdByName(String name) {
     String strQuery = "select w.id from Worker w where lower(w.secondName) = lower(:name)";
@@ -32,6 +43,12 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
     return id;
   }
 
+  /**
+   * Gets all free workers.
+   *
+   * @param date current date-time value.
+   * @return List of free guides.
+   */
   @Override
   public List<WorkerDtoResponse> findAllFreeGuide(LocalDateTime date) {
     String strQuery =
@@ -42,6 +59,11 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
     return workerDtoResponses;
   }
 
+  /**
+   * Gets all guides.
+   *
+   * @return List of all worker with post gid.
+   */
   @Override
   public List<Worker> findAllGuide() {
     String strQuery = "select w from Worker w join Post p on p.id = w.post.id where p.name = 'gid'";
@@ -50,30 +72,38 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
     return workerDtos;
   }
 
+  /**
+   * Gets count of excursion of some guide.
+   *
+   * @param id worker id
+   * @return count of excursion.
+   */
   @Transactional
   @Override
   public Integer findCountOfExcursion(Long id) {
     String strQuery =
         "select count(e) from Excursion e where e.worker.id = :id group by e.worker.id";
-    TypedQuery<Long> query =
-        entityManager.createQuery(strQuery, Long.class).setParameter("id", id);
+    TypedQuery<Long> query = entityManager.createQuery(strQuery, Long.class).setParameter("id", id);
     Long countL = query.getSingleResult();
     Integer count = countL.intValue();
     return count;
   }
 
+  /**
+   * Gets count of all excursion hours of some guide.
+   *
+   * @param id worker id
+   * @return count of excursion.
+   */
   @Transactional
   @Override
   public Integer findCountOfHours(Long id) {
     String strQuery =
         "select sum(hour(timediff(e.begin, e.end))) from excursion e "
             + "join worker w on w.id = e.worker_id where e.worker_id = ? group by e.worker_id";
-    Query query =
-            entityManager
-                .createNativeQuery(strQuery)
-                .setParameter(1, id);
-     BigDecimal countB = (BigDecimal) query.getSingleResult();
-     Integer count = countB.intValue();
+    Query query = entityManager.createNativeQuery(strQuery).setParameter(1, id);
+    BigDecimal countB = (BigDecimal) query.getSingleResult();
+    Integer count = countB.intValue();
     return count;
   }
 }

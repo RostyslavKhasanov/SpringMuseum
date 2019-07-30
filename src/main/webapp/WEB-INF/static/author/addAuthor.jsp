@@ -28,7 +28,7 @@
         <input type="text" name="secondName" class="form-control" placeholder="Second name" aria-label="Second name"
                aria-describedby="basic-addon2">
         <br>
-        <input type="submit" class="btn btn-primary" value="Save"/>
+        <button type="submit" class="btn btn-primary" value="Save">Save</button>
     </form>
 </div>
 

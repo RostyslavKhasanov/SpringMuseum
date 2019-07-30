@@ -1,67 +1,61 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <title>Workers</title>
     <style>
         <%@include file="../../../resources/index.css"%>
     </style>
-    <title>Museum</title>
-    <link rel="stylesheet" href="../../../resources/index.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="worker-container">
-    <div class="row">
-        <div class="col">
-        </div>
-        <div class="col-6">
-            <table class="table table-hover" id="workerTable">
-                <thead>
-                <tr><th scope="col">First name</th>
-                    <th scope="col">Last name</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${workers}" var="item">
-                    <tr>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getFirstName())}</a>
-                        </td>
-                        <td><a href="http://localhost:8080/worker?id=${(item.getId())}">${(item.getSecondName())}</a>
-                        </td>
-                        <td>
-                            <form action="/worker/delete" style="margin-block-end: 0em;" method="post">
-                                <input type="hidden" name="id" value="${item.getId()}">
-                                <input type="submit" class="btn btn-outline-danger" value="Delete"/>
-                            </form>
-                        </td>
-                    </tr>
-                </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        <div class="col">
-            <div class="col-10">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="spanName">Full name</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                           id="name">
+<div class="row no-gutter">
+    <div class="col-md-10">
+        <c:choose>
+            <c:when test="${not empty workers}">
+                <div class="list-group">
+                    <c:forEach items="${workers}" var="item">
+
+                        <a href="?id=${item.id}"
+                           class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}
+                        </a>
+
+                    </c:forEach>
                 </div>
-                <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
-                <br><br>
-                <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
-                <br><br>
-                <button type="button" class="btn btn-primary" onclick="redirectToWorkerAddForm()">Add new worker
-                </button>
+            </c:when>
+            <c:otherwise>
+                <h3 class="w3-wide" style="margin: 20px;">Not found any worker!</h3>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <div class="col-md-2">
+        <div class="col-10" id="workerExhibits">
+            <div class="input-group input-group-sm mb-3">
+                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                       placeholder="Surname" id="name" required pattern="^[a-zA-Z]{1,20}$">
             </div>
+            <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
+            <br><br>
+            <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
+            <br><br>
+            <button type="button" class="btn btn-primary" onclick="redirectToWorkerAddForm()">Add new worker
+            </button>
+            <br><br><br>
+            <h6>Delete post:</h6>
+            <br>
+            <select name="postId" class="custom-select" id="postId">
+                <option selected value=""></option>
+                <c:forEach var="post" items="${posts}" varStatus="rowCounter">
+                    <option value="${post.getId()}">${post.getName()}</option>
+                </c:forEach>
+            </select>
+            <br><br>
+            <button type="button" class="btn btn-danger" onclick="deletePost()">Delete
+            </button>
         </div>
     </div>
 </div>
-</table>
 </body>
 <script>
     function findByName() {
@@ -77,8 +71,14 @@
         document.location.href = "http://localhost:8080/worker/add";
     }
 
-    function redirectToWorkerEditForm() {
-        document.location.href = "http://localhost:8080/worker/edit";
+    function deletePost() {
+        var e = document.getElementById("postId");
+        var strUser = e.options[e.selectedIndex].value;
+        if (strUser == "") {
+            alert("Choose one!")
+        } else {
+            document.location.href = "http://localhost:8080/post/delete?id=" + strUser;
+        }
     }
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

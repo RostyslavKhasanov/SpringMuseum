@@ -20,7 +20,7 @@
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <form action="/exhibit/save" method="post" class="col-4" id="workerForm">
+    <form action="/exhibit/save" method="post" class="col-4" id="exhibitForm">
         <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
                aria-describedby="basic-addon2">
         <br>
@@ -46,7 +46,7 @@
             </c:forEach>
         </select>
         <br><br>
-        <input type="submit" class="btn btn-primary" value="Save"/>
+        <button type="submit" class="btn btn-primary" value="Save">Save</button>
     </form>
 </div>
 </body>

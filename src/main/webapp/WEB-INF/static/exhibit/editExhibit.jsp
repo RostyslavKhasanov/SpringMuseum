@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-4"></div>
-    <form action="/exhibit/update" method="post" class="col-4" id="workerForm">
+    <form action="/exhibit/update" method="post" class="col-4" id="exhibitForm">
         <input type="hidden" name="id" value="${exhibit.id}">
 
         Name: <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"

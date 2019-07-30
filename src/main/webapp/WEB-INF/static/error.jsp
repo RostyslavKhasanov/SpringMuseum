@@ -12,10 +12,7 @@
 </head>
 <body>
 <jsp:include page="menu.jsp"/>
-
 <h1 style="margin: 20px">Ooopssss! You don`t fill all fields!</h1>
-
-
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
