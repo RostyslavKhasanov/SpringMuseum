@@ -1,15 +1,13 @@
 package museum.dao;
 
+import museum.dto.response.exhibit.ExhibitMaterialStat;
+import museum.dto.response.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
-@Repository
-@Transactional
-public class ExhibitDao extends ElementDaoImpl<Exhibit> {
-  public ExhibitDao() {
-    super(Exhibit.class);
-  }
+public interface ExhibitDao extends ElementDao<Exhibit> {
+    List<ExhibitMaterialStat> getMaterialStat();
+
+    List<ExhibitTechnologyStat> getTechnologyStat();
 }

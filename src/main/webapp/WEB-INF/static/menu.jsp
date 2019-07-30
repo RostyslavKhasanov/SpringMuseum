@@ -26,7 +26,7 @@
             <a class="nav-item nav-link" href="/author">Authors</a>
             <a class="nav-item nav-link" href="/hall">Hall</a>
             <a class="nav-item nav-link " href="/excursion">Excursions</a>
-            <a class="nav-item nav-link " href="/worker?pos=1">Gid</a>
+            <a class="nav-item nav-link " href="/worker/guides">Gid</a>
             <a class="nav-item nav-link " href="/worker">Workers</a>
         </div>
     </div>
