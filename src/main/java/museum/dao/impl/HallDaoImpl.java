@@ -27,6 +27,11 @@ public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
   @Autowired
   private EntityManager manager;
 
+  /** Method that find hall by worker id.
+   *
+   * @param workerId
+   * @return List of HallDtoResponse.
+   * */
   @Override
   public List<HallDtoResponse> findHalLByWorkerId(Long workerId) {
     String qry = "from Hall h where h.worker_id = :worker_Id";

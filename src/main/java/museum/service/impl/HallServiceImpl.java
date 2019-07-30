@@ -28,6 +28,7 @@ public class HallServiceImpl implements HallService {
   @Autowired private HallDao dao;
   @Autowired private WorkerService workerService;
 
+  /** Method that save new hall. */
   @Transactional
   @Override
   public void save(HallSaveRequest dto) {
@@ -37,12 +38,22 @@ public class HallServiceImpl implements HallService {
     dao.save(hall);
   }
 
+  /**
+   * Method that return all hall dto.
+   *
+   * @return List of HallIdNameDtoResponse.
+   */
   @Transactional
   @Override
   public List<HallIdNameDtoResponse> findAll() {
     return dao.findAll().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
   }
 
+  /**
+   * Method that return hall by id.
+   *
+   * @return HallDtoResponse.
+   */
   @Transactional
   @Override
   public HallDtoResponse findById(Long id) {
@@ -53,6 +64,11 @@ public class HallServiceImpl implements HallService {
     return new HallDtoResponse(hall);
   }
 
+  /**
+   * Method that return hall by id.
+   *
+   * @return Hall - entity.
+   */
   @Transactional
   @Override
   public Hall getOneById(Long id) {
@@ -63,6 +79,7 @@ public class HallServiceImpl implements HallService {
     return hall;
   }
 
+  /** Method that update hall. */
   @Transactional
   @Override
   public void update(HallUpdateRequest dto) {
@@ -76,6 +93,7 @@ public class HallServiceImpl implements HallService {
     }
   }
 
+  /** Method that delete hall by id. */
   @Transactional
   @Override
   public void deleteById(Long id) {
@@ -85,6 +103,7 @@ public class HallServiceImpl implements HallService {
     }
   }
 
+  /** Method that find hall by worker id. */
   @Transactional
   @Override
   public List<HallDtoResponse> findByWorkerId(Long id) {

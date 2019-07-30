@@ -31,6 +31,7 @@ public class ExcursionServiceImpl implements ExcursionService {
 
   @Autowired private WorkerService workerService;
 
+  /** Method that save new excursion. */
   @Transactional
   @Override
   public void save(ExcursionSaveDtoRequest dtoRequest) {
@@ -42,12 +43,22 @@ public class ExcursionServiceImpl implements ExcursionService {
     excursionDao.save(excursion);
   }
 
+  /**
+   * Method that return all excursion dto.
+   *
+   * @return List of ExcursionResponse.
+   */
   @Transactional
   @Override
   public List<ExcursionResponse> findAll() {
     return excursionDao.findAll().stream().map(ExcursionResponse::new).collect(Collectors.toList());
   }
 
+  /**
+   * Method that return excursion by id.
+   *
+   * @return Excursion - this is entity.
+   */
   @Transactional
   @Override
   public Excursion findById(Long id) {
@@ -57,6 +68,7 @@ public class ExcursionServiceImpl implements ExcursionService {
     return excursionDao.findById(id);
   }
 
+  /** Method that update excursion. */
   @Transactional
   @Override
   public void update(ExcursionUpdateDtoRequest dtoRequest) {
@@ -72,6 +84,7 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
   }
 
+  /** Method that delete excursion by id. */
   @Transactional
   @Override
   public void deleteById(Long id) {
@@ -81,6 +94,14 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
   }
 
+  /**
+   * Method for searching excursions in time period based on given input.
+   *
+   * @param start start of time slot to search in
+   * @param end end of time slot to search in
+   * @return List of ExcursionResponse
+   * @exception IllegalArgumentException
+   */
   @Transactional
   @Override
   public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end) {
@@ -95,6 +116,13 @@ public class ExcursionServiceImpl implements ExcursionService {
     }
   }
 
+  /**
+   * Method for statistic excursions in time period based on given input.
+   *
+   * @param start start of time slot to search in
+   * @param end end of time slot to search in
+   * @return int count
+   */
   @Transactional
   @Override
   public int findCountByPeriod(LocalDateTime start, LocalDateTime end) {

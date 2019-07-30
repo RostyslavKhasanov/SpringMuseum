@@ -30,6 +30,7 @@ public class HallController {
 
   @Autowired private WorkerService workerService;
 
+  /** Method that return all halls. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
     List<HallIdNameDtoResponse> halls = service.findAll();
@@ -44,6 +45,7 @@ public class HallController {
     return "hall/hallInfo";
   }
 
+  /** Method that save new hall. */
   @PostMapping("/save")
   public void save(
       @Valid @ModelAttribute HallSaveRequest dto, HttpServletResponse httpServletResponse) {
@@ -52,6 +54,7 @@ public class HallController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method that update hall. */
   @PostMapping("/update")
   public void update(
       @Valid @ModelAttribute HallUpdateRequest dto, HttpServletResponse httpServletResponse) {
@@ -60,6 +63,7 @@ public class HallController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method that delete hall. */
   @GetMapping(value = "/delete", params = "id")
   public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
     service.deleteById(id);
@@ -67,6 +71,7 @@ public class HallController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addAuthorPage(ModelMap modelMap) {
     List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
@@ -74,6 +79,7 @@ public class HallController {
     return "hall/addHall";
   }
 
+  /** Method that update author page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
     HallDtoResponse hall = service.findById(id);
