@@ -21,12 +21,12 @@
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <form action="/author/save" method="post" class="col-4" id="workerForm">
+    <form action="/author/save" method="post" class="authorForm col-4">
         <input type="text" name="firstName" class="form-control" placeholder="First name" aria-label="First name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second name" aria-label="Second name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <button type="submit" class="btn btn-primary" value="Save">Save</button>
     </form>

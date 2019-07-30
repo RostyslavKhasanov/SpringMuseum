@@ -39,7 +39,7 @@ th a:hover {
     margin-top: -1px;
 }
 
-#workerForm {
+#workerForm, .authorForm, .exhibitForm, .hallForm {
     margin-top: 10px;
 }
 
@@ -53,7 +53,7 @@ th a:hover {
 }
 
 #postForm input:not(:placeholder-shown) {
-    border-color: hsl(0, 76%, 50%);;
+    border-color: hsl(0, 76%, 50%);
 }
 
 /* Show green borders when valid */
@@ -62,7 +62,7 @@ th a:hover {
 }
 
 #workerForm input:not(:placeholder-shown) {
-    border-color: hsl(0, 76%, 50%);;
+    border-color: hsl(0, 76%, 50%);
 }
 
 /* Show green borders when valid */
@@ -71,7 +71,7 @@ th a:hover {
 }
 
 #workerFormUpdate input:not(:placeholder-shown) {
-    border-color: hsl(0, 76%, 50%);;
+    border-color: hsl(0, 76%, 50%);
 }
 
 /* Show green borders when valid */
@@ -80,10 +80,35 @@ th a:hover {
 }
 
 #workerExhibits input:not(:placeholder-shown) {
-    border-color: hsl(0, 76%, 50%);;
+    border-color: hsl(0, 76%, 50%);
 }
 
 /* Show green borders when valid */
 #workerExhibits input:valid {
+    border-color: hsl(120, 76%, 50%);
+}
+
+.authorForm input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);
+}
+
+.exhibitForm input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);
+}
+
+.hall-Form input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);
+}
+
+.authorForm input:valid {
+    border-color: hsl(120, 76%, 50%);
+}
+
+.exhibitForm input:valid {
+    border-color: hsl(120, 76%, 50%);
+}
+
+
+.hall-Form input:valid {
     border-color: hsl(120, 76%, 50%);
 }

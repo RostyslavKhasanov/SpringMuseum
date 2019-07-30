@@ -20,27 +20,27 @@
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <form action="/exhibit/save" method="post" class="col-4" id="exhibitForm">
+    <form action="/exhibit/save" method="post" class="exhibitForm col-4">
         <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,30}$">
         <br>
         <input type="text" name="material" class="form-control" placeholder="Material" aria-label="Material"
-                   aria-describedby="basic-addon2">
+                   aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,30}$">
         <br>
 
         <input type="text" name="technology" class="form-control" placeholder="Technology" aria-label="Technology"
-               aria-describedby="basic-addon2">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,30}$">
         <br>
 
-        <select name="authorId" class="custom-select">
-            <option selected value="0">Select author</option>
+        <select name="authorId" class="custom-select" required>
+            <option selected value="">Select author</option>
             <c:forEach var="author" items="${authors}">
                 <option value="${author.id}">${author.firstName} ${author.secondName}</option>
             </c:forEach>
         </select>
         <br><br>
-        <select name="hallId" class="custom-select">
-            <option selected value="0">Select hall</option>
+        <select name="hallId" class="custom-select" required>
+            <option selected value="">Select hall</option>
             <c:forEach var="hall" items="${halls}">
                 <option value="${hall.id}">${hall.name}</option>
             </c:forEach>
