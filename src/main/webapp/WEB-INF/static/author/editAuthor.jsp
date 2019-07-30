@@ -20,13 +20,13 @@
 
 <div class="row">
     <div class="col-4"></div>
-    <form action="/author/update" method="post" class="col-4" id="workerForm">
+    <form action="/author/update" method="post" class="authorForm col-4">
         <input type="hidden" name="id" value="${author.id}">
         <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2" value="${author.firstName}">
+               aria-describedby="basic-addon2" value="${author.firstName}" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2" value="${author.secondName}">
+               aria-describedby="basic-addon2" value="${author.secondName}" required pattern="^[a-zA-Z]{1,20}$">
         <br>
         <input type="submit" class="btn btn-primary" value="Save"/>
     </form>
