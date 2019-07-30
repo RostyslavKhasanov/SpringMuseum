@@ -29,6 +29,13 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
 
   @PersistenceContext private EntityManager manager;
 
+  /**
+   * Method for searching excursions in time period based on given input.
+   *
+   * @param start start of time slot to search in
+   * @param end end of time slot to search in
+   * @return List of ExcursionResponse.
+   */
   @Override
   public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -42,6 +49,13 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
     return excursions;
   }
 
+  /**
+   * Method for counting excursions in time period based on given input.
+   *
+   * @param start start of time slot to search in
+   * @param end end of time slot to search in
+   * @return int count of excursions.
+   */
   @Override
   public Integer findCountByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

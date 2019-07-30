@@ -7,7 +7,6 @@ import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +31,7 @@ public class ExcursionController {
 
   @Autowired private WorkerService workerService;
 
+  /** Method that return all excursions. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
     List<ExcursionResponse> excursions = excursionService.findAll();
@@ -76,10 +76,11 @@ public class ExcursionController {
       modelMap.addAttribute("excursions", excursions);
       return "/excursion/excursions";
     } catch (Exception e) {
-      return "error";
+      return "errorMessage";
     }
   }
 
+  /** Method that save new excursion. */
   @PostMapping("/save")
   public void save(
       @Valid @ModelAttribute ExcursionSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
@@ -88,6 +89,7 @@ public class ExcursionController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addExcursionPage(ModelMap modelMap) {
     List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
@@ -95,6 +97,7 @@ public class ExcursionController {
     return "excursion/addExcursion";
   }
 
+  /** Method that update excursion. */
   @PostMapping("/update")
   public void update(
       @Valid @ModelAttribute ExcursionUpdateDtoRequest dto,
@@ -104,6 +107,7 @@ public class ExcursionController {
     httpServletResponse.setStatus(302);
   }
 
+  /** Method that delete excursion. */
   @PostMapping("/delete")
   public String deleteExcursion(@RequestParam(name = "id") Long id, ModelMap modelMap) {
     excursionService.deleteById(id);
@@ -111,6 +115,13 @@ public class ExcursionController {
     return "excursion/successful";
   }
 
+  /**
+   * Method for statistic excursions in time period based on given input.
+   *
+   * @param from start of time slot to search in
+   * @param to end of time slot to search in
+   * @return "excursion/excursionsStatistic"
+   */
   @RequestMapping(
       value = "/stat",
       params = {"start", "end"})
