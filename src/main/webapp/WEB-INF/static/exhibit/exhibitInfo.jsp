@@ -9,22 +9,33 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Exhibit info</title>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<a href="/exhibit/edit?id=${exhibit.id}" class="btn btn-primary" style="float: right">Edit</a>
 
-<button type="button" class="btn btn-primary" style="float: right" onclick="deleteExhibit(${exhibit.id})">Delete this
-    exhibit
-</button>
+<div class="container">
+    <diw class="row">
+        <div class="col-1"></div>
+        <div class="info col-10">
+            <div class="name">Name of the exhibit is: ${exhibit.name}</div>
+            <div class="material">Material is: ${exhibit.material}</div>
+            <div class="technology">Create technology: ${exhibit.technology}</div>
+            <div class="author">Author: <a
+                    href="/author?id=${exhibit.author.id}">${exhibit.author.firstName} ${exhibit.author.secondName}</a>
+            </div>
+            <div class="author">Hall: <a href="/hall?id=${exhibit.hall.id}">${exhibit.hall.name}</a></div>
 
 
-<div class="info" style="margin: 20px">
-    <div class="name">Name of the exhibit is: ${exhibit.name}</div>
-    <div class="material">Material is: ${exhibit.material}</div>
-    <div class="technology">Create technology: ${exhibit.technology}</div>
+        </div>
+        <div class="col-1">
+            <a href="/exhibit/edit?id=${exhibit.id}" class="btn btn-primary">Edit</a>
+            <button type="button" class="btn btn-primary" onclick="deleteExhibit(${exhibit.id})">Delete this
+                exhibit
+            </button>
+        </div>
+    </diw>
 </div>
 
 </body>

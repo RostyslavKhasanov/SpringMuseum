@@ -5,6 +5,7 @@ import museum.dto.request.hall.HallUpdateRequest;
 import museum.dto.response.hall.HallDtoResponse;
 import museum.dto.response.hall.HallIdNameDtoResponse;
 import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.response.worker.WorkerIdFirstSecondNameDtoResponse;
 import museum.service.HallService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,7 @@ public class HallController {
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
     HallDtoResponse hall = service.findById(id);
-    modelMap.addAttribute("author", hall);
+    modelMap.addAttribute("hall", hall);
     List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "hall/editHall";

@@ -9,48 +9,42 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Author information</title>
+    <title>Title</title>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
 
+
 <div class="container">
-    <div class="row">
-
+    <diw class="row">
         <div class="col-1"></div>
-
-        <div class="author-exhibits col-10">
-
-            <div class="info">
-                <div>Fist name: ${author.firstName}</div>
-                <div>Second name: ${author.secondName}</div>
+        <div class="info col-10">
+            <div class="name">Name of the hall: ${hall.name}</div>
+            <div class="worker">
+                Responsible worker:
+                <a href="/worker?id=${hall.worker.id}">${hall.worker.firstName} ${hall.worker.secondName}</a>
             </div>
 
-            <h4>Author`s exhibits:</h4>
-            <c:forEach items="${author.exhibits}" var="exhibit">
+            <h4>Hall`s exhibits:</h4>
+            <c:forEach items="${hall.exhibits}" var="exhibit">
                 <p><a href="/exhibit?id=${exhibit.id}">${exhibit.name}</a></p>
             </c:forEach>
-
         </div>
-
-
-        <div class="buttons col-1">
-            <a href="/author/edit?id=${author.id}" class="btn btn-primary">Edit</a>
-
-            <button type="button" class="btn btn-primary" onclick="deleteAuthor(${author.id})">Delete this
-                author
+        <div class="col-1">
+            <a href="/hall/edit?id=${hall.id}" class="btn btn-primary">Edit</a>
+            <button type="button" class="btn btn-primary" onclick="deleteExhibit(${hall.id})">Delete this
+                exhibit
             </button>
         </div>
-
-    </div>
+    </diw>
 </div>
 
 </body>
 <script>
-    function deleteAuthor(id) {
-        var isDelete = confirm("Do you really want to delete this author?");
+    function deleteExhibit(id) {
+        var isDelete = confirm("Do you really want to delete this exhibit?");
         if (isDelete) {
-            window.location.href = "http://localhost:8080/author/delete?id=" + id;
+            window.location.href = "http://localhost:8080/hall/delete?id=" + id;
         }
     }
 </script>

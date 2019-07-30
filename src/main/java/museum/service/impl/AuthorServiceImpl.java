@@ -15,11 +15,18 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Service for Author logic.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Service
 public class AuthorServiceImpl implements AuthorService {
 
   @Autowired private AuthorDao dao;
 
+  /** Method that save new author. */
   @Transactional
   @Override
   public void save(AuthorSaveDtoRequest dto) {
@@ -29,6 +36,11 @@ public class AuthorServiceImpl implements AuthorService {
     dao.save(author);
   }
 
+  /**
+   * Method that return all authors dto.
+   *
+   * @return List of AuthorIdFirstSecondNameDtoResponse.
+   */
   @Transactional
   @Override
   public List<AuthorIdFirstSecondNameDtoResponse> findAll() {
@@ -37,6 +49,11 @@ public class AuthorServiceImpl implements AuthorService {
         .collect(Collectors.toList());
   }
 
+  /**
+   * Method that return author dto by id.
+   *
+   * @return AuthorDtoResponse - this is dto of author.
+   */
   @Transactional
   @Override
   public AuthorDtoResponse findById(Long id) {
@@ -47,6 +64,11 @@ public class AuthorServiceImpl implements AuthorService {
     return new AuthorDtoResponse(dao.findById(id));
   }
 
+  /**
+   * Method that return author by id.
+   *
+   * @return Author - this is entity.
+   */
   @Override
   public Author getOneById(Long id) {
     Author author = dao.findById(id);
@@ -56,6 +78,7 @@ public class AuthorServiceImpl implements AuthorService {
     return author;
   }
 
+  /** Method that update author. */
   @Transactional
   @Override
   public void update(AuthorUpdateDtoRequest dto) {
@@ -69,6 +92,7 @@ public class AuthorServiceImpl implements AuthorService {
     }
   }
 
+  /** Method that delete author by id. */
   @Transactional
   @Override
   public void deleteById(Long id) {

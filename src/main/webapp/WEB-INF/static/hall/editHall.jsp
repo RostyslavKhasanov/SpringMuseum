@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: macbookpro
@@ -8,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit author</title>
+    <title>Title</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -18,20 +19,28 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<div class="row">
-    <div class="col-4"></div>
-    <form action="/author/update" method="post" class="col-4" id="workerForm">
-        <input type="hidden" name="id" value="${author.id}">
-        <input type="text" name="firstName" class="form-control" placeholder="first Name" aria-label="First name"
-               aria-describedby="basic-addon2" value="${author.firstName}">
-        <br>
-        <input type="text" name="secondName" class="form-control" placeholder="Second Name" aria-label="Second name"
-               aria-describedby="basic-addon2" value="${author.secondName}">
-        <br>
-        <input type="submit" class="btn btn-primary" value="Save"/>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <form action="/hall/update" method="post" class="col-4">
+            <input type="hidden" name="id" value="${hall.id}">
+            <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
+                   value="${hall.name}">
+            <br>
+
+            <select name="workerId" class="custom-select">
+                <c:forEach var="worker" items="${workers}">
+                    <option
+                            <c:if test="${worker.id == hall.worker.id}">selected</c:if>
+                            value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
+                </c:forEach>
+            </select>
+
+            <br><br>
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </form>
+    </div>
 </div>
-</body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

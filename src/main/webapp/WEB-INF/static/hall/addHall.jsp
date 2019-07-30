@@ -18,23 +18,25 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="row">
-    <div class="col-4"></div>
-    <form action="/hall/save" method="post" class="col-4" id="workerForm">
-        <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-               aria-describedby="basic-addon2">
-        <br>
+<div class="container">
+    <div class="row">
+        <div class="col-4"></div>
+        <form action="/hall/save" method="post" class="col-4" id="workerForm">
+            <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
+                   aria-describedby="basic-addon2">
+            <br>
 
-        <select name="workerId" class="custom-select">
-            <option selected value="0">Select worker</option>
-            <c:forEach var="worker" items="${workers}">
-                <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
-            </c:forEach>
-        </select>
+            <select name="workerId" class="custom-select">
+                <option selected value="0">Select worker</option>
+                <c:forEach var="worker" items="${workers}">
+                    <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
+                </c:forEach>
+            </select>
 
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="Save"/>
-    </form>
+            <br><br>
+            <input type="submit" class="btn btn-primary" value="Save"/>
+        </form>
+    </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
