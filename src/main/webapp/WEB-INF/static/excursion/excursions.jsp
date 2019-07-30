@@ -43,8 +43,8 @@
                                 <td>${item.end}</td>
                                 <td>${item.price}</td>
                                 <td>
-                                    <form action="/delete" style="margin-block-end: 0em;" method="post">
-                                        <input type="hidden" name="id" value="${item.getId()}">
+                                    <form action="/excursion/delete" style="margin-block-end: 0em;" method="post">
+                                        <input type="hidden" name="id" value="${item.id}">
                                         <input type="submit" class="btn btn-outline-danger" value="Delete"/>
                                     </form>
                                 </td>

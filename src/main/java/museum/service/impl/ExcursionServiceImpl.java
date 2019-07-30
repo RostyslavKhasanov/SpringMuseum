@@ -1,7 +1,6 @@
 package museum.service.impl;
 
 import museum.dao.ExcursionDao;
-import museum.dto.request.excursion.ExcursionRequestDto;
 import museum.dto.request.excursion.ExcursionSaveDtoRequest;
 import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
 import museum.dto.response.excursion.ExcursionResponse;
@@ -34,9 +33,16 @@ public class ExcursionServiceImpl implements ExcursionService {
   @Transactional
   @Override
   public void save(ExcursionSaveDtoRequest dtoRequest) {
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+    LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
+
+    LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
+
     Excursion excursion = new Excursion();
-    excursion.setBegin(dtoRequest.getBegin());
-    excursion.setEnd(dtoRequest.getEnd());
+    excursion.setBegin(begin);
+    excursion.setEnd(end);
     excursion.setPrice(dtoRequest.getPrice());
     excursion.setWorker(workerService.getOneById(dtoRequest.getWorkerId()));
     excursionDao.save(excursion);

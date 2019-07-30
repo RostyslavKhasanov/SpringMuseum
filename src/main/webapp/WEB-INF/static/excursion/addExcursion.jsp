@@ -24,14 +24,14 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/save" method="post" class="col-4" id="workerForm">
+        <form action="/excursion/save" method="post" class="col-4" id="workerForm">
             <label for="startTime">Start:</label>
-            <input id="startTime" type="datetime-local" name="startTime"><br>
+            <input id="startTime" type="datetime-local" name="begin"><br>
             <label for="endTime">End:</label>
-            <input id="endTime" type="datetime-local" name="endTime"><br>
+            <input id="endTime" type="datetime-local" name="end"><br>
             <label for="price">Price</label>
             <input type="number" value="100" min="0" step="0.1"
-                   data-number-to-fixed="2" data-number-stepfactor="100" class="currency" id="price" />
+                   data-number-to-fixed="2" data-number-stepfactor="100" class="currency" id="price" name="price" />
             <select name="workerId" class="custom-select">
                 <option selected value="0">Select worker</option>
                 <c:forEach var="worker" items="${workers}">
