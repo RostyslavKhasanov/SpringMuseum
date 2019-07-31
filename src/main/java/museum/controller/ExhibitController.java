@@ -1,11 +1,6 @@
 package museum.controller;
 
-import museum.dto.exhibit.ExhibitSaveDtoRequest;
-import museum.dto.exhibit.ExhibitUpdateDtoRequest;
-import museum.dto.exhibit.ExhibitDtoResponse;
-import museum.dto.exhibit.ExhibitIdNameDtoResponse;
-import museum.dto.exhibit.ExhibitMaterialStat;
-import museum.dto.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.*;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
@@ -14,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -35,7 +29,7 @@ public class ExhibitController {
   /** Method that return all exhibit. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
-    List<ExhibitIdNameDtoResponse> authors = service.findAll();
+    List<ExhibitIdInitialsDto> authors = service.findAll();
     modelMap.addAttribute("exhibits", authors);
     return "exhibit/exhibits";
   }
@@ -43,35 +37,30 @@ public class ExhibitController {
   /** Method that return exhibit by id. */
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    ExhibitDtoResponse exhibit = service.findById(id);
+    ExhibitFullDto exhibit = service.findById(id);
     modelMap.addAttribute("exhibit", exhibit);
     return "exhibit/exhibitInfo";
   }
 
   /** Method that save new exhibit. */
   @PostMapping("/save")
-  public void save(
-      @Valid @ModelAttribute ExhibitSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
+  public String save(@Valid @ModelAttribute ExhibitSaveDto dto) {
     service.save(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
+    return "redirect:/exhibit";
   }
 
   /** Method that update exhibit. */
   @PostMapping("/update")
-  public void update(
-      @Valid @ModelAttribute ExhibitUpdateDtoRequest dto, HttpServletResponse httpServletResponse) {
+  public String update(@Valid @ModelAttribute ExhibitUpdateDto dto) {
     service.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
+    return "redirect:/exhibit";
   }
 
   /** Method that delete exhibit by id. */
   @GetMapping("/delete")
-  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+  public String delete(@RequestParam Long id) {
     service.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
+    return "redirect:/exhibit";
   }
 
   /** Method for jsp add page. */
@@ -84,7 +73,7 @@ public class ExhibitController {
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
-    ExhibitDtoResponse exhibit = service.findById(id);
+    ExhibitFullDto exhibit = service.findById(id);
     modelMap.addAttribute("exhibit", exhibit);
     modelMap.addAttribute("authors", authorService.findAll());
     modelMap.addAttribute("halls", hallService.findAll());

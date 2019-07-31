@@ -13,8 +13,9 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExhibitSaveDtoRequest {
+public class ExhibitUpdateDto {
 
+  @NotNull private Long id;
   @NotBlank private String name;
   @NotBlank private String material;
   @NotBlank private String technology;
@@ -22,7 +23,8 @@ public class ExhibitSaveDtoRequest {
   @NotNull private Long authorId;
   @NotNull private Long hallId;
 
-  public ExhibitSaveDtoRequest(Exhibit exhibit) {
+  public ExhibitUpdateDto(Exhibit exhibit) {
+    this.id = exhibit.getId();
     this.name = exhibit.getName();
     this.material = exhibit.getMaterial();
     this.technology = exhibit.getTechnology();

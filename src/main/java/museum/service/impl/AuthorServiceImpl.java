@@ -1,10 +1,9 @@
 package museum.service.impl;
 
 import museum.dao.AuthorDao;
-import museum.dto.author.AuthorSaveDtoRequest;
-import museum.dto.author.AuthorUpdateDtoRequest;
-import museum.dto.author.AuthorDtoResponse;
-import museum.dto.author.AuthorIdFirstSecondNameDtoResponse;
+import museum.dto.author.AuthorFullDto;
+import museum.dto.author.AuthorIdInitialsDto;
+import museum.dto.author.AuthorInitialsDto;
 import museum.entity.Author;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
@@ -29,7 +28,7 @@ public class AuthorServiceImpl implements AuthorService {
   /** Method that save new author. */
   @Transactional
   @Override
-  public void save(AuthorSaveDtoRequest dto) {
+  public void save(AuthorInitialsDto dto) {
     Author author = new Author();
     author.setFirstName(dto.getFirstName());
     author.setSecondName(dto.getSecondName());
@@ -39,29 +38,27 @@ public class AuthorServiceImpl implements AuthorService {
   /**
    * Method that return all authors dto.
    *
-   * @return List of AuthorIdFirstSecondNameDtoResponse.
+   * @return List of AuthorIdInitialsDto.
    */
   @Transactional
   @Override
-  public List<AuthorIdFirstSecondNameDtoResponse> findAll() {
-    return dao.findAll().stream()
-        .map(AuthorIdFirstSecondNameDtoResponse::new)
-        .collect(Collectors.toList());
+  public List<AuthorIdInitialsDto> findAll() {
+    return dao.findAll().stream().map(AuthorIdInitialsDto::new).collect(Collectors.toList());
   }
 
   /**
    * Method that return author dto by id.
    *
-   * @return AuthorDtoResponse - this is dto of author.
+   * @return AuthorFullDto - this is dto of author.
    */
   @Transactional
   @Override
-  public AuthorDtoResponse findById(Long id) {
+  public AuthorFullDto findById(Long id) throws BadIdException {
     Author author = dao.findById(id);
     if (author == null) {
       throw new BadIdException("Author has no row with id " + id);
     }
-    return new AuthorDtoResponse(dao.findById(id));
+    return new AuthorFullDto(dao.findById(id));
   }
 
   /**
@@ -70,7 +67,7 @@ public class AuthorServiceImpl implements AuthorService {
    * @return Author - this is entity.
    */
   @Override
-  public Author getOneById(Long id) {
+  public Author getOneById(Long id) throws BadIdException {
     Author author = dao.findById(id);
     if (author == null) {
       throw new BadIdException("Author has no row with id " + id);
@@ -81,7 +78,7 @@ public class AuthorServiceImpl implements AuthorService {
   /** Method that update author. */
   @Transactional
   @Override
-  public void update(AuthorUpdateDtoRequest dto) {
+  public void update(AuthorIdInitialsDto dto) throws BadIdException {
     Author author = new Author();
     author.setId(dto.getId());
     author.setFirstName(dto.getFirstName());
@@ -95,7 +92,7 @@ public class AuthorServiceImpl implements AuthorService {
   /** Method that delete author by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) throws BadIdException{
+  public void deleteById(Long id) throws BadIdException {
     Boolean isDeleted = dao.deleteById(id);
 
     if (!isDeleted) {

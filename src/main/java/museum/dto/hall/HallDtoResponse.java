@@ -3,7 +3,7 @@ package museum.dto.hall;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import museum.dto.exhibit.ExhibitIdNameDtoResponse;
+import museum.dto.exhibit.ExhibitIdInitialsDto;
 import museum.dto.worker.WorkerIdFirstSecondNameDtoResponse;
 import museum.entity.Hall;
 
@@ -21,13 +21,13 @@ public class HallDtoResponse {
 
   private WorkerIdFirstSecondNameDtoResponse worker;
 
-  private List<ExhibitIdNameDtoResponse> exhibits;
+  private List<ExhibitIdInitialsDto> exhibits;
 
   public HallDtoResponse(Hall hall) {
     this.id = hall.getId();
     this.name = hall.getName();
     this.worker = new WorkerIdFirstSecondNameDtoResponse(hall.getWorker());
     this.exhibits =
-        hall.getExhibits().stream().map(ExhibitIdNameDtoResponse::new).collect(Collectors.toList());
+        hall.getExhibits().stream().map(ExhibitIdInitialsDto::new).collect(Collectors.toList());
   }
 }

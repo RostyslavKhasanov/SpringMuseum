@@ -1,12 +1,8 @@
 package museum.service.impl;
 
 import museum.dao.ExhibitDao;
-import museum.dto.exhibit.ExhibitSaveDtoRequest;
-import museum.dto.exhibit.ExhibitUpdateDtoRequest;
-import museum.dto.exhibit.ExhibitDtoResponse;
-import museum.dto.exhibit.ExhibitIdNameDtoResponse;
-import museum.dto.exhibit.ExhibitMaterialStat;
-import museum.dto.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.*;
+import museum.dto.exhibit.ExhibitIdInitialsDto;
 import museum.entity.Exhibit;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
@@ -37,7 +33,7 @@ public class ExhibitServiceImpl implements ExhibitService {
   /** Method that save new exhibit. */
   @Transactional
   @Override
-  public void save(ExhibitSaveDtoRequest dto) {
+  public void save(ExhibitSaveDto dto) {
     Exhibit exhibit = new Exhibit();
     exhibit.setName(dto.getName());
     exhibit.setMaterial(dto.getMaterial());
@@ -50,27 +46,27 @@ public class ExhibitServiceImpl implements ExhibitService {
   /**
    * Method that return all exhibit dto.
    *
-   * @return List of ExhibitIdNameDtoResponse.
+   * @return List of ExhibitIdInitialsDto.
    */
   @Transactional
   @Override
-  public List<ExhibitIdNameDtoResponse> findAll() {
-    return dao.findAll().stream().map(ExhibitIdNameDtoResponse::new).collect(Collectors.toList());
+  public List<ExhibitIdInitialsDto> findAll() {
+    return dao.findAll().stream().map(ExhibitIdInitialsDto::new).collect(Collectors.toList());
   }
 
   /**
    * Method that return exhibit dto by id.
    *
-   * @return ExhibitDtoResponse - this is dto of exhibit.
+   * @return ExhibitFullDto - this is dto of exhibit.
    */
   @Transactional
   @Override
-  public ExhibitDtoResponse findById(Long id) {
+  public ExhibitFullDto findById(Long id) {
     Exhibit exhibit = dao.findById(id);
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
     }
-    return new ExhibitDtoResponse(exhibit);
+    return new ExhibitFullDto(exhibit);
   }
 
   /**
@@ -91,7 +87,7 @@ public class ExhibitServiceImpl implements ExhibitService {
   /** Method that update exhibit. */
   @Transactional
   @Override
-  public void update(ExhibitUpdateDtoRequest dto) {
+  public void update(ExhibitUpdateDto dto) {
     Exhibit exhibit = new Exhibit();
     exhibit.setId(dto.getId());
     exhibit.setName(dto.getName());

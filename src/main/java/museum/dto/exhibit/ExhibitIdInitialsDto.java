@@ -6,12 +6,12 @@ import museum.entity.Exhibit;
 
 @Getter
 @Setter
-public class ExhibitIdNameDtoResponse {
+public class ExhibitIdInitialsDto {
     private Long id;
 
     private String name;
 
-    public ExhibitIdNameDtoResponse(Exhibit exhibit) {
+    public ExhibitIdInitialsDto(Exhibit exhibit) {
         this.id = exhibit.getId();
         this.name = exhibit.getName();
     }
