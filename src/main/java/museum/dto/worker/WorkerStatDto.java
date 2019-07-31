@@ -1,7 +1,10 @@
 package museum.dto.worker;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * DTO for Worker statistic response.
@@ -11,13 +14,14 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 public class WorkerStatDto {
 
   private Long id;
 
-  private String firstName;
+  @NotBlank private String firstName;
 
-  private String secondName;
+  @NotBlank private String secondName;
 
   private int countOfExcursion;
 
