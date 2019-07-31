@@ -1,5 +1,6 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.AuthorDao;
 import museum.dto.author.AuthorFullDto;
 import museum.dto.author.AuthorIdInitialsDto;
@@ -7,7 +8,7 @@ import museum.dto.author.AuthorInitialsDto;
 import museum.entity.Author;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
-import org.springframework.beans.factory.annotation.Autowired;
+import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,18 +22,17 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
-  @Autowired private AuthorDao dao;
+  private AuthorDao dao;
+  private ObjectMapperUtils mapper;
 
   /** Method that save new author. */
   @Transactional
   @Override
   public void save(AuthorInitialsDto dto) {
-    Author author = new Author();
-    author.setFirstName(dto.getFirstName());
-    author.setSecondName(dto.getSecondName());
-    dao.save(author);
+    dao.save(mapper.map(dto, Author.class));
   }
 
   /**
@@ -58,7 +58,7 @@ public class AuthorServiceImpl implements AuthorService {
     if (author == null) {
       throw new BadIdException("Author has no row with id " + id);
     }
-    return new AuthorFullDto(dao.findById(id));
+    return mapper.map(author, AuthorFullDto.class);
   }
 
   /**
@@ -79,10 +79,7 @@ public class AuthorServiceImpl implements AuthorService {
   @Transactional
   @Override
   public void update(AuthorIdInitialsDto dto) throws BadIdException {
-    Author author = new Author();
-    author.setId(dto.getId());
-    author.setFirstName(dto.getFirstName());
-    author.setSecondName(dto.getSecondName());
+    Author author = mapper.map(dto, Author.class);
     Author newAuthor = dao.update(author);
     if (newAuthor == null) {
       throw new BadIdException("Author has no row with id " + dto.getId());

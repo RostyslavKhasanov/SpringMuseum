@@ -1,19 +1,18 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.ExhibitDao;
 import museum.dto.exhibit.*;
-import museum.dto.exhibit.ExhibitIdInitialsDto;
 import museum.entity.Exhibit;
 import museum.exception.BadIdException;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
-import org.springframework.beans.factory.annotation.Autowired;
+import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service for Exhibit logic.
@@ -22,25 +21,21 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class ExhibitServiceImpl implements ExhibitService {
 
-  @Autowired private ExhibitDao dao;
+  private ExhibitDao dao;
 
-  @Autowired private AuthorService authorService;
+  private AuthorService authorService;
 
-  @Autowired private HallService hallService;
+  private HallService hallService;
+  private ObjectMapperUtils mapper;
 
   /** Method that save new exhibit. */
   @Transactional
   @Override
   public void save(ExhibitSaveDto dto) {
-    Exhibit exhibit = new Exhibit();
-    exhibit.setName(dto.getName());
-    exhibit.setMaterial(dto.getMaterial());
-    exhibit.setTechnology(dto.getTechnology());
-    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
-    exhibit.setHall(hallService.getOneById(dto.getHallId()));
-    dao.save(exhibit);
+    dao.save(mapper.map(dto, Exhibit.class));
   }
 
   /**
@@ -51,7 +46,7 @@ public class ExhibitServiceImpl implements ExhibitService {
   @Transactional
   @Override
   public List<ExhibitIdInitialsDto> findAll() {
-    return dao.findAll().stream().map(ExhibitIdInitialsDto::new).collect(Collectors.toList());
+    return mapper.mapAll(dao.findAll(), ExhibitIdInitialsDto.class);
   }
 
   /**
@@ -66,7 +61,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
     }
-    return new ExhibitFullDto(exhibit);
+    return mapper.map(exhibit, ExhibitFullDto.class);
   }
 
   /**
@@ -88,14 +83,7 @@ public class ExhibitServiceImpl implements ExhibitService {
   @Transactional
   @Override
   public void update(ExhibitUpdateDto dto) {
-    Exhibit exhibit = new Exhibit();
-    exhibit.setId(dto.getId());
-    exhibit.setName(dto.getName());
-    exhibit.setMaterial(dto.getMaterial());
-    exhibit.setTechnology(dto.getTechnology());
-    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
-    exhibit.setHall(hallService.getOneById(dto.getHallId()));
-    Exhibit newExhibit = dao.update(exhibit);
+    Exhibit newExhibit = dao.update(mapper.map(dto, Exhibit.class));
     if (newExhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + dto.getId());
     }

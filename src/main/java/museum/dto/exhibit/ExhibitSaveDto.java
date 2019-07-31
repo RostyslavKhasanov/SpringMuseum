@@ -21,12 +21,4 @@ public class ExhibitSaveDto {
 
   @NotNull private Long authorId;
   @NotNull private Long hallId;
-
-  public ExhibitSaveDto(Exhibit exhibit) {
-    this.name = exhibit.getName();
-    this.material = exhibit.getMaterial();
-    this.technology = exhibit.getTechnology();
-    this.authorId = exhibit.getAuthor().getId();
-    this.hallId = exhibit.getHall().getId();
-  }
 }
