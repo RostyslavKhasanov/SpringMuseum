@@ -41,7 +41,7 @@ public class AuthorController {
       modelMap.addAttribute("author", author);
     } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
-      return "redirect:/errorMessage";
+      return "errorMessage";
     }
     return "author/authorInfo";
   }
