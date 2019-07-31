@@ -1,14 +1,18 @@
 package museum.dto.worker;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Worker;
 
+/**
+ * DTO for Worker id, firstName, secondName response.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Getter
 @Setter
-@NoArgsConstructor
-public class WorkerIdFirstSecondNameDtoResponse {
+public class WorkerNamesDto {
 
   private Long id;
 
@@ -16,7 +20,12 @@ public class WorkerIdFirstSecondNameDtoResponse {
 
   private String secondName;
 
-  public WorkerIdFirstSecondNameDtoResponse(Worker worker) {
+  /**
+   * Constructor for class.
+   *
+   * @param worker object of post.
+   */
+  public WorkerNamesDto(Worker worker) {
     this.id = worker.getId();
     this.firstName = worker.getFirstName();
     this.secondName = worker.getSecondName();

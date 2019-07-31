@@ -2,16 +2,16 @@ package museum.service.impl;
 
 import lombok.AllArgsConstructor;
 import museum.dao.WorkerDao;
-import museum.dto.worker.WorkerAddRequestDto;
-import museum.dto.worker.WorkerUpdateRequestDto;
-import museum.dto.worker.WorkerDtoResponse;
-import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
-import museum.dto.worker.WorkerStatDtoResponse;
+import museum.dto.worker.WorkerSaveDto;
+import museum.dto.worker.WorkerDto;
+import museum.dto.worker.WorkerNamesDto;
+import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.service.PostService;
 import museum.service.WorkerService;
+import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,17 +34,17 @@ public class WorkerServiceImpl implements WorkerService {
 
   private WorkerDao workerDao;
 
-  private PostService postService;
+  private ObjectMapperUtils modelMapper;
 
   /**
    * Save worker.
    *
-   * @param workerAddRequestDto request worker dto.
+   * @param workerSaveDto request worker dto.
    */
   @Transactional
   @Override
-  public void save(WorkerAddRequestDto workerAddRequestDto) {
-    workerDao.save(workerAddRequestDtoToWorker(workerAddRequestDto));
+  public void save(WorkerSaveDto workerSaveDto) {
+    workerDao.save(modelMapper.map(workerSaveDto, Worker.class));
   }
 
   /**
@@ -54,9 +54,9 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerFirstSecondNameDtoResponse> findAll() {
+  public List<WorkerNamesDto> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return workers.stream().map(WorkerFirstSecondNameDtoResponse::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -67,9 +67,9 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public Worker findById(Long id) {
-    Worker worker = workerDao.findById(id);
-    return worker;
+  public WorkerDto findById(Long id) {
+    WorkerDto workerDto = modelMapper.map(workerDao.findById(id), WorkerDto.class);
+    return workerDto;
   }
 
   /**
@@ -95,11 +95,10 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerDtoResponse> findAllFreeGuide() {
+  public List<WorkerNamesDto> findAllFreeGuide() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     LocalDateTime dateTime = LocalDateTime.now();
-    List<WorkerDtoResponse> workers = workerDao.findAllFreeGuide(dateTime);
-    return workers;
+    return modelMapper.mapAll(workerDao.findAllFreeGuide(dateTime), WorkerNamesDto.class);
   }
 
   /**
@@ -109,9 +108,8 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerDtoResponse> findAllGuide() {
-    List<Worker> workers = workerDao.findAllGuide();
-    return workers.stream().map(WorkerDtoResponse::new).collect(Collectors.toList());
+  public List<WorkerNamesDto> findAllGuide() {
+    return modelMapper.mapAll(workerDao.findAllGuide(), WorkerNamesDto.class);
   }
 
   /**
@@ -121,13 +119,13 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerStatDtoResponse> findGuidesStat() {
+  public List<WorkerStatDto> findGuidesStat() {
     List<Worker> workers = workerDao.findAllGuide();
-    List<WorkerStatDtoResponse> workerStatDtoResponses = new ArrayList<>();
+    List<WorkerStatDto> workerStatDto = new ArrayList<>();
     for (Worker worker : workers) {
-      workerStatDtoResponses.add(workerToWorkerStatDto(worker));
+      workerStatDto.add(modelMapper.map(worker, WorkerStatDto.class));
     }
-    return workerStatDtoResponses;
+    return workerStatDto;
   }
 
   /**
@@ -166,52 +164,7 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public void update(WorkerUpdateRequestDto worker) {
-    workerDao.update(workerUpdateRequestDtoToWorker(worker));
-  }
-
-  /**
-   * Mapper from Worker to WorkerStatDto.
-   *
-   * @param worker worker object.
-   * @return workerStatDtoResponse response dto.
-   */
-  private WorkerStatDtoResponse workerToWorkerStatDto(Worker worker) {
-    WorkerStatDtoResponse workerStatDtoResponse = new WorkerStatDtoResponse();
-    workerStatDtoResponse.setId(worker.getId());
-    workerStatDtoResponse.setFirstName(worker.getFirstName());
-    workerStatDtoResponse.setSecondName(worker.getSecondName());
-    workerStatDtoResponse.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
-    workerStatDtoResponse.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
-    return workerStatDtoResponse;
-  }
-
-  /**
-   * Mapper from WorkerAddRequestDto to Worker.
-   *
-   * @param workerAddRequestDto worker request dto.
-   * @return Worker.
-   */
-  private Worker workerAddRequestDtoToWorker(WorkerAddRequestDto workerAddRequestDto) {
-    Worker worker = new Worker();
-    worker.setFirstName(workerAddRequestDto.getFirstName());
-    worker.setSecondName(workerAddRequestDto.getSecondName());
-    worker.setPost(postService.getOneById(workerAddRequestDto.getPostId()));
-    return worker;
-  }
-
-  /**
-   * Mapper from WorkerUpdateRequestDto to Worker.
-   *
-   * @param workerUpdateRequestDto worker request dto.
-   * @return workerStatDtoResponse response dto.
-   */
-  private Worker workerUpdateRequestDtoToWorker(WorkerUpdateRequestDto workerUpdateRequestDto) {
-    Worker worker = new Worker();
-    worker.setId(workerUpdateRequestDto.getId());
-    worker.setFirstName(workerUpdateRequestDto.getFirstName());
-    worker.setSecondName(workerUpdateRequestDto.getSecondName());
-    worker.setPost(postService.getOneById(workerUpdateRequestDto.getPostId()));
-    return worker;
+  public void update(WorkerSaveDto worker) {
+    workerDao.update(modelMapper.map(worker, Worker.class));
   }
 }

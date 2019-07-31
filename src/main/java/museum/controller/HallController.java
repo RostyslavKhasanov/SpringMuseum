@@ -4,7 +4,7 @@ import museum.dto.hall.HallSaveRequest;
 import museum.dto.hall.HallUpdateRequest;
 import museum.dto.hall.HallDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
-import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.worker.WorkerNamesDto;
 import museum.service.HallService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,7 +74,7 @@ public class HallController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addAuthorPage(ModelMap modelMap) {
-    List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
+    List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "hall/addHall";
   }
@@ -84,7 +84,7 @@ public class HallController {
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
     HallDtoResponse hall = service.findById(id);
     modelMap.addAttribute("hall", hall);
-    List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
+    List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "hall/editHall";
   }

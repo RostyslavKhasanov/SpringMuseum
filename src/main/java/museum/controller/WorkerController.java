@@ -1,7 +1,6 @@
 package museum.controller;
 
-import museum.dto.worker.WorkerAddRequestDto;
-import museum.dto.worker.WorkerUpdateRequestDto;
+import museum.dto.worker.WorkerSaveDto;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -32,11 +30,11 @@ public class WorkerController {
   /**
    * Handles request to post worker into db.
    *
-   * @param workerAddRequestDto worker request dto from jsp.
+   * @param workerSaveDto worker request dto from jsp.
    */
   @PostMapping
-  public String save(@Valid @ModelAttribute("workerForm") WorkerAddRequestDto workerAddRequestDto) {
-    workerService.save(workerAddRequestDto);
+  public String save(@Valid @ModelAttribute("workerForm") WorkerSaveDto workerSaveDto) {
+    workerService.save(workerSaveDto);
     return "redirect:/worker";
   }
 
@@ -170,7 +168,7 @@ public class WorkerController {
    * @param dto worker dto from jsp.
    */
   @PostMapping("/update")
-  public String update(@Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto) {
+  public String update(@Valid @ModelAttribute("workerFormUpdate") WorkerSaveDto dto) {
     workerService.update(dto);
     return "redirect:/worker";
   }

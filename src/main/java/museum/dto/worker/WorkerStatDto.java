@@ -11,7 +11,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class WorkerStatDtoResponse {
+public class WorkerStatDto {
 
   private Long id;
 

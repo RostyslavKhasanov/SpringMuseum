@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * DTO for worker post request
+ * DTO for worker update request
  *
  * @author Rostyslav Khasanov
  * @version 1.0
@@ -16,7 +16,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WorkerAddRequestDto {
+public class WorkerSaveDto {
+
+  @NotNull private Long id;
 
   @NotBlank private String firstName;
 

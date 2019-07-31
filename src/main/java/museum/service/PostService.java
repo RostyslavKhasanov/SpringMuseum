@@ -1,7 +1,6 @@
 package museum.service;
 
-import museum.dto.post.PostRequestDto;
-import museum.dto.post.PostResponseDto;
+import museum.dto.post.PostDto;
 import museum.entity.Post;
 
 import java.util.List;
@@ -17,23 +16,23 @@ public interface PostService {
   /**
    * Save post.
    *
-   * @param postRequestDto request dto
+   * @param postDto request dto
    */
-  void save(PostRequestDto postRequestDto);
+  void save(PostDto postDto);
 
   /**
    * Get post by id.
    *
-   * @return PostResponseDto by id.
+   * @return PostDto by id.
    */
-  PostResponseDto findById(Long id);
+  PostDto findById(Long id);
 
   /**
    * Get all posts.
    *
    * @return List of all post.
    */
-  List<PostResponseDto> findAll();
+  List<PostDto> findAll();
 
   /**
    * Get one post by id.

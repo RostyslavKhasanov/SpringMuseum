@@ -1,10 +1,9 @@
 package museum.service;
 
-import museum.dto.worker.WorkerAddRequestDto;
-import museum.dto.worker.WorkerUpdateRequestDto;
-import museum.dto.worker.WorkerDtoResponse;
-import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
-import museum.dto.worker.WorkerStatDtoResponse;
+import museum.dto.worker.WorkerSaveDto;
+import museum.dto.worker.WorkerDto;
+import museum.dto.worker.WorkerNamesDto;
+import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 
 import java.util.List;
@@ -20,16 +19,16 @@ public interface WorkerService {
   /**
    * Save worker.
    *
-   * @param workerAddRequestDto request worker dto.
+   * @param workerSaveDto request worker dto.
    */
-  void save(WorkerAddRequestDto workerAddRequestDto);
+  void save(WorkerSaveDto workerSaveDto);
 
   /**
    * Get all workers.
    *
    * @return List of workerFirstSecondNameDtoResponse;
    */
-  List<WorkerFirstSecondNameDtoResponse> findAll();
+  List<WorkerNamesDto> findAll();
 
   /**
    * Get worker by id.
@@ -37,7 +36,7 @@ public interface WorkerService {
    * @param id worker id.
    * @return worker;
    */
-  Worker findById(Long id);
+  WorkerDto findById(Long id);
 
   /**
    * Get worker id by name.
@@ -52,21 +51,21 @@ public interface WorkerService {
    *
    * @return List of WorkerDtoResponse;
    */
-  List<WorkerDtoResponse> findAllFreeGuide();
+  List<WorkerNamesDto> findAllFreeGuide();
 
   /**
    * Get all guides.
    *
    * @return List of WorkerDtoResponse;
    */
-  List<WorkerDtoResponse> findAllGuide();
+  List<WorkerNamesDto> findAllGuide();
 
   /**
    * Get guides statistic.
    *
    * @return List of WorkerStatDtoResponse;
    */
-  List<WorkerStatDtoResponse> findGuidesStat();
+  List<WorkerStatDto> findGuidesStat();
 
   /**
    * Delete worker by id.
@@ -85,7 +84,7 @@ public interface WorkerService {
   /**
    * Update worker info.
    *
-   * @param workerUpdateRequestDto request worker dto.
+   * @param workerSaveDto request worker dto.
    */
-  void update(WorkerUpdateRequestDto workerUpdateRequestDto);
+  void update(WorkerSaveDto workerSaveDto);
 }

@@ -21,19 +21,9 @@ import java.util.List;
 @NoArgsConstructor
 public class PostDto {
 
-  @NotNull private Long id;
+  private Long id;
 
   @NotBlank private String name;
 
   private List<Worker> workers;
-
-  /**
-   * Constructor for class.
-   *
-   * @param post object of post.
-   */
-  public PostDto(Post post) {
-    this.id = post.getId();
-    this.name = post.getName();
-  }
 }

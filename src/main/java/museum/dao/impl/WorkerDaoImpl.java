@@ -2,7 +2,6 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.WorkerDao;
-import museum.dto.worker.WorkerDtoResponse;
 import museum.entity.Worker;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,13 +49,13 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
    * @return List of free guides.
    */
   @Override
-  public List<WorkerDtoResponse> findAllFreeGuide(LocalDateTime date) {
+  public List<Worker> findAllFreeGuide(LocalDateTime date) {
     String strQuery =
         "select w from  Worker w join Excursion e on e.worker.id = w.id where w.id not in"
             + "(select e.worker.id from Excursion e where e.begin < :date and e.end > :date) group by w.id";
     TypedQuery query = entityManager.createQuery(strQuery, Worker.class).setParameter("date", date);
-    List<WorkerDtoResponse> workerDtoResponses = query.getResultList();
-    return workerDtoResponses;
+    List<Worker> worker = query.getResultList();
+    return worker;
   }
 
   /**
