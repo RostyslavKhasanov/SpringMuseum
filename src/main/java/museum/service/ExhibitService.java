@@ -7,6 +7,7 @@ import museum.dto.exhibit.ExhibitIdInitialsDto;
 import museum.dto.exhibit.ExhibitMaterialStat;
 import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
+import museum.exception.BadIdException;
 
 import java.util.List;
 
@@ -15,13 +16,13 @@ public interface ExhibitService {
 
   List<ExhibitIdInitialsDto> findAll();
 
-  ExhibitFullDto findById(Long id);
+  ExhibitFullDto findById(Long id) throws BadIdException;
 
-  Exhibit getOneById(Long id);
+  Exhibit getOneById(Long id) throws BadIdException;
 
-  void update(ExhibitUpdateDto dto);
+  void update(ExhibitUpdateDto dto) throws BadIdException;
 
-  void deleteById(Long id);
+  void deleteById(Long id) throws BadIdException;
 
   List<ExhibitMaterialStat> getMaterialStat();
 

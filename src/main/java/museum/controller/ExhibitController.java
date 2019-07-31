@@ -1,6 +1,9 @@
 package museum.controller;
 
-import museum.dto.exhibit.*;
+import museum.dto.exhibit.ExhibitMaterialStat;
+import museum.dto.exhibit.ExhibitSaveDto;
+import museum.dto.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.ExhibitUpdateDto;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
@@ -29,16 +32,19 @@ public class ExhibitController {
   /** Method that return all exhibit. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
-    List<ExhibitIdInitialsDto> authors = service.findAll();
-    modelMap.addAttribute("exhibits", authors);
+    modelMap.addAttribute("exhibits", service.findAll());
     return "exhibit/exhibits";
   }
 
   /** Method that return exhibit by id. */
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    ExhibitFullDto exhibit = service.findById(id);
-    modelMap.addAttribute("exhibit", exhibit);
+    try {
+      modelMap.addAttribute("exhibit", service.findById(id));
+    } catch (Exception e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "exhibit/exhibitInfo";
   }
 
@@ -51,15 +57,25 @@ public class ExhibitController {
 
   /** Method that update exhibit. */
   @PostMapping("/update")
-  public String update(@Valid @ModelAttribute ExhibitUpdateDto dto) {
-    service.update(dto);
+  public String update(@Valid @ModelAttribute ExhibitUpdateDto dto, ModelMap modelMap) {
+    try {
+      service.update(dto);
+    } catch (Exception e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/exhibit";
   }
 
   /** Method that delete exhibit by id. */
   @GetMapping("/delete")
-  public String delete(@RequestParam Long id) {
-    service.deleteById(id);
+  public String delete(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      service.deleteById(id);
+    } catch (Exception e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/exhibit";
   }
 
@@ -73,10 +89,14 @@ public class ExhibitController {
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
-    ExhibitFullDto exhibit = service.findById(id);
-    modelMap.addAttribute("exhibit", exhibit);
-    modelMap.addAttribute("authors", authorService.findAll());
-    modelMap.addAttribute("halls", hallService.findAll());
+    try {
+      modelMap.addAttribute("exhibit", service.findById(id));
+      modelMap.addAttribute("authors", authorService.findAll());
+      modelMap.addAttribute("halls", hallService.findAll());
+    } catch (Exception e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "exhibit/editExhibit";
   }
 

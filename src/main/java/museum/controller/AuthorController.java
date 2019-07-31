@@ -1,6 +1,5 @@
 package museum.controller;
 
-import museum.dto.author.AuthorFullDto;
 import museum.dto.author.AuthorIdInitialsDto;
 import museum.dto.author.AuthorInitialsDto;
 import museum.exception.BadIdException;
@@ -11,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Controller for Author logic.
@@ -28,8 +26,7 @@ public class AuthorController {
   /** Method that return all authors. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
-    List<AuthorIdInitialsDto> authors = service.findAll();
-    modelMap.addAttribute("authors", authors);
+    modelMap.addAttribute("authors", service.findAll());
     return "author/authors";
   }
 
@@ -37,8 +34,7 @@ public class AuthorController {
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     try {
-      AuthorFullDto author = service.findById(id);
-      modelMap.addAttribute("author", author);
+      modelMap.addAttribute("author", service.findById(id));
     } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
@@ -55,15 +51,25 @@ public class AuthorController {
 
   /** Method that update author. */
   @PostMapping("/update")
-  public String update(@Valid @ModelAttribute AuthorIdInitialsDto dto) {
-    service.update(dto);
+  public String update(@Valid @ModelAttribute AuthorIdInitialsDto dto, ModelMap modelMap) {
+    try {
+      service.update(dto);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/author";
   }
 
   /** Method that delete author by id. */
   @GetMapping(value = "/delete", params = "id")
-  public String delete(@RequestParam Long id) {
-    service.deleteById(id);
+  public String delete(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      service.deleteById(id);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/author";
   }
 
@@ -76,8 +82,7 @@ public class AuthorController {
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
-    AuthorFullDto author = service.findById(id);
-    modelMap.addAttribute("author", author);
+    findById(id, modelMap);
     return "author/editAuthor";
   }
 }
