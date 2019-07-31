@@ -122,13 +122,8 @@ public class WorkerServiceImpl implements WorkerService {
     List<Worker> workers = workerDao.findAllGuide();
     List<WorkerStatDto> workerStatDto = new ArrayList<>();
     for (Worker worker : workers) {
-      WorkerStatDto workerDto = new WorkerStatDto();
-      modelMapper.map(worker, WorkerStatDto.class);
-      workerDto.setCountOfExcursion(workerDao.findCountOfExcursion(workerDto.getId()));
-      workerDto.setCountOfHour(workerDao.findCountOfHours(workerDto.getId()));
-      workerStatDto.add(workerDto);
+      workerStatDto.add(mapperForStat(worker));
     }
-
     return workerStatDto;
   }
 
@@ -170,5 +165,21 @@ public class WorkerServiceImpl implements WorkerService {
   @Override
   public void update(WorkerSaveDto worker) {
     workerDao.update(modelMapper.map(worker, Worker.class));
+  }
+
+  /**
+   * Mapper from Worker to WorkerStatDto.
+   *
+   * @param worker worker object.
+   * @return workerStatDto response dto.
+   */
+  private WorkerStatDto mapperForStat(Worker worker) {
+    WorkerStatDto workerStatDtoResponse = new WorkerStatDto();
+    workerStatDtoResponse.setId(worker.getId());
+    workerStatDtoResponse.setFirstName(worker.getFirstName());
+    workerStatDtoResponse.setSecondName(worker.getSecondName());
+    workerStatDtoResponse.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
+    workerStatDtoResponse.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
+    return workerStatDtoResponse;
   }
 }
