@@ -2,6 +2,7 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.WorkerDao;
+import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,4 +106,17 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
     Integer count = countB.intValue();
     return count;
   }
+
+//  @Override
+//  public List<WorkerStatDto> findStatWorker() {
+//    List<WorkerStatDto> resultList =
+//        entityManager
+//            .createNativeQuery(
+//                "select sum(hour(timediff(e.begin, e.end))) as countOfHour, count(e) as countOfExcursion from excursion e "
+//                    + "join worker w on w.id = e.worker_id where e.worker_id group by e.worker_id",
+//                WorkerStatDto.class)
+//            .getResultList();
+//
+//    return resultList;
+//  }
 }

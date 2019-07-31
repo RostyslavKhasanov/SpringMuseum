@@ -9,7 +9,6 @@ import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
-import museum.service.PostService;
 import museum.service.WorkerService;
 import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
@@ -123,8 +122,13 @@ public class WorkerServiceImpl implements WorkerService {
     List<Worker> workers = workerDao.findAllGuide();
     List<WorkerStatDto> workerStatDto = new ArrayList<>();
     for (Worker worker : workers) {
-      workerStatDto.add(modelMapper.map(worker, WorkerStatDto.class));
+      WorkerStatDto workerDto = new WorkerStatDto();
+      modelMapper.map(worker, WorkerStatDto.class);
+      workerDto.setCountOfExcursion(workerDao.findCountOfExcursion(workerDto.getId()));
+      workerDto.setCountOfHour(workerDao.findCountOfHours(workerDto.getId()));
+      workerStatDto.add(workerDto);
     }
+
     return workerStatDto;
   }
 

@@ -1,6 +1,7 @@
 package museum.dao;
 
 import museum.dto.worker.WorkerDto;
+import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 
 import java.time.LocalDateTime;
@@ -52,4 +53,6 @@ public interface WorkerDao extends ElementDao<Worker> {
    * @return count of excursion.
    */
   Integer findCountOfHours(Long id);
+
+//  List<WorkerStatDto> findStatWorker();
 }
