@@ -18,8 +18,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class WorkerSaveDto {
 
-  @NotNull private Long id;
-
   @NotBlank private String firstName;
 
   @NotBlank private String secondName;
