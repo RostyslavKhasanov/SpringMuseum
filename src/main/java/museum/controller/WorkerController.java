@@ -33,15 +33,11 @@ public class WorkerController {
    * Handles request to post worker into db.
    *
    * @param workerAddRequestDto worker request dto from jsp.
-   * @param httpServletResponse http response.
    */
   @PostMapping
-  public void save(
-      @Valid @ModelAttribute("workerForm") WorkerAddRequestDto workerAddRequestDto,
-      HttpServletResponse httpServletResponse) {
+  public String save(@Valid @ModelAttribute("workerForm") WorkerAddRequestDto workerAddRequestDto) {
     workerService.save(workerAddRequestDto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+    return "redirect:/worker";
   }
 
   /**
@@ -144,16 +140,14 @@ public class WorkerController {
   }
 
   /**
-   * Handles request to delete worker by id.
+   * Handles request to delete worker by id from DB.
    *
    * @param id worker id.
-   * @param httpServletResponse http response.
    */
   @GetMapping(value = "/delete", params = "id")
-  public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+  public String deleteWorker(@RequestParam Long id) {
     workerService.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+    return "redirect:/worker";
   }
 
   /**
@@ -174,14 +168,10 @@ public class WorkerController {
    * Handles request to update worker information.
    *
    * @param dto worker dto from jsp.
-   * @param httpServletResponse http response.
    */
   @PostMapping("/update")
-  public void update(
-      @Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto,
-      HttpServletResponse httpServletResponse) {
+  public String update(@Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto) {
     workerService.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+    return "redirect:/worker";
   }
 }

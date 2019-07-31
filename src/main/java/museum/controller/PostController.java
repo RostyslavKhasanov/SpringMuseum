@@ -25,15 +25,12 @@ public class PostController {
    * Handles request to post post into db.
    *
    * @param postRequestDto post request dto from jsp.
-   * @param httpServletResponse http response.
    */
   @PostMapping
-  public void save(
-      @Valid @ModelAttribute PostRequestDto postRequestDto,
-      HttpServletResponse httpServletResponse) {
+  public String save(
+      @Valid @ModelAttribute PostRequestDto postRequestDto) {
     postService.save(postRequestDto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+    return "redirect:/worker";
   }
 
   /** Handles request to redirect on addPost page. */
@@ -43,15 +40,13 @@ public class PostController {
   }
 
   /**
-   * Handles request to post worker into db.
+   * Handles request to delete post by id from db.
    *
    * @param id post id.
-   * @param httpServletResponse http response.
    */
   @GetMapping(value = "/delete", params = "id")
-  public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+  public String deleteWorker(@RequestParam Long id) {
     postService.delete(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+    return "redirect:/worker";
   }
 }
