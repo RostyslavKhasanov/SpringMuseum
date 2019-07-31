@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service implementation for Worker entity.
@@ -55,7 +54,7 @@ public class WorkerServiceImpl implements WorkerService {
   @Override
   public List<WorkerNamesDto> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
+    return modelMapper.mapAll(workers, WorkerNamesDto.class);
   }
 
   /**

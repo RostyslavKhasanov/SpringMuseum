@@ -3,9 +3,12 @@ package museum.controller;
 import museum.dto.post.PostDto;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 /**
@@ -23,11 +26,10 @@ public class PostController {
   /**
    * Handles request to post post into db.
    *
-   * @param postRequestDto post request dto from jsp.
+   * @param postDto post request dto from jsp.
    */
   @PostMapping
-  public String save(
-      @Valid @ModelAttribute PostDto postDto) {
+  public String save(@Valid @ModelAttribute PostDto postDto) {
     postService.save(postDto);
     return "redirect:/worker";
   }
@@ -44,8 +46,14 @@ public class PostController {
    * @param id post id.
    */
   @GetMapping(value = "/delete", params = "id")
-  public String deleteWorker(@RequestParam Long id) {
-    postService.delete(id);
-    return "redirect:/worker";
+  public String deleteWorker(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      postService.delete(id);
+      return "redirect:/worker";
+    } catch (JpaSystemException e) {
+      modelMap.addAttribute(
+          "message", "Disable to delete this post, because exist workers with this post!");
+      return "errorMessage";
+    }
   }
 }

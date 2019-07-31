@@ -1,10 +1,12 @@
 package museum.controller;
 
 import museum.dto.worker.WorkerSaveDto;
+import museum.exception.BadIdException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -143,9 +145,17 @@ public class WorkerController {
    * @param id worker id.
    */
   @GetMapping(value = "/delete", params = "id")
-  public String deleteWorker(@RequestParam Long id) {
-    workerService.deleteById(id);
-    return "redirect:/worker";
+  public String deleteWorker(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      workerService.deleteById(id);
+      return "redirect:/worker";
+    } catch (JpaSystemException e) {
+      modelMap.addAttribute("message", "Impossible delete worker!");
+      return "errorMessage";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", "Worker with entered id doesn't exist");
+      return "errorMessage";
+    }
   }
 
   /**
