@@ -10,6 +10,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Mapper for entities.
+ *
+ */
 @Component
 public class ObjectMapperUtils {
 
