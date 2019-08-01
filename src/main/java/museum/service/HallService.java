@@ -1,10 +1,9 @@
 package museum.service;
 
-import museum.dto.request.author.AuthorUpdateDtoRequest;
-import museum.dto.request.hall.HallSaveRequest;
-import museum.dto.request.hall.HallUpdateRequest;
-import museum.dto.response.hall.HallDtoResponse;
-import museum.dto.response.hall.HallIdNameDtoResponse;
+import museum.dto.hall.HallSaveRequest;
+import museum.dto.hall.HallUpdateRequest;
+import museum.dto.hall.HallDtoResponse;
+import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
 
 import java.util.List;

@@ -2,15 +2,13 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.ExcursionDao;
-import museum.dto.response.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

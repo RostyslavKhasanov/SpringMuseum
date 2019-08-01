@@ -16,9 +16,8 @@
     <br>
     <h3>${message}</h3>
     <br>
-    <form>
-        <button type="submit" class="btn btn-primary" value="okay" onClick="javascript:history.go(-1)" />Okay</button>
-    </form>
+        <button type="submit" class="btn btn-primary" value="okay" onClick="window.location.href='/'"/>
+        Okay</button>
 </center>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
