@@ -169,7 +169,7 @@ public class WorkerController {
   public String editWorker(@RequestParam Long id, ModelMap modelMap) {
     modelMap.addAttribute("worker", workerService.findById(id));
     modelMap.addAttribute("posts", postService.findAll());
-    return "worker/editWorker";
+    return "worker/addWorker";
   }
 
   /**

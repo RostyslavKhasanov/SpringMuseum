@@ -16,11 +16,9 @@
             <c:when test="${not empty workers}">
                 <div class="list-group">
                     <c:forEach items="${workers}" var="item">
-
                         <a href="?id=${item.id}"
                            class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}
                         </a>
-
                     </c:forEach>
                 </div>
             </c:when>
