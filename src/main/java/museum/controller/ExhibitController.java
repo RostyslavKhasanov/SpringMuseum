@@ -1,6 +1,6 @@
 package museum.controller;
 
-import museum.dto.exhibit.ExhibitMaterialStat;
+import museum.dto.exhibit.ExhibitMaterialStatDto;
 import museum.dto.exhibit.ExhibitSaveDto;
 import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.dto.exhibit.ExhibitUpdateDto;
@@ -84,7 +84,7 @@ public class ExhibitController {
   public String addExhibitPage(ModelMap modelMap) {
     modelMap.addAttribute("authors", authorService.findAll());
     modelMap.addAttribute("halls", hallService.findAll());
-    return "exhibit/addExhibit";
+    return "exhibit/addAndEditExhibit";
   }
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
@@ -97,13 +97,13 @@ public class ExhibitController {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
-    return "exhibit/editExhibit";
+    return "exhibit/addAndEditExhibit";
   }
 
   /** Method for jsp statistic page. */
   @RequestMapping("/stat")
   public String getStatistic(ModelMap modelMap) {
-    List<ExhibitMaterialStat> exhibitMaterialStats = service.getMaterialStat();
+    List<ExhibitMaterialStatDto> exhibitMaterialStats = service.getMaterialStat();
     modelMap.addAttribute("exhibitMaterialStats", exhibitMaterialStats);
     List<ExhibitTechnologyStat> exhibitTechnologyStats = service.getTechnologyStat();
     modelMap.addAttribute("exhibitTechnologyStats", exhibitTechnologyStats);

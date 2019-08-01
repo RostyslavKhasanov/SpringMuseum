@@ -76,13 +76,13 @@ public class AuthorController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addAuthorPage() {
-    return "author/addAuthor";
+    return "author/addAndEditAuthor";
   }
 
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
     findById(id, modelMap);
-    return "author/editAuthor";
+    return "author/addAndEditAuthor";
   }
 }

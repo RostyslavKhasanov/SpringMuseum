@@ -102,10 +102,10 @@ public class ExhibitServiceImpl implements ExhibitService {
   /**
    * Method that for Exhibit material statistic.
    *
-   * @return List of ExhibitMaterialStat
+   * @return List of ExhibitMaterialStatDto
    */
   @Override
-  public List<ExhibitMaterialStat> getMaterialStat() {
+  public List<ExhibitMaterialStatDto> getMaterialStat() {
     return dao.getMaterialStat();
   }
 

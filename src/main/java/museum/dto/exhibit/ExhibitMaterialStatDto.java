@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExhibitMaterialStat {
+public class ExhibitMaterialStatDto {
   private String materialName;
   private Long materialCount;
 }
