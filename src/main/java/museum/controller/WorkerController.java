@@ -85,7 +85,7 @@ public class WorkerController {
       modelMap.addAttribute("worker", workerService.findById(id));
       modelMap.addAttribute("halls", hallService.findByWorkerId(id));
       return "worker/workerExhibits";
-    } catch (Exception e) {
+    } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -150,7 +150,7 @@ public class WorkerController {
       workerService.deleteById(id);
       return "redirect:/worker";
     } catch (JpaSystemException e) {
-      modelMap.addAttribute("message", "Impossible delete worker!");
+      modelMap.addAttribute("message", "Impossible delete this worker!");
       return "errorMessage";
     } catch (BadIdException e) {
       modelMap.addAttribute("message", "Worker with entered id doesn't exist");

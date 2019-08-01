@@ -74,11 +74,12 @@ public class WorkerServiceImpl implements WorkerService {
    * Get worker id by name.
    *
    * @param name worker name.
+   * @throws BadIdException;
    * @return id of worker;
    */
   @Transactional
   @Override
-  public Long findWorkerIdByName(String name) {
+  public Long findWorkerIdByName(String name) throws BadIdException {
     try {
       return workerDao.findWorkerIdByName(name);
     } catch (NoResultException e) {
