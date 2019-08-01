@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
   User: Katay
@@ -15,9 +16,11 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<a href="/excursion/add" class="btn btn-primary" style="float: right">Add new excursion</a>
+<a href="/excursion/add" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Add new
+    excursion</a> <br><br>
 
-<a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right">Find by period</a>
+<a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Find
+    by period</a>
 
 <div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
      style="max-width: 800px; margin: 30px">
@@ -38,15 +41,18 @@
                         <tbody>
                         <c:forEach items="${excursions}" var="item">
                             <tr>
-                                <th scope="row">${item.id}</th>
-                                <td>${item.begin}</td>
-                                <td>${item.end}</td>
+                                <th >${item.id}</th>
+                                <td>${item.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</td>
+                                <td>${item.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</td>
                                 <td>${item.price}</td>
                                 <td>
                                     <form action="/excursion/delete" style="margin-block-end: 0em;" method="post">
                                         <input type="hidden" name="id" value="${item.id}">
                                         <input type="submit" class="btn btn-outline-danger" value="Delete"/>
                                     </form>
+                                </td>
+                                <td>
+                                    <a href="/excursion/edit?id=${item.id}" class="btn btn-primary">Edit</a>
                                 </td>
                             </tr>
                         </c:forEach>

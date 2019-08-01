@@ -1,6 +1,5 @@
 package museum.dto.request.excursion;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,27 +7,26 @@ import museum.entity.Excursion;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class ExcursionUpdateDtoRequest {
 
   @NotNull private Long id;
 
-  @NotNull private LocalDateTime begin;
+  @NotBlank private String begin;
 
-  @NotNull private LocalDateTime end;
+  @NotBlank private String end;
 
   @NotNull private Double price;
 
   @NotNull private Long workerId;
 
   public ExcursionUpdateDtoRequest(Excursion excursion) {
-    this.begin = excursion.getBegin();
-    this.end = excursion.getEnd();
+    this.id = excursion.getId();
+    this.begin = excursion.getBegin().toString();
+    this.end = excursion.getEnd().toString();
     this.price = excursion.getPrice();
     this.workerId = excursion.getWorker().getId();
   }

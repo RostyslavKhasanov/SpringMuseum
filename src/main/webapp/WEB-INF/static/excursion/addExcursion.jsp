@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Excursion</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -20,19 +20,19 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/excursion/save" method="post" class="col-4" id="workerForm">
+        <form action="/excursion/save" method="post" class="col-4" id="excursionForm">
             <label for="startTime">Start:</label>
-            <input id="startTime" type="datetime-local" name="begin"><br>
+            <input id="startTime" type="datetime-local" name="begin" class="form-control"><br>
             <label for="endTime">End:</label>
-            <input id="endTime" type="datetime-local" name="end"><br>
+            <input id="endTime" type="datetime-local" name="end" class="form-control"><br>
             <label for="price">Price</label>
             <input type="number" value="100" min="0" step="0.1"
-                   data-number-to-fixed="2" data-number-stepfactor="100" class="currency" id="price" name="price" />
-            <select name="workerId" class="custom-select">
+                   data-number-to-fixed="2" data-number-stepfactor="100" id="price"
+                   name="price" class="form-control"/>
+            <select name="workerId" class="custom-select" style="margin-top: 10%">
                 <option selected value="0">Select worker</option>
                 <c:forEach var="worker" items="${workers}">
                     <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
@@ -43,7 +43,6 @@
         </form>
     </div>
 </div>
-
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

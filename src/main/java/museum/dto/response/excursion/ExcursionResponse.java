@@ -3,6 +3,7 @@ package museum.dto.response.excursion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import museum.dto.response.worker.WorkerIdFirstSecondNameDtoResponse;
 import museum.entity.Excursion;
 
 import java.time.LocalDateTime;
@@ -20,17 +21,14 @@ public class ExcursionResponse {
 
     private Double price;
 
-    private String workerFirstName;
-
-    private String workerSecondName;
+    private WorkerIdFirstSecondNameDtoResponse worker;
 
     public ExcursionResponse(Excursion excursion) {
         this.id = excursion.getId();
         this.begin = excursion.getBegin();
         this.end = excursion.getEnd();
         this.price = excursion.getPrice();
-        this.workerFirstName = excursion.getWorker().getFirstName();
-        this.workerSecondName = excursion.getWorker().getSecondName();
+        this.worker = new WorkerIdFirstSecondNameDtoResponse(excursion.getWorker());
     }
 
 }
