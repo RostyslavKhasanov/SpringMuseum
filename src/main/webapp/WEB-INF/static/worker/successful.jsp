@@ -20,7 +20,7 @@
 </body>
 <script>
     setTimeout(function(){
-        window.location.href = "http://localhost:8080/worker";
+        window.location.href = "worker";
     }, 2000);
 </script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

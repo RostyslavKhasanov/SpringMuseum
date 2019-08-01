@@ -60,15 +60,15 @@
 <script>
     function findByName() {
         var fName = document.getElementById("name").value;
-        document.location.href = "http://localhost:8080/worker?name=" + fName;
+        document.location.href = "worker?name=" + fName;
     }
 
     function addPostForm() {
-        document.location.href = "http://localhost:8080/post/add";
+        document.location.href = "post/add";
     }
 
     function redirectToWorkerAddForm() {
-        document.location.href = "http://localhost:8080/worker/add";
+        document.location.href = "worker/add";
     }
 
     function deletePost() {
@@ -77,7 +77,7 @@
         if (strUser == "") {
             alert("Choose one!")
         } else {
-            document.location.href = "http://localhost:8080/post/delete?id=" + strUser;
+            document.location.href = "post/delete?id=" + strUser;
         }
     }
 </script>
