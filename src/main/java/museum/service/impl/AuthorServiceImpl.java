@@ -91,7 +91,6 @@ public class AuthorServiceImpl implements AuthorService {
   @Override
   public void deleteById(Long id) throws BadIdException {
     Boolean isDeleted = dao.deleteById(id);
-
     if (!isDeleted) {
       throw new BadIdException("Author has no row with id " + id);
     }
