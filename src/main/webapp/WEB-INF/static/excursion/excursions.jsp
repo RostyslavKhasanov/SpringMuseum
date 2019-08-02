@@ -48,7 +48,7 @@ style="max-width: 800px; margin: 30px">
                         </div>
                             <div class="worker">
                                 Responsible worker:
-                                <a href="/worker?id=${hall.worker.id}">${hall.worker.firstName} ${hall.worker.secondName}</a>
+                                <a href="/worker?id=${hall.worker.id}">${excursion.worker.firstName} ${excursion.worker.secondName}</a>
                             </div>
 
                     </div>
