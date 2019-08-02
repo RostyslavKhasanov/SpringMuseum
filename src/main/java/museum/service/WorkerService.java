@@ -1,9 +1,6 @@
 package museum.service;
 
-import museum.dto.worker.WorkerSaveDto;
-import museum.dto.worker.WorkerDto;
-import museum.dto.worker.WorkerNamesDto;
-import museum.dto.worker.WorkerStatDto;
+import museum.dto.worker.*;
 import museum.entity.Worker;
 
 import java.util.List;
@@ -84,7 +81,9 @@ public interface WorkerService {
   /**
    * Update worker info.
    *
-   * @param workerSaveDto request worker dto.
+   * @param workerEditDto request worker dto.
    */
-  void update(WorkerSaveDto workerSaveDto);
+  void update(WorkerEditDto workerEditDto);
+
+  List<WorkerNamesDto> filterByName(String pattern);
 }

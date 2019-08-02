@@ -29,11 +29,14 @@
     </div>
     <div class="col-md-2">
         <div class="col-10" id="workerExhibits">
-            <div class="input-group input-group-sm mb-3">
-                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                       placeholder="Surname" id="name" required pattern="^[a-zA-Z]{1,20}$">
-            </div>
-            <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
+            <form>
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                           placeholder="Surname" id="name" required pattern="^[a-zA-Z]{1,20}$"
+                           oninvalid="this.setCustomValidity('only English ')">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
+            </form>
             <br><br>
             <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
             <br><br>

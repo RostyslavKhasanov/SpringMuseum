@@ -2,17 +2,17 @@ package museum.service.impl;
 
 import lombok.AllArgsConstructor;
 import museum.dao.WorkerDao;
-import museum.dto.worker.WorkerSaveDto;
-import museum.dto.worker.WorkerDto;
-import museum.dto.worker.WorkerNamesDto;
-import museum.dto.worker.WorkerStatDto;
+import museum.dto.worker.*;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
+import museum.service.PostService;
 import museum.service.WorkerService;
 import museum.utils.ObjectMapperUtils;
+import org.hibernate.jdbc.Work;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.acl.WorldGroupImpl;
 
 import javax.persistence.NoResultException;
 import java.time.LocalDateTime;
@@ -34,6 +34,8 @@ public class WorkerServiceImpl implements WorkerService {
 
   private ObjectMapperUtils modelMapper;
 
+  private PostService postService;
+
   /**
    * Save worker.
    *
@@ -42,7 +44,9 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public void save(WorkerSaveDto workerSaveDto) {
-    workerDao.save(modelMapper.map(workerSaveDto, Worker.class));
+    Worker worker = modelMapper.map(workerSaveDto, Worker.class);
+    worker.setPost(postService.getOneById(workerSaveDto.getPostId()));
+    workerDao.save(worker);
   }
 
   /**
@@ -159,12 +163,19 @@ public class WorkerServiceImpl implements WorkerService {
   /**
    * Update worker info.
    *
-   * @param worker request worker dto.
+   * @param workerEditDto request worker dto.
    */
   @Transactional
   @Override
-  public void update(WorkerSaveDto worker) {
-    workerDao.update(modelMapper.map(worker, Worker.class));
+  public void update(WorkerEditDto workerEditDto) {
+    Worker worker = modelMapper.map(workerEditDto, Worker.class);
+    worker.setPost(postService.getOneById(workerEditDto.getPostId()));
+    workerDao.update(worker);
+  }
+
+  @Override
+  public List<WorkerNamesDto> filterByName(String name) {
+    return modelMapper.mapAll(workerDao.filterByName(name), WorkerNamesDto.class);
   }
 
   /**

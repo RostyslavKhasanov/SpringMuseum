@@ -1,5 +1,6 @@
 package museum.controller;
 
+import museum.dto.worker.WorkerEditDto;
 import museum.dto.worker.WorkerSaveDto;
 import museum.exception.BadIdException;
 import museum.service.HallService;
@@ -178,8 +179,13 @@ public class WorkerController {
    * @param dto worker dto from jsp.
    */
   @PostMapping("/update")
-  public String update(@Valid @ModelAttribute("workerFormUpdate") WorkerSaveDto dto) {
+  public String update(@Valid @ModelAttribute("workerFormUpdate") WorkerEditDto dto) {
     workerService.update(dto);
     return "redirect:/worker";
   }
+
+//  @GetMapping
+//  public String filterName() {
+//    return "";
+//  }
 }

@@ -107,16 +107,11 @@ public class WorkerDaoImpl extends ElementDaoImpl<Worker> implements WorkerDao {
     return count;
   }
 
-//  @Override
-//  public List<WorkerStatDto> findStatWorker() {
-//    List<WorkerStatDto> resultList =
-//        entityManager
-//            .createNativeQuery(
-//                "select sum(hour(timediff(e.begin, e.end))) as countOfHour, count(e) as countOfExcursion from excursion e "
-//                    + "join worker w on w.id = e.worker_id where e.worker_id group by e.worker_id",
-//                WorkerStatDto.class)
-//            .getResultList();
-//
-//    return resultList;
-//  }
+  @Override
+  public List<Worker> filterByName(String name) {
+    String strQuery = "from Worker where secondName like '% + :name + %'";
+    TypedQuery query = entityManager.createQuery(strQuery, Worker.class).setParameter("name", name);
+    List<Worker> workers = query.getResultList();
+    return workers;
+  }
 }

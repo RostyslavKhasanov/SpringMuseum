@@ -54,5 +54,5 @@ public interface WorkerDao extends ElementDao<Worker> {
    */
   Integer findCountOfHours(Long id);
 
-//  List<WorkerStatDto> findStatWorker();
+  List<Worker> filterByName(String name);
 }
