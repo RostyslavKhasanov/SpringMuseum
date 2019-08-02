@@ -1,8 +1,8 @@
 package museum.service;
 
-import museum.dto.request.excursion.ExcursionSaveDtoRequest;
-import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
-import museum.dto.response.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionSaveDto;
+import museum.dto.excursion.ExcursionUpdateDto;
 import museum.entity.Excursion;
 import museum.exception.BadRequestForInputDate;
 
@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ExcursionService {
 
-  void save(ExcursionSaveDtoRequest excursionSaveDtoRequest);
+  void save(ExcursionSaveDto excursionSaveDto);
 
   List<ExcursionResponse> findAll();
 
@@ -19,7 +19,7 @@ public interface ExcursionService {
 
   Excursion getOneById(Long id);
 
-  void update(ExcursionUpdateDtoRequest excursionUpdateDtoRequest);
+  void update(ExcursionUpdateDto excursionUpdateDto);
 
   void deleteById(Long id);
 

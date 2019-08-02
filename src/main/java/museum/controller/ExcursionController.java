@@ -1,9 +1,10 @@
 package museum.controller;
 
-import museum.dto.request.excursion.ExcursionSaveDtoRequest;
-import museum.dto.request.excursion.ExcursionUpdateDtoRequest;
-import museum.dto.response.excursion.ExcursionResponse;
-import museum.dto.response.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionSaveDto;
+import museum.dto.excursion.ExcursionUpdateDto;
+import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
+import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
@@ -86,9 +87,14 @@ public class ExcursionController {
   /** Method that return excursion by id. */
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    ExcursionResponse excursion = excursionService.findById(id);
-    modelMap.addAttribute("exhibit", excursion);
-    return "excursion/excursionInfo";
+    try {
+      ExcursionResponse excursion = excursionService.findById(id);
+      modelMap.addAttribute("exhibit", excursion);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "excursion/aboutExcursion";
   }
 
   /** Method for jsp edit page. */
@@ -102,21 +108,16 @@ public class ExcursionController {
 
   /** Method that update excursion. */
   @PostMapping("/update")
-  public void update(
-      @Valid @ModelAttribute ExcursionUpdateDtoRequest dto,
-      HttpServletResponse httpServletResponse) {
+  public String update(@Valid @ModelAttribute ExcursionUpdateDto dto) {
     excursionService.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/excursion");
-    httpServletResponse.setStatus(302);
+    return "redirect:/excursion";
   }
 
   /** Method that save new excursion. */
   @PostMapping("/save")
-  public void save(
-      @Valid @ModelAttribute ExcursionSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
+  public String save(@Valid @ModelAttribute ExcursionSaveDto dto) {
     excursionService.save(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/excursion");
-    httpServletResponse.setStatus(302);
+    return "redirect:/excursion";
   }
 
   /** Method for jsp add page. */
@@ -133,9 +134,8 @@ public class ExcursionController {
 
   /** Method that delete excursion. */
   @PostMapping(value = "/delete", params = "id")
-  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+  public String delete(@RequestParam Long id) {
     excursionService.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/excursion");
-    httpServletResponse.setStatus(302);
+    return "redirect:/excursion";
   }
 }

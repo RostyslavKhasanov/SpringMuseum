@@ -1,21 +1,22 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.ExcursionDao;
-import museum.dto.excursion.ExcursionSaveDtoRequest;
-import museum.dto.excursion.ExcursionUpdateDtoRequest;
+import museum.dto.excursion.ExcursionSaveDto;
+import museum.dto.excursion.ExcursionUpdateDto;
 import museum.dto.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
+import museum.utils.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,16 +27,19 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+//@AllArgsConstructor
 public class ExcursionServiceImpl implements ExcursionService {
 
   @Autowired private ExcursionDao excursionDao;
 
   @Autowired private WorkerService workerService;
 
+  private ObjectMapperUtils mapper;
+
   /** Method that save new excursion. */
   @Transactional
   @Override
-  public void save(ExcursionSaveDtoRequest dtoRequest) {
+  public void save(ExcursionSaveDto dtoRequest) {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -44,6 +48,7 @@ public class ExcursionServiceImpl implements ExcursionService {
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
     Excursion excursion = new Excursion();
+    excursion.setDescription(dtoRequest.getDescription());
     excursion.setBegin(begin);
     excursion.setEnd(end);
     excursion.setPrice(dtoRequest.getPrice());
@@ -54,7 +59,7 @@ public class ExcursionServiceImpl implements ExcursionService {
   /** Method that update excursion. */
   @Transactional
   @Override
-  public void update(ExcursionUpdateDtoRequest dtoRequest) {
+  public void update(ExcursionUpdateDto dtoRequest) {
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
@@ -64,6 +69,7 @@ public class ExcursionServiceImpl implements ExcursionService {
 
     Excursion excursion = new Excursion();
     excursion.setId(dtoRequest.getId());
+    excursion.setDescription(dtoRequest.getDescription());
     excursion.setBegin(begin);
     excursion.setEnd(end);
     excursion.setPrice(dtoRequest.getPrice());

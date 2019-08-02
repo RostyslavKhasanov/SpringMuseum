@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
   User: Katay
@@ -22,49 +21,22 @@
 <a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Find
     by period</a>
 
-<div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
-     style="max-width: 800px; margin: 30px">
-    <h2 class="w3-wide">Our excursions:</h2>
-    <c:choose>
-        <c:when test="${not empty excursions}">
-            <div class="list-group">
-                <div class="col-6">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Begin</th>
-                            <th scope="col">End</th>
-                            <th scope="col">Price, UAH</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${excursions}" var="item">
-                            <tr>
-                                <th >${item.id}</th>
-                                <td>${item.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</td>
-                                <td>${item.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</td>
-                                <td>${item.price}</td>
-                                <td>
-                                    <form action="/excursion/delete" style="margin-block-end: 0em;" method="post">
-                                        <input type="hidden" name="id" value="${item.id}">
-                                        <input type="submit" class="btn btn-outline-danger" value="Delete"/>
-                                    </form>
-                                </td>
-                                <td>
-                                    <a href="/excursion/edit?id=${item.id}" class="btn btn-primary">Edit</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <h3 class="w3-wide">not found!</h3>
-        </c:otherwise>
-    </c:choose>
+<c:choose>
+    <c:when test="${not empty excursions}">
+        <div class="list-group">
+            <c:forEach items="${excursions}" var="item">
+
+                <a href="?id=${item.id}"
+                   class="list-group-item list-group-item-action disabled">${item.description}
+                </a>
+
+            </c:forEach>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <h3 class="w3-wide" style="margin: 20px;">Not found any excursions!</h3>
+    </c:otherwise>
+</c:choose>
 </div>
 
 </body>

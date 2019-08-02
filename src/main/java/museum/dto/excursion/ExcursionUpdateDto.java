@@ -1,28 +1,35 @@
 package museum.dto.excursion;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Excursion;
+import museum.utils.ConverterStringToLocalDateTime;
 
+import javax.persistence.Convert;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class ExcursionSaveDtoRequest {
+public class ExcursionUpdateDto {
 
-  @NotNull private String begin;
+  @NotNull private Long id;
 
-  @NotNull private String end;
+  @NotBlank private String description;
+
+  @NotBlank private String begin;
+
+  @NotBlank private String end;
 
   @NotNull private Double price;
 
   @NotNull private Long workerId;
 
-  public ExcursionSaveDtoRequest(Excursion excursion) {
+  public ExcursionUpdateDto(Excursion excursion) {
+    this.id = excursion.getId();
+    this.description = excursion.getDescription();
     this.begin = excursion.getBegin().toString();
     this.end = excursion.getEnd().toString();
     this.price = excursion.getPrice();

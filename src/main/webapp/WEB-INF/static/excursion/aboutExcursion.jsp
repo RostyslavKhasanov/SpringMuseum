@@ -1,50 +1,57 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
-  User: macbookpro
-  Date: 7/17/19
-  Time: 8:25 PM
+  User: Katay
+  Date: 02.08.2019
+  Time: 17:38
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Hall Information</title>
+    <title>Excursion Information</title>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
 
-
 <div class="container">
-    <diw class="row">
+    <div class="row">
+
         <div class="col-1"></div>
-        <div class="info col-10">
-            <div class="name">Name of the hall: ${hall.name}</div>
+
+        <div class="col-10">
+
+            <div class="info">
+                <div>Start: ${excursion.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
+                <div>End: ${excursion.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
+                <div>Price, UAH: ${excursion.price}</div>
+            </div>
             <div class="worker">
                 Responsible worker:
-                <a href="/worker?id=${hall.worker.id}">${hall.worker.firstName} ${hall.worker.secondName}</a>
+                <a href="/worker?id=${excursion.worker.id}">${excursion.worker.firstName} ${excursion.worker.secondName}</a>
             </div>
 
-            <h4>Hall`s exhibits:</h4>
-            <c:forEach items="${hall.exhibits}" var="exhibit">
-                <p><a href="/exhibit?id=${exhibit.id}">${exhibit.name}</a></p>
-            </c:forEach>
         </div>
-        <div class="col-1">
-            <a href="/hall/edit?id=${hall.id}" class="btn btn-primary">Edit</a>
-            <button type="button" class="btn btn-primary" onclick="deleteExhibit(${hall.id})">Delete this
-                hall
+
+
+        <div class="buttons col-1">
+            <a href="/excursion/edit?id=${excursion.id}" class="btn btn-primary">Edit</a>
+
+            <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})">Delete this
+                excursion
             </button>
         </div>
-    </diw>
+
+    </div>
 </div>
 
 </body>
 <script>
-    function deleteExhibit(id) {
-        var isDelete = confirm("Do you really want to delete this hall?");
+    function deleteExcursion(id) {
+        var isDelete = confirm("Do you really want to delete this excursion?");
         if (isDelete) {
-            window.location.href = "http://localhost:8080/hall/delete?id=" + id;
+            window.location.href = "http://localhost:8080/excursion/delete?id=" + id;
         }
     }
 </script>

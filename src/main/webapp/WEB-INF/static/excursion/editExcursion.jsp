@@ -26,6 +26,8 @@
         <div class="col-4"></div>
         <form action="/excursion/update" method="post" class="col-4" id="excursionForm">
             <input type="hidden" name="id" value="${excursion.id}">
+            <input type="text" name="description" class="form-control" placeholder="Description"
+                   style="margin: 6% 0" required pattern="^[a-zA-Z]{1,30}$" value="${excursion.description}">
             <label for="startTime">Start:</label>
             <input id="startTime" type="datetime-local" class="form-control" name="begin" value="${excursion.begin}"/><br>
             <label for="endTime">End:</label>

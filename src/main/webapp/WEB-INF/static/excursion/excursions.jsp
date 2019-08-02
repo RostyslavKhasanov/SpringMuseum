@@ -29,73 +29,63 @@
     by period</a>
 
 <div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
-     style="max-width: 800px; margin: 30px">
-    <h2 class="w3-wide">Excursions in given time period:</h2>
-    <c:choose>
-        <c:when test="${not empty excursions}">
-            <button type="button" id="openModal" class="btn btn-primary">Show statistic</button>
-            <div id="modal">
-                <h5>Count of excursions in given period: ${excursionsStatistic}</h5>
+style="max-width: 800px; margin: 30px">
+<h2 class="w3-wide">Excursions in given time period:</h2>
+<c:choose>
+    <c:when test="${not empty excursions}">
+        <button type="button" id="openModal" class="btn btn-primary">Show statistic</button>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-1"></div>
+
+                    <div class="author-exhibits col-10">
+
+                        <div class="info">
+                            <div>Start: ${excursion.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
+                            <div>End: ${excursion.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
+                            <div>Price, UAH: ${excursion.price}</div>
+                        </div>
+                            <div class="worker">
+                                Responsible worker:
+                                <a href="/worker?id=${hall.worker.id}">${hall.worker.firstName} ${hall.worker.secondName}</a>
+                            </div>
+
+                    </div>
+
+
+            <div class="buttons col-1">
+                <a href="/author/edit?id=${excursion.id}" class="btn btn-primary">Edit</a>
+
+                    <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})">Delete this
+                    excursion
+                    </button>
             </div>
 
-            <div class="list-group">
-                <div class="col-6">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Begin</th>
-                            <th scope="col">End</th>
-                            <th scope="col">Price, UAH</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${excursions}" var="item">
-                            <tr>
-                                <th scope="row">${item.id}</th>
-                                <td>${item.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</td>
-                                <td>${item.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</td>
-                                <td>${item.price}</td>
-                                <td>
-                                    <form action="/excursion/delete" style="margin-block-end: 0em;" method="post">
-                                        <input type="hidden" name="id" value="${item.id}">
-                                        <input type="submit" class="btn btn-outline-danger" value="Delete"/>
-                                    </form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <h3 class="w3-wide">not found!</h3>
-        </c:otherwise>
-    </c:choose>
-</div>
+        </div>
+        </div>
 <script>
-    getInfoAboutCount();
+getInfoAboutCount();
 
-    function getInfoAboutCount() {
+function getInfoAboutCount() {
 
-        var modal = document.getElementById("modal");
+var modal = document.getElementById("modal");
 
-        var btn = document.getElementById("openModal");
+var btn = document.getElementById("openModal");
 
-        btn.onclick = function () {
-            $(modal).slideToggle();
-            modal.style.display = "block";
+btn.onclick = function () {
+        $(modal).slideToggle();
+        modal.style.display = "block";
         };
-    }
-</script>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        }
+        </script>
+        </body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-</html>
+        </html>

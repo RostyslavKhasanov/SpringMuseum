@@ -1,4 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -24,6 +23,8 @@
     <div class="row">
         <div class="col-4"></div>
         <form action="/excursion/save" method="post" class="col-4" id="excursionForm">
+            <input type="text" name="description" class="form-control" placeholder="Description"
+                   style="margin: 6% 0" required pattern="^[a-zA-Z]{1,30}$">
             <label for="startTime">Start:</label>
             <input id="startTime" type="datetime-local" name="begin" class="form-control"><br>
             <label for="endTime">End:</label>

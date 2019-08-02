@@ -11,7 +11,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ExcursionRequestDto {
+public class ExcursionFullDto {
+
+  @NotBlank private String description;
 
   @NotBlank private String begin;
 
