@@ -5,6 +5,7 @@ import museum.dao.ExhibitDao;
 import museum.dto.exhibit.*;
 import museum.entity.Exhibit;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
@@ -29,13 +30,17 @@ public class ExhibitServiceImpl implements ExhibitService {
   private AuthorService authorService;
 
   private HallService hallService;
+
   private ObjectMapperUtils mapper;
 
   /** Method that save new exhibit. */
   @Transactional
   @Override
   public void save(ExhibitSaveDto dto) {
-    dao.save(mapper.map(dto, Exhibit.class));
+    Exhibit exhibit = mapper.map(dto, Exhibit.class);
+    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
+    exhibit.setHall(hallService.getOneById(dto.getHallId()));
+    dao.save(exhibit);
   }
 
   /**
@@ -56,7 +61,7 @@ public class ExhibitServiceImpl implements ExhibitService {
    */
   @Transactional
   @Override
-  public ExhibitFullDto findById(Long id) {
+  public ExhibitFullDto findById(Long id) throws BadIdException {
     Exhibit exhibit = dao.findById(id);
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
@@ -71,7 +76,7 @@ public class ExhibitServiceImpl implements ExhibitService {
    */
   @Transactional
   @Override
-  public Exhibit getOneById(Long id) {
+  public Exhibit getOneById(Long id) throws BadIdException {
     Exhibit exhibit = dao.findById(id);
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
@@ -82,8 +87,11 @@ public class ExhibitServiceImpl implements ExhibitService {
   /** Method that update exhibit. */
   @Transactional
   @Override
-  public void update(ExhibitUpdateDto dto) {
-    Exhibit newExhibit = dao.update(mapper.map(dto, Exhibit.class));
+  public void update(ExhibitUpdateDto dto) throws BadIdException {
+    Exhibit exhibit = mapper.map(dto, Exhibit.class);
+    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
+    exhibit.setHall(hallService.getOneById(dto.getHallId()));
+    Exhibit newExhibit = dao.update(exhibit);
     if (newExhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + dto.getId());
     }
@@ -92,7 +100,8 @@ public class ExhibitServiceImpl implements ExhibitService {
   /** Method that delete exhibit by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws BadIdException, EntityConstraintException {
+
     Boolean isDeleted = dao.deleteById(id);
     if (!isDeleted) {
       throw new BadIdException("Exhibit has no any row with id " + id);

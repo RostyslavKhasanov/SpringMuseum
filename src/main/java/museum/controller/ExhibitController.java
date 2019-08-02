@@ -4,6 +4,7 @@ import museum.dto.exhibit.ExhibitMaterialStatDto;
 import museum.dto.exhibit.ExhibitSaveDto;
 import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.dto.exhibit.ExhibitUpdateDto;
+import museum.exception.BadIdException;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
@@ -41,7 +42,7 @@ public class ExhibitController {
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     try {
       modelMap.addAttribute("exhibit", service.findById(id));
-    } catch (Exception e) {
+    } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -60,7 +61,7 @@ public class ExhibitController {
   public String update(@Valid @ModelAttribute ExhibitUpdateDto dto, ModelMap modelMap) {
     try {
       service.update(dto);
-    } catch (Exception e) {
+    } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -72,7 +73,7 @@ public class ExhibitController {
   public String delete(@RequestParam Long id, ModelMap modelMap) {
     try {
       service.deleteById(id);
-    } catch (Exception e) {
+    } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }

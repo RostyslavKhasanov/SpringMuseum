@@ -7,6 +7,7 @@ import museum.dto.author.AuthorIdInitialsDto;
 import museum.dto.author.AuthorInitialsDto;
 import museum.entity.Author;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.AuthorService;
 import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
@@ -90,6 +91,10 @@ public class AuthorServiceImpl implements AuthorService {
   @Transactional
   @Override
   public void deleteById(Long id) throws BadIdException {
+    Author author = getOneById(id);
+    if (author.getExhibits().size()!=0){
+      throw new EntityConstraintException("You can not delete this author because he is using.");
+    }
     Boolean isDeleted = dao.deleteById(id);
     if (!isDeleted) {
       throw new BadIdException("Author has no row with id " + id);
