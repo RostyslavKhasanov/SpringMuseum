@@ -7,6 +7,8 @@
     <style>
         <%@include file="../../../resources/index.css"%>
     </style>
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
@@ -58,7 +60,9 @@
     </div>
 </div>
 </body>
-<script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script type="text/javascript">
     function findByName() {
         var fName = document.getElementById("name").value;
         var input = document.getElementById("name");
@@ -86,10 +90,17 @@
             document.location.href = "post/delete?id=" + strUser;
         }
     }
+
+    jQuery(function ($) {
+        var data = [];
+        <c:forEach items="${workers}" var="item">
+        data.push("${item.getSecondName()}")
+        </c:forEach>
+        $("#name").autocomplete({
+            source: data
+        });
+    });
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
