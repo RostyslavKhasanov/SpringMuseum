@@ -59,7 +59,7 @@
                     </c:forEach>
                 </select>
                 <br><br>
-                <button type="submit" class="btn btn-primary">Add worker</button>
+                <button type="submit" class="btn btn-primary">Edit</button>
             </form>
         </c:otherwise>
     </c:choose>
