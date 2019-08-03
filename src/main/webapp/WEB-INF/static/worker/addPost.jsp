@@ -17,7 +17,8 @@
     <form action="/post" method="post" class="col-4" id="postForm">
         <h1>New post: </h1>
         <input type="text" name="Name" class="form-control" placeholder="Name" aria-label="Post name"
-               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
+               aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
+               oninvalid="this.setCustomValidity('Only english letters')">
         <br>
         <button type="submit" class="btn btn-primary" value="Add post">Add post</button>
     </form>

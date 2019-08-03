@@ -32,7 +32,7 @@
             <form>
                 <div class="input-group input-group-sm mb-3">
                     <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                           placeholder="Surname" id="name" required pattern="^[a-zA-Z]{1,20}$"
+                           placeholder="Surname" name="name" id="name" required pattern="^[a-zA-Z]{1,20}$"
                            oninvalid="this.setCustomValidity('only English ')">
                 </div>
                 <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
@@ -61,7 +61,12 @@
 <script>
     function findByName() {
         var fName = document.getElementById("name").value;
-        document.location.href = "worker?name=" + fName;
+        var input = document.getElementById("name");
+        if (input.checkValidity()) {
+            document.location.href = "worker?name=" + fName;
+        } else {
+            alert("Enter only eng letters!")
+        }
     }
 
     function addPostForm() {

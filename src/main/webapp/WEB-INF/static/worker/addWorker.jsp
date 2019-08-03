@@ -20,13 +20,16 @@
                 <h1>New worker: </h1>
                 <input type="text" name="firstName" class="form-control" placeholder="first Name"
                        aria-label="First name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
+                       oninvalid="this.setCustomValidity('Only english letters')">
                 <br>
                 <input type="text" name="secondName" class="form-control" placeholder="Second Name"
                        aria-label="Second name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
+                       oninvalid="this.setCustomValidity('Only english letters')">
                 <br>
-                <select name="postId" class="custom-select" id="inputGroupSelect01" required>
+                <select name="postId" class="custom-select" id="inputGroupSelect01" required
+                        oninvalid="this.setCustomValidity('Choose one')">
                     <option selected value="">Input some</option>
                     <c:forEach var="post" items="${posts}" varStatus="rowCounter">
                         <option value="${post.getId()}">${post.getName()}</option>
