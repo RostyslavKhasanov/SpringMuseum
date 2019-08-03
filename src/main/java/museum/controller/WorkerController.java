@@ -3,6 +3,7 @@ package museum.controller;
 import museum.dto.worker.WorkerEditDto;
 import museum.dto.worker.WorkerSaveDto;
 import museum.exception.BadIdException;
+import museum.exception.BadNameException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -86,7 +87,7 @@ public class WorkerController {
       modelMap.addAttribute("worker", workerService.findById(id));
       modelMap.addAttribute("halls", hallService.findByWorkerId(id));
       return "worker/workerExhibits";
-    } catch (BadIdException e) {
+    } catch (BadNameException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
