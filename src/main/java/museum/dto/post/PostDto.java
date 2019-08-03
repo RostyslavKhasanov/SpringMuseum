@@ -6,6 +6,7 @@ import lombok.Setter;
 import museum.entity.Worker;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PostDto {
 
-  private Long id;
+  @NotNull private Long id;
 
   @NotBlank private String name;
 
