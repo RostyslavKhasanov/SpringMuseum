@@ -6,7 +6,6 @@ import lombok.Setter;
 import museum.entity.Worker;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
