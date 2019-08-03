@@ -84,6 +84,4 @@ public interface WorkerService {
    * @param workerEditDto request worker dto.
    */
   void update(WorkerEditDto workerEditDto);
-
-  List<WorkerNamesDto> filterByName(String pattern);
 }

@@ -9,10 +9,8 @@ import museum.exception.BadNameException;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import museum.utils.ObjectMapperUtils;
-import org.hibernate.jdbc.Work;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.security.acl.WorldGroupImpl;
 
 import javax.persistence.NoResultException;
 import java.time.LocalDateTime;
@@ -173,11 +171,6 @@ public class WorkerServiceImpl implements WorkerService {
     workerDao.update(worker);
   }
 
-  @Override
-  public List<WorkerNamesDto> filterByName(String name) {
-    return modelMapper.mapAll(workerDao.filterByName(name), WorkerNamesDto.class);
-  }
-
   /**
    * Mapper from Worker to WorkerStatDto.
    *
@@ -185,10 +178,7 @@ public class WorkerServiceImpl implements WorkerService {
    * @return workerStatDto response dto.
    */
   private WorkerStatDto mapperForStat(Worker worker) {
-    WorkerStatDto workerStatDtoResponse = new WorkerStatDto();
-    workerStatDtoResponse.setId(worker.getId());
-    workerStatDtoResponse.setFirstName(worker.getFirstName());
-    workerStatDtoResponse.setSecondName(worker.getSecondName());
+    WorkerStatDto workerStatDtoResponse = modelMapper.map(worker, WorkerStatDto.class);
     workerStatDtoResponse.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
     workerStatDtoResponse.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
     return workerStatDtoResponse;
