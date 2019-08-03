@@ -3,11 +3,9 @@ package museum.dto.post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import museum.entity.Post;
 import museum.entity.Worker;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**

@@ -5,6 +5,10 @@ import museum.dao.PostDao;
 import museum.entity.Post;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+
 /**
  * DAO implementation for Post entity.
  *
@@ -13,7 +17,21 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class PostDaoImpl extends ElementDaoImpl<Post> implements PostDao {
-    public PostDaoImpl() {
-        super(Post.class);
+  public PostDaoImpl() {
+    super(Post.class);
+  }
+
+  @PersistenceContext private EntityManager entityManager;
+
+  @Override
+  public Post findByName(String name) {
+    String strQuery = "select p from Post p where p.name = :name";
+    TypedQuery query = entityManager.createQuery(strQuery, Post.class).setParameter("name", name);
+    if (query.getResultList().isEmpty()) {
+        return null;
+    } else {
+        Post post = (Post) query.getResultList().get(0);
+        return post;
     }
+  }
 }

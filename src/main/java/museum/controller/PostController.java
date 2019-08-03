@@ -1,6 +1,7 @@
 package museum.controller;
 
 import museum.dto.post.PostDto;
+import museum.exception.PostExistException;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.JpaSystemException;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 /**
@@ -29,9 +29,14 @@ public class PostController {
    * @param postDto post request dto from jsp.
    */
   @PostMapping
-  public String save(@Valid @ModelAttribute PostDto postDto) {
-    postService.save(postDto);
-    return "redirect:/worker";
+  public String save(@Valid @ModelAttribute PostDto postDto, ModelMap modelMap) {
+    try {
+      postService.save(postDto);
+      return "redirect:/worker";
+    } catch (PostExistException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /** Handles request to redirect on addPost page. */

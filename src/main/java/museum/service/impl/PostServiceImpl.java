@@ -5,6 +5,7 @@ import museum.dao.PostDao;
 import museum.dto.post.PostDto;
 import museum.entity.Post;
 import museum.exception.BadIdException;
+import museum.exception.PostExistException;
 import museum.service.PostService;
 import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,11 @@ public class PostServiceImpl implements PostService {
   @Transactional
   @Override
   public void save(PostDto postDto) {
-    postDao.save(modelMapper.map(postDto, Post.class));
+    if (postDao.findByName(postDto.getName()) == null) {
+      postDao.save(modelMapper.map(postDto, Post.class));
+    } else {
+      throw new PostExistException("Post is already exist!  ");
+    }
   }
 
   /**
