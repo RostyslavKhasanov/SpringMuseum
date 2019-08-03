@@ -23,6 +23,12 @@ public class PostDaoImpl extends ElementDaoImpl<Post> implements PostDao {
 
   @PersistenceContext private EntityManager entityManager;
 
+    /**
+     * Get post by name.
+     *
+     * @param name post name.
+     * @return Post.
+     */
   @Override
   public Post findByName(String name) {
     String strQuery = "select p from Post p where p.name = :name";
