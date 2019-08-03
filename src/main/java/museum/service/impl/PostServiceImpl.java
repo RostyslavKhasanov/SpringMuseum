@@ -3,6 +3,7 @@ package museum.service.impl;
 import lombok.AllArgsConstructor;
 import museum.dao.PostDao;
 import museum.dto.post.PostDto;
+import museum.dto.post.PostSaveDto;
 import museum.entity.Post;
 import museum.exception.BadIdException;
 import museum.exception.PostExistException;
@@ -30,13 +31,13 @@ public class PostServiceImpl implements PostService {
   /**
    * Save post.
    *
-   * @param postDto request dto
+   * @param postSaveDto request dto
    */
   @Transactional
   @Override
-  public void save(PostDto postDto) {
-    if (postDao.findByName(postDto.getName()) == null) {
-      postDao.save(modelMapper.map(postDto, Post.class));
+  public void save(PostSaveDto postSaveDto) {
+    if (postDao.findByName(postSaveDto.getName()) == null) {
+      postDao.save(modelMapper.map(postSaveDto, Post.class));
     } else {
       throw new PostExistException("Post is already exist!  ");
     }

@@ -1,6 +1,7 @@
 package museum.service;
 
 import museum.dto.post.PostDto;
+import museum.dto.post.PostSaveDto;
 import museum.entity.Post;
 
 import java.util.List;
@@ -16,9 +17,9 @@ public interface PostService {
   /**
    * Save post.
    *
-   * @param postDto request dto
+   * @param postSaveDto request dto
    */
-  void save(PostDto postDto);
+  void save(PostSaveDto postSaveDto);
 
   /**
    * Get post by id.

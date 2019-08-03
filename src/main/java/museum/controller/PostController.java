@@ -1,6 +1,7 @@
 package museum.controller;
 
 import museum.dto.post.PostDto;
+import museum.dto.post.PostSaveDto;
 import museum.exception.PostExistException;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +27,12 @@ public class PostController {
   /**
    * Handles request to post post into db.
    *
-   * @param postDto post request dto from jsp.
+   * @param postSaveDto post request dto from jsp.
    */
   @PostMapping
-  public String save(@Valid @ModelAttribute PostDto postDto, ModelMap modelMap) {
+  public String save(@Valid @ModelAttribute PostSaveDto postSaveDto, ModelMap modelMap) {
     try {
-      postService.save(postDto);
+      postService.save(postSaveDto);
       return "redirect:/worker";
     } catch (PostExistException e) {
       modelMap.addAttribute("message", e.getMessage());
