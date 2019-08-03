@@ -183,9 +183,4 @@ public class WorkerController {
     workerService.update(dto);
     return "redirect:/worker";
   }
-
-//  @GetMapping
-//  public String filterName() {
-//    return "";
-//  }
 }
