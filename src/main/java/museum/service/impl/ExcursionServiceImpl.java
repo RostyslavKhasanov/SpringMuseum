@@ -1,5 +1,6 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.ExcursionDao;
 import museum.dto.excursion.ExcursionFullDto;
 import museum.dto.excursion.ExcursionIdNameDto;
@@ -10,7 +11,6 @@ import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,11 +26,12 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class ExcursionServiceImpl implements ExcursionService {
 
-  @Autowired private ExcursionDao excursionDao;
+  private ExcursionDao excursionDao;
 
-  @Autowired private WorkerService workerService;
+  private WorkerService workerService;
 
   /** Method that save new excursion. */
   @Transactional

@@ -1,5 +1,6 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.HallDao;
 import museum.dto.hall.HallSaveRequest;
 import museum.dto.hall.HallUpdateRequest;
@@ -10,7 +11,6 @@ import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
 import museum.service.HallService;
 import museum.service.WorkerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +24,12 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class HallServiceImpl implements HallService {
 
-  @Autowired private HallDao dao;
-  @Autowired private WorkerService workerService;
+  private HallDao dao;
+
+  private WorkerService workerService;
 
   /** Method that save new hall. */
   @Transactional
