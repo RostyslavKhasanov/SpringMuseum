@@ -40,7 +40,7 @@
                            id="price1"
                            name="price" aria-label="Price" class="form-control" required/>
                     <select name="workerId" required class="custom-select" style="margin-top: 10%">
-                        <option selected value="0">Select worker</option>
+                        <option selected value="">Select worker</option>
                         <c:forEach var="worker" items="${workers}">
                             <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
                         </c:forEach>
