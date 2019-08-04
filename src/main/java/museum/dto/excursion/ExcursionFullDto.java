@@ -6,6 +6,12 @@ import lombok.Setter;
 import museum.dto.worker.WorkerNamesDto;
 import museum.entity.Excursion;
 
+/**
+ * DTO for Excursion response.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +29,11 @@ public class ExcursionFullDto {
 
   private WorkerNamesDto worker;
 
+  /**
+   * Constructor for class.
+   *
+   * @param excursion object of post.
+   */
   public ExcursionFullDto(Excursion excursion) {
     this.id = excursion.getId();
     this.description = excursion.getDescription();

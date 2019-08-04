@@ -41,7 +41,6 @@ public class ExcursionServiceImpl implements ExcursionService {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
-
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
     excursionDao.save(
@@ -61,7 +60,6 @@ public class ExcursionServiceImpl implements ExcursionService {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
-
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
     Excursion excursion =
@@ -85,7 +83,7 @@ public class ExcursionServiceImpl implements ExcursionService {
   /**
    * Method that return all excursion dto.
    *
-   * @return List of ExcursionFullDto.
+   * @return List of ExcursionIdNameDto.
    */
   @Transactional
   @Override
@@ -98,7 +96,7 @@ public class ExcursionServiceImpl implements ExcursionService {
   /**
    * Method that return excursion by id.
    *
-   * @return Excursion - this is entity.
+   * @return ExcursionFullDto - this is dto.
    */
   @Transactional
   @Override
@@ -114,6 +112,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    * Method that return excursion by id.
    *
    * @return Excursion - entity.
+   * @exception BadIdException
    */
   @Transactional
   @Override
@@ -125,7 +124,10 @@ public class ExcursionServiceImpl implements ExcursionService {
     return excursion;
   }
 
-  /** Method that delete excursion by id. */
+  /** Method that delete excursion by id.
+   *
+   * @exception BadIdException
+   */
   @Transactional
   @Override
   public void deleteById(Long id) throws BadIdException {
@@ -163,7 +165,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    *
    * @param begin start of time slot to search in
    * @param end end of time slot to search in
-   * @return int count
+   * @return int count of excursions.
    */
   @Transactional
   @Override

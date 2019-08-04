@@ -55,6 +55,7 @@ public class HallServiceImpl implements HallService {
    * Method that return hall by id.
    *
    * @return HallDtoResponse.
+   * @exception BadIdException
    */
   @Transactional
   @Override
@@ -70,6 +71,7 @@ public class HallServiceImpl implements HallService {
    * Method that return hall by id.
    *
    * @return Hall - entity.
+   * @exception BadIdException
    */
   @Transactional
   @Override
@@ -81,7 +83,10 @@ public class HallServiceImpl implements HallService {
     return hall;
   }
 
-  /** Method that update hall. */
+  /** Method that update hall.
+   *
+   * @exception BadIdException
+   */
   @Transactional
   @Override
   public void update(HallUpdateRequest dto) {
@@ -96,7 +101,10 @@ public class HallServiceImpl implements HallService {
     }
   }
 
-  /** Method that delete hall by id. */
+  /** Method that delete hall by id.
+   *
+   * @exception EntityConstraintException
+   */
   @Transactional
   @Override
   public void deleteById(Long id) throws BadIdException{

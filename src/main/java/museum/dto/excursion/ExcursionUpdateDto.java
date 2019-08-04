@@ -7,6 +7,12 @@ import museum.entity.Excursion;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * DTO for Excursion request for updating.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,6 +30,11 @@ public class ExcursionUpdateDto {
 
   @NotNull private Long workerId;
 
+  /**
+   * Constructor for class.
+   *
+   * @param excursion object of post.
+   */
   public ExcursionUpdateDto(Excursion excursion) {
     this.id = excursion.getId();
     this.description = excursion.getDescription();
