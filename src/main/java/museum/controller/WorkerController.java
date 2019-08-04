@@ -4,6 +4,7 @@ import museum.dto.worker.WorkerEditDto;
 import museum.dto.worker.WorkerSaveDto;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
+import museum.exception.EntityConstraintException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -151,11 +152,8 @@ public class WorkerController {
     try {
       workerService.deleteById(id);
       return "redirect:/worker";
-    } catch (JpaSystemException e) {
-      modelMap.addAttribute("message", "Impossible delete this worker!");
-      return "errorMessage";
-    } catch (BadIdException e) {
-      modelMap.addAttribute("message", "Worker with entered id doesn't exist");
+    } catch (EntityConstraintException e) {
+      modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
   }

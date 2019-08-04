@@ -6,6 +6,7 @@ import museum.dto.worker.*;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
+import museum.exception.EntityConstraintException;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.stereotype.Service;
@@ -140,9 +141,12 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public void deleteById(Long id) {
-    Boolean isDeleted = workerDao.deleteById(id);
-    if (!isDeleted) {
-      throw new BadIdException("Worker with entered id doesn't exist");
+    Worker worker = workerDao.findById(id);
+    if ((worker.getHalls().size() != 0) || (worker.getExcursions().size() != 0)) {
+      throw new EntityConstraintException(
+          "You can not delete this worker because he have some responsibility!");
+    } else {
+      workerDao.deleteById(id);
     }
   }
 
@@ -162,8 +166,8 @@ public class WorkerServiceImpl implements WorkerService {
   }
 
   /**
-   * Update worker info.
-   *s
+   * Update worker info. s
+   *
    * @param workerEditDto request worker dto.
    */
   @Transactional
