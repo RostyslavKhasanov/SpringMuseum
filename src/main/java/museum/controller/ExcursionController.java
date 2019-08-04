@@ -97,7 +97,7 @@ public class ExcursionController {
     ExcursionFullDto excursion = excursionService.findById(id);
     modelMap.addAttribute("excursion", excursion);
     modelMap.addAttribute("workers", workerService.findAll());
-    return "excursion/editExcursion";
+    return "excursion/addAndEditExcursion";
   }
 
   /** Method that update excursion. */
@@ -124,7 +124,7 @@ public class ExcursionController {
   public String addExcursionPage(ModelMap modelMap) {
     List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
-    return "excursion/addExcursion";
+    return "excursion/addAndEditExcursion";
   }
 
   /** Method that delete excursion. */

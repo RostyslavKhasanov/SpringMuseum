@@ -1,6 +1,5 @@
 package museum.service.impl;
 
-import lombok.AllArgsConstructor;
 import museum.dao.HallDao;
 import museum.dto.hall.HallSaveRequest;
 import museum.dto.hall.HallUpdateRequest;
@@ -8,6 +7,7 @@ import museum.dto.hall.HallDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.HallService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,10 +98,11 @@ public class HallServiceImpl implements HallService {
   @Transactional
   @Override
   public void deleteById(Long id) throws BadIdException{
-    Boolean isDeleted = dao.deleteById(id);
-    if (!isDeleted) {
-      throw new BadIdException("Hall has no row with id " + id);
+    Hall hall = getOneById(id);
+    if (hall.getExhibits().size() != 0) {
+      throw new EntityConstraintException("You can not delete this hall because it is using.");
     }
+    dao.deleteById(id);
   }
 
   /** Method that find hall by worker id. */

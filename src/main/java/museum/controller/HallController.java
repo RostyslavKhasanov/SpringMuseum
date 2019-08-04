@@ -6,6 +6,7 @@ import museum.dto.hall.HallSaveRequest;
 import museum.dto.hall.HallUpdateRequest;
 import museum.dto.worker.WorkerNamesDto;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.HallService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class HallController {
   public String delete(@RequestParam Long id, ModelMap modelMap) {
     try {
       service.deleteById(id);
-    } catch (BadIdException e) {
+    } catch (BadIdException | EntityConstraintException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -80,7 +81,7 @@ public class HallController {
   public String addAuthorPage(ModelMap modelMap) {
     List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
-    return "hall/addHall";
+    return "hall/addAndEditHall";
   }
 
   /** Method that update author page. */
@@ -90,6 +91,6 @@ public class HallController {
     modelMap.addAttribute("hall", hall);
     List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
-    return "hall/editHall";
+    return "hall/addAndEditHall";
   }
 }
