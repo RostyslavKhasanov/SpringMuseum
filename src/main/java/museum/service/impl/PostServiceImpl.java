@@ -50,9 +50,13 @@ public class PostServiceImpl implements PostService {
    */
   @Transactional
   @Override
-  public PostDto findById(Long id) {
+  public PostDto findById(Long id) throws BadIdException {
     PostDto postDto = new PostDto(postDao.findById(id));
-    return postDto;
+    if (postDto == null) {
+      throw new BadIdException("Worker with id " + id + " doesn't exist!");
+    } else {
+      return postDto;
+    }
   }
 
   /**
@@ -90,7 +94,7 @@ public class PostServiceImpl implements PostService {
    */
   @Transactional
   @Override
-  public void delete(Long id) {
+  public void delete(Long id) throws EntityConstraintException {
     Post post = postDao.findById(id);
     if (post.getWorkers().size() != 0) {
       throw new EntityConstraintException(
