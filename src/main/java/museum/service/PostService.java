@@ -3,6 +3,8 @@ package museum.service;
 import museum.dto.post.PostDto;
 import museum.dto.post.PostSaveDto;
 import museum.entity.Post;
+import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 
 import java.util.List;
 
@@ -48,5 +50,5 @@ public interface PostService {
    *
    * @param id post id
    */
-  void delete(Long id);
+  void delete(Long id) throws EntityConstraintException;
 }
