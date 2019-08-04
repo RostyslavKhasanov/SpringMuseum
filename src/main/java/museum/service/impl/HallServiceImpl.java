@@ -6,11 +6,9 @@ import museum.dto.hall.HallUpdateRequest;
 import museum.dto.hall.HallDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
-import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.service.HallService;
 import museum.service.WorkerService;
-import museum.utils.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +27,6 @@ public class HallServiceImpl implements HallService {
 
   @Autowired private HallDao dao;
   @Autowired private WorkerService workerService;
-  @Autowired private ObjectMapperUtils modelMapper;
 
   /** Method that save new hall. */
   @Transactional
@@ -37,7 +34,7 @@ public class HallServiceImpl implements HallService {
   public void save(HallSaveRequest dto) {
     Hall hall = new Hall();
     hall.setName(dto.getName());
-    hall.setWorker(modelMapper.map(workerService.findById(dto.getWorkerId()), Worker.class));
+    hall.setWorker(workerService.getOneById(dto.getWorkerId()));
     dao.save(hall);
   }
 
@@ -89,7 +86,7 @@ public class HallServiceImpl implements HallService {
     Hall hall = new Hall();
     hall.setId(dto.getId());
     hall.setName(dto.getName());
-    hall.setWorker(modelMapper.map(workerService.findById(dto.getWorkerId()), Worker.class));
+    hall.setWorker(workerService.getOneById(dto.getWorkerId()));
     Hall newHall = dao.update(hall);
     if (newHall == null) {
       throw new BadIdException("Hall has no row with id " + dto.getId());

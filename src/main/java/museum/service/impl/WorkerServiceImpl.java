@@ -8,7 +8,6 @@ import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.service.PostService;
 import museum.service.WorkerService;
-import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service implementation for Worker entity.
@@ -30,8 +30,6 @@ public class WorkerServiceImpl implements WorkerService {
 
   private WorkerDao workerDao;
 
-  private ObjectMapperUtils modelMapper;
-
   private PostService postService;
 
   /**
@@ -42,21 +40,24 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public void save(WorkerSaveDto workerSaveDto) {
-    Worker worker = modelMapper.map(workerSaveDto, Worker.class);
-    worker.setPost(postService.getOneById(workerSaveDto.getPostId()));
-    workerDao.save(worker);
+    workerDao.save(
+        Worker.builder()
+            .firstName(workerSaveDto.getFirstName())
+            .secondName(workerSaveDto.getSecondName())
+            .post(postService.getOneById(workerSaveDto.getPostId()))
+            .build());
   }
 
   /**
    * Get all workers.
    *
-   * @return List of workerFirstSecondNameDtoResponse;
+   * @return List of WorkerNamesDto;
    */
   @Transactional
   @Override
   public List<WorkerNamesDto> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return modelMapper.mapAll(workers, WorkerNamesDto.class);
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -68,7 +69,7 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public WorkerDto findById(Long id) {
-    WorkerDto workerDto = modelMapper.map(workerDao.findById(id), WorkerDto.class);
+    WorkerDto workerDto = new WorkerDto(workerDao.findById(id));
     return workerDto;
   }
 
@@ -99,18 +100,20 @@ public class WorkerServiceImpl implements WorkerService {
   public List<WorkerNamesDto> findAllFreeGuide() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     LocalDateTime dateTime = LocalDateTime.now();
-    return modelMapper.mapAll(workerDao.findAllFreeGuide(dateTime), WorkerNamesDto.class);
+    List<Worker> workers = workerDao.findAllFreeGuide(dateTime);
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
    * Get all guides.
    *
-   * @return List of WorkerDtoResponse;
+   * @return List of WorkerNamesDto;
    */
   @Transactional
   @Override
   public List<WorkerNamesDto> findAllGuide() {
-    return modelMapper.mapAll(workerDao.findAllGuide(), WorkerNamesDto.class);
+    List<Worker> workers = workerDao.findAllGuide();
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -166,9 +169,13 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public void update(WorkerEditDto workerEditDto) {
-    Worker worker = modelMapper.map(workerEditDto, Worker.class);
-    worker.setPost(postService.getOneById(workerEditDto.getPostId()));
-    workerDao.update(worker);
+    workerDao.update(
+        Worker.builder()
+            .id(workerEditDto.getId())
+            .firstName(workerEditDto.getFirstName())
+            .secondName(workerEditDto.getSecondName())
+            .post(postService.getOneById(workerEditDto.getPostId()))
+            .build());
   }
 
   /**
@@ -178,9 +185,11 @@ public class WorkerServiceImpl implements WorkerService {
    * @return workerStatDto response dto.
    */
   private WorkerStatDto mapperForStat(Worker worker) {
-    WorkerStatDto workerStatDtoResponse = modelMapper.map(worker, WorkerStatDto.class);
-    workerStatDtoResponse.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
-    workerStatDtoResponse.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
-    return workerStatDtoResponse;
+    WorkerStatDto workerStat = new WorkerStatDto();
+    workerStat.setFirstName(worker.getFirstName());
+    workerStat.setSecondName(worker.getSecondName());
+    workerStat.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
+    workerStat.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
+    return workerStat;
   }
 }
