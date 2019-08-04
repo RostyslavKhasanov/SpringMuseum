@@ -14,7 +14,7 @@
     <div class="col-4"></div>
     <div class="col-4" align="center">
         <c:choose>
-            <c:when test="${worker.id == null}">
+            <c:when test="${not empty halls}">
                 <br><br>
                 <h4>Exhibits of <a
                         href="/worker?id=${worker.id}">${(worker.getFirstName())} ${(worker.getSecondName())}</a></h4>
