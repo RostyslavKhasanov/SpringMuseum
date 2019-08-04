@@ -1,16 +1,18 @@
 package museum.controller;
 
-import museum.dto.worker.WorkerAddRequestDto;
-import museum.dto.worker.WorkerUpdateRequestDto;
+import museum.dto.worker.WorkerEditDto;
+import museum.dto.worker.WorkerSaveDto;
+import museum.exception.BadIdException;
+import museum.exception.BadNameException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -32,16 +34,12 @@ public class WorkerController {
   /**
    * Handles request to post worker into db.
    *
-   * @param workerAddRequestDto worker request dto from jsp.
-   * @param httpServletResponse http response.
+   * @param workerSaveDto worker request dto from jsp.
    */
   @PostMapping
-  public void save(
-      @Valid @ModelAttribute("workerForm") WorkerAddRequestDto workerAddRequestDto,
-      HttpServletResponse httpServletResponse) {
-    workerService.save(workerAddRequestDto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+  public String save(@Valid @ModelAttribute("workerForm") WorkerSaveDto workerSaveDto) {
+    workerService.save(workerSaveDto);
+    return "redirect:/worker";
   }
 
   /**
@@ -89,7 +87,7 @@ public class WorkerController {
       modelMap.addAttribute("worker", workerService.findById(id));
       modelMap.addAttribute("halls", hallService.findByWorkerId(id));
       return "worker/workerExhibits";
-    } catch (Exception e) {
+    } catch (BadNameException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -144,16 +142,22 @@ public class WorkerController {
   }
 
   /**
-   * Handles request to delete worker by id.
+   * Handles request to delete worker by id from DB.
    *
    * @param id worker id.
-   * @param httpServletResponse http response.
    */
   @GetMapping(value = "/delete", params = "id")
-  public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
-    workerService.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+  public String deleteWorker(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      workerService.deleteById(id);
+      return "redirect:/worker";
+    } catch (JpaSystemException e) {
+      modelMap.addAttribute("message", "Impossible delete this worker!");
+      return "errorMessage";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", "Worker with entered id doesn't exist");
+      return "errorMessage";
+    }
   }
 
   /**
@@ -167,21 +171,17 @@ public class WorkerController {
   public String editWorker(@RequestParam Long id, ModelMap modelMap) {
     modelMap.addAttribute("worker", workerService.findById(id));
     modelMap.addAttribute("posts", postService.findAll());
-    return "worker/editWorker";
+    return "worker/addWorker";
   }
 
   /**
    * Handles request to update worker information.
    *
    * @param dto worker dto from jsp.
-   * @param httpServletResponse http response.
    */
   @PostMapping("/update")
-  public void update(
-      @Valid @ModelAttribute("workerFormUpdate") WorkerUpdateRequestDto dto,
-      HttpServletResponse httpServletResponse) {
+  public String update(@Valid @ModelAttribute("workerFormUpdate") WorkerEditDto dto) {
     workerService.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+    return "redirect:/worker";
   }
 }

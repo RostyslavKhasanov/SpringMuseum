@@ -27,13 +27,9 @@ public class PostDto {
 
   private List<Worker> workers;
 
-  /**
-   * Constructor for class.
-   *
-   * @param post object of post.
-   */
   public PostDto(Post post) {
     this.id = post.getId();
     this.name = post.getName();
+    this.workers = post.getWorkers();
   }
 }

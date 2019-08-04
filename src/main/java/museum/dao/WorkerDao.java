@@ -1,6 +1,7 @@
 package museum.dao;
 
-import museum.dto.worker.WorkerDtoResponse;
+import museum.dto.worker.WorkerDto;
+import museum.dto.worker.WorkerStatDto;
 import museum.entity.Worker;
 
 import java.time.LocalDateTime;
@@ -28,7 +29,7 @@ public interface WorkerDao extends ElementDao<Worker> {
    * @param date current date-time value.
    * @return List of free guides.
    */
-  List<WorkerDtoResponse> findAllFreeGuide(LocalDateTime date);
+  List<Worker> findAllFreeGuide(LocalDateTime date);
 
   /**
    * Gets all guides.
@@ -52,4 +53,6 @@ public interface WorkerDao extends ElementDao<Worker> {
    * @return count of excursion.
    */
   Integer findCountOfHours(Long id);
+
+  List<Worker> filterByName(String name);
 }

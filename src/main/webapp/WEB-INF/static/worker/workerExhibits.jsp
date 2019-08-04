@@ -10,14 +10,21 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="card">
-    <h6>Exhibits of ${(worker.getFirstName())} ${(worker.getSecondName())} :</h6>
-    <br>
-    <c:forEach items="${halls}" var="item">
-        <c:forEach items="${item.getExhibits()}" var="item1">
-            <h6>${(item1.getName())}</h6>
-        </c:forEach>
-    </c:forEach>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4"  align="center">
+        <br><br>
+        <h4>Exhibits of <a href="/worker?id=${worker.id}">${(worker.getFirstName())} ${(worker.getSecondName())}</a></h4>
+        <br>
+        <div>
+            <c:forEach items="${halls}" var="item">
+                <c:forEach items="${item.getExhibits()}" var="item1">
+                    <h6>${(item1.getName())}</h6>
+                </c:forEach>
+            </c:forEach>
+        </div>
+        <div class="col-4"></div>
+    </div>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

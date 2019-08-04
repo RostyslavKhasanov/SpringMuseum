@@ -34,7 +34,7 @@ public class HallServiceImpl implements HallService {
   public void save(HallSaveRequest dto) {
     Hall hall = new Hall();
     hall.setName(dto.getName());
-    hall.setWorker(workerService.findById(dto.getWorkerId()));
+    hall.setWorker(workerService.getOneById(dto.getWorkerId()));
     dao.save(hall);
   }
 
@@ -86,7 +86,7 @@ public class HallServiceImpl implements HallService {
     Hall hall = new Hall();
     hall.setId(dto.getId());
     hall.setName(dto.getName());
-    hall.setWorker(workerService.findById(dto.getWorkerId()));
+    hall.setWorker(workerService.getOneById(dto.getWorkerId()));
     Hall newHall = dao.update(hall);
     if (newHall == null) {
       throw new BadIdException("Hall has no row with id " + dto.getId());

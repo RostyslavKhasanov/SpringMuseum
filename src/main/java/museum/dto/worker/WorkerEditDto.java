@@ -7,18 +7,12 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-/**
- * DTO for worker update request
- *
- * @author Rostyslav Khasanov
- * @version 1.0
- */
 @Getter
 @Setter
 @NoArgsConstructor
-public class WorkerUpdateRequestDto {
+public class WorkerEditDto {
 
-  @NotNull private Long id;
+  private Long id;
 
   @NotBlank private String firstName;
 

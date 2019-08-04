@@ -1,17 +1,13 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.WorkerDao;
-import museum.dto.worker.WorkerAddRequestDto;
-import museum.dto.worker.WorkerUpdateRequestDto;
-import museum.dto.worker.WorkerDtoResponse;
-import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
-import museum.dto.worker.WorkerStatDtoResponse;
+import museum.dto.worker.*;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.service.PostService;
 import museum.service.WorkerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,33 +25,39 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class WorkerServiceImpl implements WorkerService {
 
-  @Autowired private WorkerDao workerDao;
+  private WorkerDao workerDao;
 
-  @Autowired private PostService postService;
+  private PostService postService;
 
   /**
    * Save worker.
    *
-   * @param workerAddRequestDto request worker dto.
+   * @param workerSaveDto request worker dto.
    */
   @Transactional
   @Override
-  public void save(WorkerAddRequestDto workerAddRequestDto) {
-    workerDao.save(workerAddRequestDtoToWorker(workerAddRequestDto));
+  public void save(WorkerSaveDto workerSaveDto) {
+    workerDao.save(
+        Worker.builder()
+            .firstName(workerSaveDto.getFirstName())
+            .secondName(workerSaveDto.getSecondName())
+            .post(postService.getOneById(workerSaveDto.getPostId()))
+            .build());
   }
 
   /**
    * Get all workers.
    *
-   * @return List of workerFirstSecondNameDtoResponse;
+   * @return List of WorkerNamesDto;
    */
   @Transactional
   @Override
-  public List<WorkerFirstSecondNameDtoResponse> findAll() {
+  public List<WorkerNamesDto> findAll() {
     List<Worker> workers = workerDao.findAll();
-    return workers.stream().map(WorkerFirstSecondNameDtoResponse::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -66,20 +68,21 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public Worker findById(Long id) {
-    Worker worker = workerDao.findById(id);
-    return worker;
+  public WorkerDto findById(Long id) {
+    WorkerDto workerDto = new WorkerDto(workerDao.findById(id));
+    return workerDto;
   }
 
   /**
    * Get worker id by name.
    *
    * @param name worker name.
+   * @throws BadIdException;
    * @return id of worker;
    */
   @Transactional
   @Override
-  public Long findWorkerIdByName(String name) {
+  public Long findWorkerIdByName(String name) throws BadIdException {
     try {
       return workerDao.findWorkerIdByName(name);
     } catch (NoResultException e) {
@@ -94,23 +97,23 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerDtoResponse> findAllFreeGuide() {
+  public List<WorkerNamesDto> findAllFreeGuide() {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     LocalDateTime dateTime = LocalDateTime.now();
-    List<WorkerDtoResponse> workers = workerDao.findAllFreeGuide(dateTime);
-    return workers;
+    List<Worker> workers = workerDao.findAllFreeGuide(dateTime);
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
    * Get all guides.
    *
-   * @return List of WorkerDtoResponse;
+   * @return List of WorkerNamesDto;
    */
   @Transactional
   @Override
-  public List<WorkerDtoResponse> findAllGuide() {
+  public List<WorkerNamesDto> findAllGuide() {
     List<Worker> workers = workerDao.findAllGuide();
-    return workers.stream().map(WorkerDtoResponse::new).collect(Collectors.toList());
+    return workers.stream().map(WorkerNamesDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -120,13 +123,13 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerStatDtoResponse> findGuidesStat() {
+  public List<WorkerStatDto> findGuidesStat() {
     List<Worker> workers = workerDao.findAllGuide();
-    List<WorkerStatDtoResponse> workerStatDtoResponses = new ArrayList<>();
+    List<WorkerStatDto> workerStatDto = new ArrayList<>();
     for (Worker worker : workers) {
-      workerStatDtoResponses.add(workerToWorkerStatDto(worker));
+      workerStatDto.add(mapperForStat(worker));
     }
-    return workerStatDtoResponses;
+    return workerStatDto;
   }
 
   /**
@@ -160,57 +163,33 @@ public class WorkerServiceImpl implements WorkerService {
 
   /**
    * Update worker info.
-   *
-   * @param worker request worker dto.
+   *s
+   * @param workerEditDto request worker dto.
    */
   @Transactional
   @Override
-  public void update(WorkerUpdateRequestDto worker) {
-    workerDao.update(workerUpdateRequestDtoToWorker(worker));
+  public void update(WorkerEditDto workerEditDto) {
+    workerDao.update(
+        Worker.builder()
+            .id(workerEditDto.getId())
+            .firstName(workerEditDto.getFirstName())
+            .secondName(workerEditDto.getSecondName())
+            .post(postService.getOneById(workerEditDto.getPostId()))
+            .build());
   }
 
   /**
    * Mapper from Worker to WorkerStatDto.
    *
    * @param worker worker object.
-   * @return workerStatDtoResponse response dto.
+   * @return workerStatDto response dto.
    */
-  private WorkerStatDtoResponse workerToWorkerStatDto(Worker worker) {
-    WorkerStatDtoResponse workerStatDtoResponse = new WorkerStatDtoResponse();
-    workerStatDtoResponse.setId(worker.getId());
-    workerStatDtoResponse.setFirstName(worker.getFirstName());
-    workerStatDtoResponse.setSecondName(worker.getSecondName());
-    workerStatDtoResponse.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
-    workerStatDtoResponse.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
-    return workerStatDtoResponse;
-  }
-
-  /**
-   * Mapper from WorkerAddRequestDto to Worker.
-   *
-   * @param workerAddRequestDto worker request dto.
-   * @return Worker.
-   */
-  private Worker workerAddRequestDtoToWorker(WorkerAddRequestDto workerAddRequestDto) {
-    Worker worker = new Worker();
-    worker.setFirstName(workerAddRequestDto.getFirstName());
-    worker.setSecondName(workerAddRequestDto.getSecondName());
-    worker.setPost(postService.getOneById(workerAddRequestDto.getPostId()));
-    return worker;
-  }
-
-  /**
-   * Mapper from WorkerUpdateRequestDto to Worker.
-   *
-   * @param workerUpdateRequestDto worker request dto.
-   * @return workerStatDtoResponse response dto.
-   */
-  private Worker workerUpdateRequestDtoToWorker(WorkerUpdateRequestDto workerUpdateRequestDto) {
-    Worker worker = new Worker();
-    worker.setId(workerUpdateRequestDto.getId());
-    worker.setFirstName(workerUpdateRequestDto.getFirstName());
-    worker.setSecondName(workerUpdateRequestDto.getSecondName());
-    worker.setPost(postService.getOneById(workerUpdateRequestDto.getPostId()));
-    return worker;
+  private WorkerStatDto mapperForStat(Worker worker) {
+    WorkerStatDto workerStat = new WorkerStatDto();
+    workerStat.setFirstName(worker.getFirstName());
+    workerStat.setSecondName(worker.getSecondName());
+    workerStat.setCountOfHour(workerDao.findCountOfHours(worker.getId()));
+    workerStat.setCountOfExcursion(workerDao.findCountOfExcursion(worker.getId()));
+    return workerStat;
   }
 }

@@ -1,28 +1,26 @@
 package museum.dto.worker;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
- * DTO for Worker statistic response.
+ * DTO for worker update request
  *
  * @author Rostyslav Khasanov
  * @version 1.0
  */
 @Getter
 @Setter
-public class WorkerStatDtoResponse {
+@NoArgsConstructor
+public class WorkerSaveDto {
 
-  private Long id;
+  @NotBlank private String firstName;
 
-  private String firstName;
+  @NotBlank private String secondName;
 
-  private String secondName;
-
-  private int countOfExcursion;
-
-  private int countOfHour;
+  @NotNull private Long postId;
 }

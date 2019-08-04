@@ -3,7 +3,7 @@ package museum.controller;
 import museum.dto.excursion.ExcursionSaveDtoRequest;
 import museum.dto.excursion.ExcursionUpdateDtoRequest;
 import museum.dto.excursion.ExcursionResponse;
-import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.worker.WorkerNamesDto;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,7 +92,7 @@ public class ExcursionController {
   @RequestMapping("/add")
   public String addExcursionPage(ModelMap modelMap) {
     try {
-      List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
+      List<WorkerNamesDto> workers = workerService.findAll();
       modelMap.addAttribute("workers", workers);
       return "excursion/addExcursion";
     } catch (Exception e) {

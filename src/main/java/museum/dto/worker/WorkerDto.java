@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.dto.excursion.ExcursionBeginEndDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
+import museum.entity.Post;
 import museum.entity.Worker;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WorkerDtoResponse {
+public class WorkerDto {
 
   private Long id;
 
@@ -27,27 +28,22 @@ public class WorkerDtoResponse {
 
   private String secondName;
 
-  private Long postId;
+  private Post post;
 
   private List<HallIdNameDtoResponse> halls;
   private List<ExcursionBeginEndDtoResponse> excursions;
 
-  /**
-   * Constructor for class.
-   *
-   * @param worker object of post.
-   */
-  public WorkerDtoResponse(Worker worker) {
+  public WorkerDto(Worker worker) {
     this.id = worker.getId();
     this.firstName = worker.getFirstName();
     this.secondName = worker.getSecondName();
-    this.postId = worker.getPost().getId();
+    this.post = worker.getPost();
     this.halls =
-        worker.getHalls().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
+            worker.getHalls().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
     this.excursions =
-        worker.getExcursions().stream()
-            .map(ExcursionBeginEndDtoResponse::new)
-            .collect(Collectors.toList());
+            worker.getExcursions().stream()
+                    .map(ExcursionBeginEndDtoResponse::new)
+                    .collect(Collectors.toList());
     ;
   }
 }
