@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Controller for Author logic.
@@ -33,7 +34,7 @@ public class AuthorController {
 
   /** Method that return author by id. */
   @GetMapping(params = "id")
-  public String findById(@RequestParam Long id, ModelMap modelMap) {
+  public String findById(@RequestParam @Valid @NotNull Long id, ModelMap modelMap) {
     try {
       modelMap.addAttribute("author", service.findById(id));
     } catch (BadIdException e) {
@@ -64,7 +65,7 @@ public class AuthorController {
 
   /** Method that delete author by id. */
   @GetMapping(value = "/delete", params = "id")
-  public String delete(@RequestParam Long id, ModelMap modelMap) {
+  public String delete(@RequestParam @Valid @NotNull Long id, ModelMap modelMap) {
     try {
       service.deleteById(id);
     } catch (BadIdException | EntityConstraintException e) {
@@ -82,7 +83,7 @@ public class AuthorController {
 
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
-  public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
+  public String updateAuthorPage(@RequestParam @Valid @NotNull Long id, ModelMap modelMap) {
     findById(id, modelMap);
     return "author/addAndEditAuthor";
   }
