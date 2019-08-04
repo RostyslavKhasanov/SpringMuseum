@@ -1,26 +1,31 @@
 package museum.service;
 
-import museum.dto.excursion.ExcursionSaveDtoRequest;
-import museum.dto.excursion.ExcursionUpdateDtoRequest;
-import museum.dto.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionFullDto;
+import museum.dto.excursion.ExcursionIdNameDto;
+import museum.dto.excursion.ExcursionSaveDto;
+import museum.dto.excursion.ExcursionUpdateDto;
 import museum.entity.Excursion;
+import museum.exception.BadIdException;
+import museum.exception.BadRequestForInputDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ExcursionService {
 
-  void save(ExcursionSaveDtoRequest excursionSaveDtoRequest);
+  void save(ExcursionSaveDto excursionSaveDto);
 
-  List<ExcursionResponse> findAll();
+  List<ExcursionIdNameDto> findAll();
 
-  Excursion findById(Long id);
+  ExcursionFullDto findById(Long id) throws BadIdException;
 
-  void update(ExcursionUpdateDtoRequest excursionUpdateDtoRequest);
+  Excursion getOneById(Long id) throws BadIdException;
 
-  void deleteById(Long id);
+  void update(ExcursionUpdateDto excursionUpdateDto) throws BadRequestForInputDate, BadIdException;
 
-  List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end);
+  void deleteById(Long id) throws BadIdException;
+
+  List<ExcursionIdNameDto> findByPeriod(LocalDateTime begin, LocalDateTime end) throws BadRequestForInputDate;
 
   Integer findCountByPeriod(LocalDateTime start, LocalDateTime end);
 }

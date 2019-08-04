@@ -10,61 +10,66 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <style>
+        <%@include file="../../../resources/index.css"%>
+    </style>
+    <title>Excursion</title>
+    <link rel="stylesheet" href="../../../resources/index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<a href="/excursion/add" class="btn btn-primary" style="float: right">Add new excursion</a>
+<div class="row no-gutter" style="margin-left: 1px">
+    <div class="col-md-10">
+        <c:choose>
+            <c:when test="${not empty excursions}">
+                <button type="button" id="openModal" class="btn btn-primary">Show statistic</button>
+                <h4 id="modal">Count of excursions at this period: ${excursionsStatistic}</h4>
+                <div class="list-group">
+                    <c:forEach items="${excursions}" var="item">
 
-<a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right">Find by period</a>
+                        <a href="/excursion?id=${item.id}"
+                           class="list-group-item list-group-item-action disabled">${item.description}
+                        </a>
 
-<div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
-     style="max-width: 800px; margin: 30px">
-    <h2 class="w3-wide">Excursions in given time period:</h2>
-    <c:choose>
-        <c:when test="${not empty excursions}">
-            <div class="list-group">
-                <div class="col-6">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Begin</th>
-                            <th scope="col">End</th>
-                            <th scope="col">Price, UAH</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${excursions}" var="item">
-                            <tr>
-                                <th scope="row">${item.id}</th>
-                                <td>${item.begin}</td>
-                                <td>${item.end}</td>
-                                <td>${item.price}</td>
-                                <td>
-                                    <form action="/excursion/delete" style="margin-block-end: 0em;" method="post">
-                                        <input type="hidden" name="id" value="${item.id}">
-                                        <input type="submit" class="btn btn-outline-danger" value="Delete"/>
-                                    </form>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                    </c:forEach>
                 </div>
-            </div>
-        </c:when>
-        <c:otherwise>
-            <h3 class="w3-wide">not found!</h3>
-        </c:otherwise>
-    </c:choose>
-</div>
+            </c:when>
+            <c:otherwise>
+                <h3 class="w3-wide" style="margin: 20px;">Not found any excursions!</h3>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <div class="col-md-2">
+        <div class="col-10">
+            <a href="/excursion/add" class="btn btn-primary" style="float: right">Add new
+                excursion</a>
 
+            <a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 15px">Find
+                by period</a>
+        </div>
+    </div>
+</div>
+<script>
+    getInfoAboutCount();
+
+    function getInfoAboutCount() {
+
+        var modal = document.getElementById("modal");
+
+        var btn = document.getElementById("openModal");
+
+        btn.onclick = function () {
+            $(modal).slideToggle();
+            modal.style.display = "block";
+        };
+    }
+</script>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

@@ -27,7 +27,6 @@
             </div>
             <div class="author">Hall: <a href="/hall?id=${exhibit.hall.id}">${exhibit.hall.name}</a></div>
 
-
         </div>
         <div class="col-1">
             <a href="/exhibit/edit?id=${exhibit.id}" class="btn btn-primary">Edit</a>

@@ -1,5 +1,6 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.HallDao;
 import museum.dto.hall.HallSaveRequest;
 import museum.dto.hall.HallUpdateRequest;
@@ -7,9 +8,9 @@ import museum.dto.hall.HallDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.HallService;
 import museum.service.WorkerService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,19 +24,20 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class HallServiceImpl implements HallService {
 
-  @Autowired private HallDao dao;
-  @Autowired private WorkerService workerService;
+  private HallDao dao;
+
+  private WorkerService workerService;
 
   /** Method that save new hall. */
   @Transactional
   @Override
   public void save(HallSaveRequest dto) {
-    Hall hall = new Hall();
-    hall.setName(dto.getName());
-    hall.setWorker(workerService.getOneById(dto.getWorkerId()));
-    dao.save(hall);
+    dao.save(Hall.builder()
+            .name(dto.getName())
+            .worker(workerService.getOneById(dto.getWorkerId())).build());
   }
 
   /**
@@ -46,7 +48,7 @@ public class HallServiceImpl implements HallService {
   @Transactional
   @Override
   public List<HallIdNameDtoResponse> findAll() {
-    return dao.findAll().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
+      return dao.findAll().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
   }
 
   /**
@@ -83,11 +85,12 @@ public class HallServiceImpl implements HallService {
   @Transactional
   @Override
   public void update(HallUpdateRequest dto) {
-    Hall hall = new Hall();
-    hall.setId(dto.getId());
-    hall.setName(dto.getName());
-    hall.setWorker(workerService.getOneById(dto.getWorkerId()));
-    Hall newHall = dao.update(hall);
+      Hall hall = Hall.builder()
+              .id(dto.getId())
+              .name(dto.getName())
+              .worker(workerService.getOneById(dto.getWorkerId()))
+              .build();
+      Hall newHall = dao.update(hall);
     if (newHall == null) {
       throw new BadIdException("Hall has no row with id " + dto.getId());
     }
@@ -96,17 +99,20 @@ public class HallServiceImpl implements HallService {
   /** Method that delete hall by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) {
-    Boolean isDeleted = dao.deleteById(id);
-    if (!isDeleted) {
-      throw new BadIdException("Hall has no row with id " + id);
+  public void deleteById(Long id) throws BadIdException{
+    Hall hall = getOneById(id);
+    if (hall.getExhibits().size() != 0) {
+      throw new EntityConstraintException("You can not delete this hall because it is using.");
     }
+    dao.deleteById(id);
   }
 
   /** Method that find hall by worker id. */
   @Transactional
   @Override
   public List<HallDtoResponse> findByWorkerId(Long id) {
-    return dao.findHalLByWorkerId(id).stream().map(HallDtoResponse::new).collect(Collectors.toList());
+    return dao.findHalLByWorkerId(id).stream()
+        .map(HallDtoResponse::new)
+        .collect(Collectors.toList());
   }
 }

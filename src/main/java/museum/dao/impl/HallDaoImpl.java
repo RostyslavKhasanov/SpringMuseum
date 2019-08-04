@@ -3,10 +3,10 @@ package museum.dao.impl;
 import museum.dao.ElementDaoImpl;
 import museum.dao.HallDao;
 import museum.entity.Hall;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
     super(Hall.class);
   }
 
-  @Autowired
+  @PersistenceContext
   private EntityManager manager;
 
   /** Method that find hall by worker id.

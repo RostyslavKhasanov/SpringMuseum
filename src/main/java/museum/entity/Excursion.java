@@ -24,6 +24,9 @@ public class Excursion {
   private Long id;
 
   @Column(nullable = false)
+  private String description;
+
+  @Column(nullable = false)
   private LocalDateTime begin;
 
   @Column(nullable = false)

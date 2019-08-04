@@ -14,12 +14,12 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class AuthorInitialsDto {
 
-  @NotBlank private String firstName;
+    @NotBlank private String firstName;
 
-  @NotBlank private String secondName;
+    @NotBlank private String secondName;
 
-  public AuthorInitialsDto(Author author) {
-    this.firstName = author.getFirstName();
-    this.secondName = author.getSecondName();
-  }
+    public AuthorInitialsDto(Author author) {
+        this.firstName = author.getFirstName();
+        this.secondName = author.getSecondName();
+    }
 }

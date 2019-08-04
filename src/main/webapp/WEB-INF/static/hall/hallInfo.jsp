@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Hall Information</title>
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
@@ -33,7 +33,7 @@
         <div class="col-1">
             <a href="/hall/edit?id=${hall.id}" class="btn btn-primary">Edit</a>
             <button type="button" class="btn btn-primary" onclick="deleteExhibit(${hall.id})">Delete this
-                exhibit
+                hall
             </button>
         </div>
     </diw>
@@ -42,7 +42,7 @@
 </body>
 <script>
     function deleteExhibit(id) {
-        var isDelete = confirm("Do you really want to delete this exhibit?");
+        var isDelete = confirm("Do you really want to delete this hall?");
         if (isDelete) {
             window.location.href = "http://localhost:8080/hall/delete?id=" + id;
         }
