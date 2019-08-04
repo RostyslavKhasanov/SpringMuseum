@@ -71,11 +71,11 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public WorkerDto findById(Long id) {
-    WorkerDto workerDto = new WorkerDto(workerDao.findById(id));
-    if (workerDto != null) {
-      return workerDto;
-    } else {
+    Worker worker = workerDao.findById(id);
+    if (worker == null) {
       throw new BadIdException("Worker with entered id doesn't exist!");
+    } else {
+      return new WorkerDto(worker);
     }
   }
 
@@ -131,12 +131,12 @@ public class WorkerServiceImpl implements WorkerService {
   @Override
   public List<WorkerStatDto> findGuidesStat() throws WorkerStatException {
     try {
-    List<Worker> workers = workerDao.findAllGuide();
-    List<WorkerStatDto> workerStatDto = new ArrayList<>();
-    for (Worker worker : workers) {
-      workerStatDto.add(mapperForStat(worker));
-    }
-    return workerStatDto;
+      List<Worker> workers = workerDao.findAllGuide();
+      List<WorkerStatDto> workerStatDto = new ArrayList<>();
+      for (Worker worker : workers) {
+        workerStatDto.add(mapperForStat(worker));
+      }
+      return workerStatDto;
     } catch (NoResultException e) {
       throw new WorkerStatException("Excursion or halls doesn't exist");
     }

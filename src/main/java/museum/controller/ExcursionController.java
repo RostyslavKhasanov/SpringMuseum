@@ -15,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -81,7 +82,7 @@ public class ExcursionController {
 
   /** Method that return excursion by id. */
   @GetMapping(params = "id")
-  public String findById(@RequestParam Long id, ModelMap modelMap) {
+  public String findById(@RequestParam @NotNull Long id, ModelMap modelMap) {
     try {
       modelMap.addAttribute("excursion", excursionService.findById(id));
     } catch (BadIdException e) {
@@ -93,7 +94,7 @@ public class ExcursionController {
 
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
-  public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
+  public String updateExhibitPage(@RequestParam @NotNull Long id, ModelMap modelMap) {
     ExcursionFullDto excursion = excursionService.findById(id);
     modelMap.addAttribute("excursion", excursion);
     modelMap.addAttribute("workers", workerService.findAll());
@@ -129,7 +130,7 @@ public class ExcursionController {
 
   /** Method that delete excursion. */
   @GetMapping(value = "/delete", params = "id")
-  public String delete(@RequestParam Long id, ModelMap modelMap) {
+  public String delete(@RequestParam @NotNull Long id, ModelMap modelMap) {
     try {
       excursionService.deleteById(id);
     } catch (BadIdException e) {
