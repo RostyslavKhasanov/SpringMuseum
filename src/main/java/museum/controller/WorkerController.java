@@ -5,6 +5,7 @@ import museum.dto.worker.WorkerSaveDto;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.exception.EntityConstraintException;
+import museum.exception.WorkerStatException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -126,8 +127,13 @@ public class WorkerController {
    */
   @GetMapping("/guides/stat")
   public String findGuidesStat(ModelMap modelMap) {
-    modelMap.addAttribute("guides", workerService.findGuidesStat());
-    return "guide/gidStat";
+    try {
+      modelMap.addAttribute("guides", workerService.findGuidesStat());
+      return "guide/gidStat";
+    } catch (WorkerStatException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /**
@@ -152,7 +158,7 @@ public class WorkerController {
     try {
       workerService.deleteById(id);
       return "redirect:/worker";
-    } catch (EntityConstraintException e) {
+    } catch (EntityConstraintException | BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
