@@ -35,7 +35,7 @@ public class HallServiceImpl implements HallService {
   public void save(HallSaveRequest dto) {
     dao.save(Hall.builder()
             .name(dto.getName())
-            .worker(workerService.findById(dto.getWorkerId())).build());
+            .worker(workerService.getOneById(dto.getWorkerId())).build());
   }
 
   /**
@@ -86,7 +86,7 @@ public class HallServiceImpl implements HallService {
       Hall hall = Hall.builder()
               .id(dto.getId())
               .name(dto.getName())
-              .worker(workerService.findById(dto.getWorkerId()))
+              .worker(workerService.getOneById(dto.getWorkerId()))
               .build();
       Hall newHall = dao.update(hall);
     if (newHall == null) {

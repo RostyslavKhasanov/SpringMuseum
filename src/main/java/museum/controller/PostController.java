@@ -1,12 +1,15 @@
 package museum.controller;
 
-import museum.dto.post.PostRequestDto;
+import museum.dto.post.PostDto;
+import museum.dto.post.PostSaveDto;
+import museum.exception.PostExistException;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 /**
@@ -24,16 +27,17 @@ public class PostController {
   /**
    * Handles request to post post into db.
    *
-   * @param postRequestDto post request dto from jsp.
-   * @param httpServletResponse http response.
+   * @param postSaveDto post request dto from jsp.
    */
   @PostMapping
-  public void save(
-      @Valid @ModelAttribute PostRequestDto postRequestDto,
-      HttpServletResponse httpServletResponse) {
-    postService.save(postRequestDto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+  public String save(@Valid @ModelAttribute PostSaveDto postSaveDto, ModelMap modelMap) {
+    try {
+      postService.save(postSaveDto);
+      return "redirect:/worker";
+    } catch (PostExistException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /** Handles request to redirect on addPost page. */
@@ -43,15 +47,19 @@ public class PostController {
   }
 
   /**
-   * Handles request to post worker into db.
+   * Handles request to delete post by id from db.
    *
    * @param id post id.
-   * @param httpServletResponse http response.
    */
   @GetMapping(value = "/delete", params = "id")
-  public void deleteWorker(@RequestParam Long id, HttpServletResponse httpServletResponse) {
-    postService.delete(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/worker");
-    httpServletResponse.setStatus(302);
+  public String deleteWorker(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      postService.delete(id);
+      return "redirect:/worker";
+    } catch (JpaSystemException e) {
+      modelMap.addAttribute(
+          "message", "Disable to delete this post, because exist workers with this post!");
+      return "errorMessage";
+    }
   }
 }

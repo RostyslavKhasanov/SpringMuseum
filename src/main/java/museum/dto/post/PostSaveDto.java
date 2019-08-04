@@ -1,14 +1,16 @@
-package museum.dto.worker;
+package museum.dto.post;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import museum.entity.Worker;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
- * DTO for worker post request
+ * DTO for save post.
  *
  * @author Rostyslav Khasanov
  * @version 1.0
@@ -16,11 +18,9 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WorkerAddRequestDto {
+public class PostSaveDto {
 
-  @NotBlank private String firstName;
+  @NotBlank private String name;
 
-  @NotBlank private String secondName;
-
-  @NotNull private Long postId;
+  private List<Worker> workers;
 }

@@ -7,6 +7,8 @@
     <style>
         <%@include file="../../../resources/index.css"%>
     </style>
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
@@ -16,11 +18,9 @@
             <c:when test="${not empty workers}">
                 <div class="list-group">
                     <c:forEach items="${workers}" var="item">
-
                         <a href="?id=${item.id}"
                            class="list-group-item list-group-item-action disabled">${item.firstName} ${item.secondName}
                         </a>
-
                     </c:forEach>
                 </div>
             </c:when>
@@ -31,11 +31,14 @@
     </div>
     <div class="col-md-2">
         <div class="col-10" id="workerExhibits">
-            <div class="input-group input-group-sm mb-3">
-                <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
-                       placeholder="Surname" id="name" required pattern="^[a-zA-Z]{1,20}$">
-            </div>
-            <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
+            <form>
+                <div class="input-group input-group-sm mb-3">
+                    <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"
+                           placeholder="Surname" name="name" id="name" required pattern="^[a-zA-Z]{1,20}$"
+                           oninvalid="this.setCustomValidity('only English ')">
+                </div>
+                <button type="button" class="btn btn-primary" onclick="findByName()">Search</button>
+            </form>
             <br><br>
             <button type="button" class="btn btn-primary" onclick="addPostForm()">Add new post</button>
             <br><br>
@@ -57,18 +60,25 @@
     </div>
 </div>
 </body>
-<script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script type="text/javascript">
     function findByName() {
         var fName = document.getElementById("name").value;
-        document.location.href = "http://localhost:8080/worker?name=" + fName;
+        var input = document.getElementById("name");
+        if (input.checkValidity()) {
+            document.location.href = "worker?name=" + fName;
+        } else {
+            alert("Enter only eng letters!")
+        }
     }
 
     function addPostForm() {
-        document.location.href = "http://localhost:8080/post/add";
+        document.location.href = "post/add";
     }
 
     function redirectToWorkerAddForm() {
-        document.location.href = "http://localhost:8080/worker/add";
+        document.location.href = "worker/add";
     }
 
     function deletePost() {
@@ -77,13 +87,20 @@
         if (strUser == "") {
             alert("Choose one!")
         } else {
-            document.location.href = "http://localhost:8080/post/delete?id=" + strUser;
+            document.location.href = "post/delete?id=" + strUser;
         }
     }
+
+    jQuery(function ($) {
+        var data = [];
+        <c:forEach items="${workers}" var="item">
+        data.push("${item.getSecondName()}")
+        </c:forEach>
+        $("#name").autocomplete({
+            source: data
+        });
+    });
 </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>

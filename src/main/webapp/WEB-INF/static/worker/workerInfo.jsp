@@ -47,13 +47,13 @@
 </body>
 <script>
     function redirectToWorkerEditForm(id) {
-        window.location.href = "http://localhost:8080/worker/edit?id=" + id;
+        window.location.href = "worker/edit?id=" + id;
     }
 
     function deleteWorker(id) {
         var isDelete = confirm("Do you really want to delete this worker?");
         if (isDelete) {
-            window.location.href = "http://localhost:8080/worker/delete?id=" + id;
+            window.location.href = "worker/delete?id=" + id;
         }
     }
 </script>

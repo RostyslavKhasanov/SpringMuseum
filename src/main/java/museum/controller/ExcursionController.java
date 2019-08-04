@@ -4,7 +4,7 @@ import museum.dto.excursion.ExcursionFullDto;
 import museum.dto.excursion.ExcursionIdNameDto;
 import museum.dto.excursion.ExcursionSaveDto;
 import museum.dto.excursion.ExcursionUpdateDto;
-import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
+import museum.dto.worker.WorkerNamesDto;
 import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
@@ -122,7 +122,7 @@ public class ExcursionController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addExcursionPage(ModelMap modelMap) {
-    List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
+    List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "excursion/addExcursion";
   }

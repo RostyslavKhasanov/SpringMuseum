@@ -13,13 +13,13 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class AuthorIdInitialsDto {
 
-  @NotNull private Long id;
-  @NotBlank private String firstName;
-  @NotBlank private String secondName;
+    @NotNull private Long id;
+    @NotBlank private String firstName;
+    @NotBlank private String secondName;
 
-  public AuthorIdInitialsDto(Author author) {
-    this.id = author.getId();
-    this.firstName = author.getFirstName();
-    this.secondName = author.getSecondName();
-  }
+    public AuthorIdInitialsDto(Author author) {
+        this.id = author.getId();
+        this.firstName = author.getFirstName();
+        this.secondName = author.getSecondName();
+    }
 }

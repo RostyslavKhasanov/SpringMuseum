@@ -3,7 +3,6 @@ package museum.dto.post;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import museum.entity.Post;
 import museum.entity.Worker;
 
 import javax.validation.constraints.NotBlank;
@@ -26,14 +25,4 @@ public class PostDto {
   @NotBlank private String name;
 
   private List<Worker> workers;
-
-  /**
-   * Constructor for class.
-   *
-   * @param post object of post.
-   */
-  public PostDto(Post post) {
-    this.id = post.getId();
-    this.name = post.getName();
-  }
 }

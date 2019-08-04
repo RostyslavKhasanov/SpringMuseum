@@ -68,7 +68,7 @@ public class ExcursionServiceImpl implements ExcursionService {
             .begin(begin)
             .end(end)
             .price(dtoRequest.getPrice())
-            .worker(workerService.findById(dtoRequest.getWorkerId())).build();
+            .worker(workerService.getOneById(dtoRequest.getWorkerId())).build();
 
     Excursion newExcursion = excursionDao.update(excursion);
     if (newExcursion == null) {

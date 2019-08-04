@@ -1,17 +1,18 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.PostDao;
-import museum.dto.post.PostRequestDto;
-import museum.dto.post.PostResponseDto;
+import museum.dto.post.PostDto;
+import museum.dto.post.PostSaveDto;
 import museum.entity.Post;
 import museum.exception.BadIdException;
+import museum.exception.PostExistException;
 import museum.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
+import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Service implementation for Post entity.
@@ -20,20 +21,26 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class PostServiceImpl implements PostService {
 
-  @Autowired private PostDao postDao;
+  private PostDao postDao;
+
+  private ObjectMapperUtils modelMapper;
 
   /**
    * Save post.
    *
-   * @param postRequestDto request dto
+   * @param postSaveDto request dto
    */
   @Transactional
   @Override
-  public void save(PostRequestDto postRequestDto) {
-    Post post = postRequestDtoToPost(postRequestDto);
-    postDao.save(post);
+  public void save(PostSaveDto postSaveDto) {
+    if (postDao.findByName(postSaveDto.getName()) == null) {
+      postDao.save(modelMapper.map(postSaveDto, Post.class));
+    } else {
+      throw new PostExistException("Post is already exist!  ");
+    }
   }
 
   /**
@@ -43,9 +50,8 @@ public class PostServiceImpl implements PostService {
    */
   @Transactional
   @Override
-  public PostResponseDto findById(Long id) {
-    Post post = postDao.findById(id);
-    return postToPostResponseDto(post);
+  public PostDto findById(Long id) {
+    return modelMapper.map(postDao.findById(id), PostDto.class);
   }
 
   /**
@@ -55,8 +61,8 @@ public class PostServiceImpl implements PostService {
    */
   @Transactional
   @Override
-  public List<PostResponseDto> findAll() {
-    return postDao.findAll().stream().map(PostResponseDto::new).collect(Collectors.toList());
+  public List<PostDto> findAll() {
+    return modelMapper.mapAll(postDao.findAll(), PostDto.class);
   }
 
   /**
@@ -87,30 +93,5 @@ public class PostServiceImpl implements PostService {
     if (!isDeleted) {
       throw new BadIdException("Post with entered id doesn't exist");
     }
-  }
-
-  /**
-   * Mapper from PostRequestDto to Post.
-   *
-   * @param postRequestDto request dto.
-   * @return Post.
-   */
-  private Post postRequestDtoToPost(PostRequestDto postRequestDto) {
-    Post post = new Post();
-    post.setName(postRequestDto.getName());
-    return post;
-  }
-
-  /**
-   * Mapper from Post to PostResponseDto.
-   *
-   * @param post post object.
-   * @return PostResponseDto.
-   */
-  private PostResponseDto postToPostResponseDto(Post post) {
-    PostResponseDto postResponseDto = new PostResponseDto();
-    postResponseDto.setId(post.getId());
-    postResponseDto.setName(post.getName());
-    return new PostResponseDto();
   }
 }

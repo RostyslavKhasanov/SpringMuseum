@@ -5,10 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
- * DTO for worker update request
+ * DTO for Worker statistic response.
  *
  * @author Rostyslav Khasanov
  * @version 1.0
@@ -16,13 +15,15 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @NoArgsConstructor
-public class WorkerUpdateRequestDto {
+public class WorkerStatDto {
 
-  @NotNull private Long id;
+  private Long id;
 
   @NotBlank private String firstName;
 
   @NotBlank private String secondName;
 
-  @NotNull private Long postId;
+  private int countOfExcursion;
+
+  private int countOfHour;
 }

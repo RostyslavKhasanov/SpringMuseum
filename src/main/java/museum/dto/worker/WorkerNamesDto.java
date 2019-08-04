@@ -1,8 +1,11 @@
 package museum.dto.worker;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Worker;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * DTO for Worker id, firstName, secondName response.
@@ -12,20 +15,21 @@ import museum.entity.Worker;
  */
 @Getter
 @Setter
-public class WorkerFirstSecondNameDtoResponse {
+@NoArgsConstructor
+public class WorkerNamesDto {
 
   private Long id;
 
-  private String firstName;
+  @NotBlank private String firstName;
 
-  private String secondName;
+  @NotBlank private String secondName;
 
   /**
    * Constructor for class.
    *
    * @param worker object of post.
    */
-  public WorkerFirstSecondNameDtoResponse(Worker worker) {
+  public WorkerNamesDto(Worker worker) {
     this.id = worker.getId();
     this.firstName = worker.getFirstName();
     this.secondName = worker.getSecondName();

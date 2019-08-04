@@ -1,5 +1,6 @@
 package museum.dao;
 
+import javafx.geometry.Pos;
 import museum.entity.Post;
 
 /**
@@ -9,4 +10,7 @@ import museum.entity.Post;
  * @version 1.0
  */
 public interface PostDao extends ElementDao<Post> {
+
+    Post findByName(String name);
+
 }

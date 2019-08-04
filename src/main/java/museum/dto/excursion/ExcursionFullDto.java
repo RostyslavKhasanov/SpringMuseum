@@ -3,7 +3,7 @@ package museum.dto.excursion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import museum.dto.worker.WorkerIdFirstSecondNameDtoResponse;
+import museum.dto.worker.WorkerNamesDto;
 import museum.entity.Excursion;
 
 @Getter
@@ -21,7 +21,7 @@ public class ExcursionFullDto {
 
   private Double price;
 
-  private WorkerIdFirstSecondNameDtoResponse worker;
+  private WorkerNamesDto worker;
 
   public ExcursionFullDto(Excursion excursion) {
     this.id = excursion.getId();
@@ -29,6 +29,6 @@ public class ExcursionFullDto {
     this.begin = excursion.getBegin().toString();
     this.end = excursion.getEnd().toString();
     this.price = excursion.getPrice();
-    this.worker = new WorkerIdFirstSecondNameDtoResponse(excursion.getWorker());
+    this.worker = new WorkerNamesDto(excursion.getWorker());
   }
 }

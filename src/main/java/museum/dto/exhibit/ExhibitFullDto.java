@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.dto.author.AuthorIdInitialsDto;
 import museum.dto.hall.HallIdNameDtoResponse;
-import museum.entity.Exhibit;
 
 @Getter
 @Setter
