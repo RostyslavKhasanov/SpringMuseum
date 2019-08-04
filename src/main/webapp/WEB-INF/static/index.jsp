@@ -18,7 +18,6 @@
 <body>
 <jsp:include page="/WEB-INF/static/menu.jsp"/>
 
-
 <div class="firstPage" style="position: relative;">
     <img src="${main}" style="width: 100%">
 
