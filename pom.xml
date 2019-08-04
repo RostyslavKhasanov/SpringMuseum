@@ -100,7 +100,6 @@
             <version>4.0.0</version>
         </dependency>
     </dependencies>
-
     <repositories>
         <repository>
             <id>springsource-milestones</id>
