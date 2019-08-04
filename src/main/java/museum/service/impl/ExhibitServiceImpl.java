@@ -1,18 +1,14 @@
 package museum.service.impl;
 
+import lombok.AllArgsConstructor;
 import museum.dao.ExhibitDao;
-import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
-import museum.dto.request.exhibit.ExhibitUpdateDtoRequest;
-import museum.dto.response.exhibit.ExhibitDtoResponse;
-import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
-import museum.dto.response.exhibit.ExhibitMaterialStat;
-import museum.dto.response.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.*;
 import museum.entity.Exhibit;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,51 +22,53 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
+@AllArgsConstructor
 public class ExhibitServiceImpl implements ExhibitService {
 
-  @Autowired private ExhibitDao dao;
+  private ExhibitDao dao;
 
-  @Autowired private AuthorService authorService;
+  private AuthorService authorService;
 
-  @Autowired private HallService hallService;
+  private HallService hallService;
 
   /** Method that save new exhibit. */
   @Transactional
   @Override
-  public void save(ExhibitSaveDtoRequest dto) {
-    Exhibit exhibit = new Exhibit();
-    exhibit.setName(dto.getName());
-    exhibit.setMaterial(dto.getMaterial());
-    exhibit.setTechnology(dto.getTechnology());
-    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
-    exhibit.setHall(hallService.getOneById(dto.getHallId()));
-    dao.save(exhibit);
+  public void save(ExhibitSaveDto dto) {
+    dao.save(
+        Exhibit.builder()
+            .name(dto.getName())
+            .material(dto.getMaterial())
+            .technology(dto.getTechnology())
+            .author(authorService.getOneById(dto.getAuthorId()))
+            .hall(hallService.getOneById(dto.getHallId()))
+            .build());
   }
 
   /**
    * Method that return all exhibit dto.
    *
-   * @return List of ExhibitIdNameDtoResponse.
+   * @return List of ExhibitIdInitialsDto.
    */
   @Transactional
   @Override
-  public List<ExhibitIdNameDtoResponse> findAll() {
-    return dao.findAll().stream().map(ExhibitIdNameDtoResponse::new).collect(Collectors.toList());
+  public List<ExhibitIdInitialsDto> findAll() {
+    return dao.findAll().stream().map(ExhibitIdInitialsDto::new).collect(Collectors.toList());
   }
 
   /**
    * Method that return exhibit dto by id.
    *
-   * @return ExhibitDtoResponse - this is dto of exhibit.
+   * @return ExhibitFullDto - this is dto of exhibit.
    */
   @Transactional
   @Override
-  public ExhibitDtoResponse findById(Long id) {
+  public ExhibitFullDto findById(Long id) throws BadIdException {
     Exhibit exhibit = dao.findById(id);
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
     }
-    return new ExhibitDtoResponse(exhibit);
+    return new ExhibitFullDto(exhibit);
   }
 
   /**
@@ -80,7 +78,7 @@ public class ExhibitServiceImpl implements ExhibitService {
    */
   @Transactional
   @Override
-  public Exhibit getOneById(Long id) {
+  public Exhibit getOneById(Long id) throws BadIdException {
     Exhibit exhibit = dao.findById(id);
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
@@ -91,14 +89,16 @@ public class ExhibitServiceImpl implements ExhibitService {
   /** Method that update exhibit. */
   @Transactional
   @Override
-  public void update(ExhibitUpdateDtoRequest dto) {
-    Exhibit exhibit = new Exhibit();
-    exhibit.setId(dto.getId());
-    exhibit.setName(dto.getName());
-    exhibit.setMaterial(dto.getMaterial());
-    exhibit.setTechnology(dto.getTechnology());
-    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
-    exhibit.setHall(hallService.getOneById(dto.getHallId()));
+  public void update(ExhibitUpdateDto dto) throws BadIdException {
+    Exhibit exhibit =
+        Exhibit.builder()
+            .id(dto.getId())
+            .name(dto.getName())
+            .material(dto.getMaterial())
+            .technology(dto.getTechnology())
+            .author(authorService.getOneById(dto.getAuthorId()))
+            .hall(hallService.getOneById(dto.getHallId()))
+            .build();
     Exhibit newExhibit = dao.update(exhibit);
     if (newExhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + dto.getId());
@@ -108,7 +108,8 @@ public class ExhibitServiceImpl implements ExhibitService {
   /** Method that delete exhibit by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws BadIdException, EntityConstraintException {
+
     Boolean isDeleted = dao.deleteById(id);
     if (!isDeleted) {
       throw new BadIdException("Exhibit has no any row with id " + id);
@@ -118,10 +119,10 @@ public class ExhibitServiceImpl implements ExhibitService {
   /**
    * Method that for Exhibit material statistic.
    *
-   * @return List of ExhibitMaterialStat
+   * @return List of ExhibitMaterialStatDto
    */
   @Override
-  public List<ExhibitMaterialStat> getMaterialStat() {
+  public List<ExhibitMaterialStatDto> getMaterialStat() {
     return dao.getMaterialStat();
   }
 

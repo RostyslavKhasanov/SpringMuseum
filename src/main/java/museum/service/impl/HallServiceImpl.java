@@ -1,10 +1,10 @@
 package museum.service.impl;
 
 import museum.dao.HallDao;
-import museum.dto.request.hall.HallSaveRequest;
-import museum.dto.request.hall.HallUpdateRequest;
-import museum.dto.response.hall.HallDtoResponse;
-import museum.dto.response.hall.HallIdNameDtoResponse;
+import museum.dto.hall.HallSaveRequest;
+import museum.dto.hall.HallUpdateRequest;
+import museum.dto.hall.HallDtoResponse;
+import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
 import museum.service.HallService;

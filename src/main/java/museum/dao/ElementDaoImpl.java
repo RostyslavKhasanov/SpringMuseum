@@ -27,8 +27,8 @@ public class ElementDaoImpl<T> implements ElementDao<T> {
   @Override
   public List<T> findAll() {
     return manager
-        .createQuery("from " + elementClass.getSimpleName() + " e", elementClass)
-        .getResultList();
+            .createQuery("from " + elementClass.getSimpleName() + " e", elementClass)
+            .getResultList();
   }
   /**
    * Method that return Entity by id.

@@ -2,14 +2,13 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.ExhibitDao;
-import museum.dto.response.exhibit.ExhibitMaterialStat;
-import museum.dto.response.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.ExhibitMaterialStatDto;
+import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,19 +29,21 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
   /**
    * Method for Exhibit material statistic.
    *
-   * @return List of ExhibitMaterialStat
+   * @return List of ExhibitMaterialStatDto
    */
   @Override
-  public List<ExhibitMaterialStat> getMaterialStat() {
+  public List<ExhibitMaterialStatDto> getMaterialStat() {
+
     List<Object[]> resultList =
         manager
-            .createNativeQuery("select material, count(material) from exhibit group by material")
+            .createQuery(
+                "select e.material, count(e.material) from Exhibit e group by e.material",
+                Object[].class)
             .getResultList();
 
-    List<ExhibitMaterialStat> exhibitTechnologyStats = new ArrayList<>();
+    List<ExhibitMaterialStatDto> exhibitTechnologyStats = new ArrayList<>();
     for (Object[] a : resultList) {
-      exhibitTechnologyStats.add(
-          new ExhibitMaterialStat(a[0].toString(), ((BigInteger) a[1]).longValue()));
+      exhibitTechnologyStats.add(new ExhibitMaterialStatDto(a[0].toString(), (Long) a[1]));
     }
     return exhibitTechnologyStats;
   }
@@ -50,21 +51,21 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
   /**
    * Method for Exhibit technology statistic.
    *
-   * @return List of ExhibitMaterialStat
+   * @return List of ExhibitMaterialStatDto
    */
   @Override
   public List<ExhibitTechnologyStat> getTechnologyStat() {
 
     List<Object[]> resultList =
         manager
-            .createNativeQuery(
-                "select technology, count(technology) from exhibit group by technology")
+            .createQuery(
+                "select e.technology, count(e.technology) from Exhibit e group by e.technology",
+                Object[].class)
             .getResultList();
 
     List<ExhibitTechnologyStat> exhibitTechnologyStats = new ArrayList<>();
     for (Object[] a : resultList) {
-      exhibitTechnologyStats.add(
-          new ExhibitTechnologyStat(a[0].toString(), ((BigInteger) a[1]).longValue()));
+      exhibitTechnologyStats.add(new ExhibitTechnologyStat(a[0].toString(), (Long) a[1]));
     }
     return exhibitTechnologyStats;
   }

@@ -1,7 +1,7 @@
 package museum.controller;
 
-import museum.dto.request.worker.WorkerAddRequestDto;
-import museum.dto.request.worker.WorkerUpdateRequestDto;
+import museum.dto.worker.WorkerAddRequestDto;
+import museum.dto.worker.WorkerUpdateRequestDto;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;

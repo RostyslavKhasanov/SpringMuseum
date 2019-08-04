@@ -1,24 +1,24 @@
 package museum.service;
 
-import museum.dto.request.author.AuthorSaveDtoRequest;
-import museum.dto.request.author.AuthorUpdateDtoRequest;
-import museum.dto.response.author.AuthorDtoResponse;
-import museum.dto.response.author.AuthorIdFirstSecondNameDtoResponse;
+import museum.dto.author.AuthorFullDto;
+import museum.dto.author.AuthorIdInitialsDto;
+import museum.dto.author.AuthorInitialsDto;
 import museum.entity.Author;
+import museum.exception.BadIdException;
 
 import java.util.List;
 
 public interface AuthorService {
 
-  void save(AuthorSaveDtoRequest dto);
+  void save(AuthorInitialsDto dto);
 
-  List<AuthorIdFirstSecondNameDtoResponse> findAll();
+  List<AuthorIdInitialsDto> findAll();
 
-  AuthorDtoResponse findById(Long id);
+  AuthorFullDto findById(Long id) throws BadIdException;
 
-  Author getOneById(Long id);
+  Author getOneById(Long id) throws BadIdException;
 
-  void update(AuthorUpdateDtoRequest dto);
+  void update(AuthorIdInitialsDto dto) throws BadIdException;
 
-  void deleteById(Long id);
+  void deleteById(Long id) throws BadIdException;
 }

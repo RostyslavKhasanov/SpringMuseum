@@ -1,11 +1,10 @@
 package museum.controller;
 
-import museum.dto.request.exhibit.ExhibitSaveDtoRequest;
-import museum.dto.request.exhibit.ExhibitUpdateDtoRequest;
-import museum.dto.response.exhibit.ExhibitDtoResponse;
-import museum.dto.response.exhibit.ExhibitIdNameDtoResponse;
-import museum.dto.response.exhibit.ExhibitMaterialStat;
-import museum.dto.response.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.ExhibitMaterialStatDto;
+import museum.dto.exhibit.ExhibitSaveDto;
+import museum.dto.exhibit.ExhibitTechnologyStat;
+import museum.dto.exhibit.ExhibitUpdateDto;
+import museum.exception.BadIdException;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -35,43 +33,51 @@ public class ExhibitController {
   /** Method that return all exhibit. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
-    List<ExhibitIdNameDtoResponse> authors = service.findAll();
-    modelMap.addAttribute("exhibits", authors);
+    modelMap.addAttribute("exhibits", service.findAll());
     return "exhibit/exhibits";
   }
 
   /** Method that return exhibit by id. */
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    ExhibitDtoResponse exhibit = service.findById(id);
-    modelMap.addAttribute("exhibit", exhibit);
+    try {
+      modelMap.addAttribute("exhibit", service.findById(id));
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "exhibit/exhibitInfo";
   }
 
   /** Method that save new exhibit. */
   @PostMapping("/save")
-  public void save(
-      @Valid @ModelAttribute ExhibitSaveDtoRequest dto, HttpServletResponse httpServletResponse) {
+  public String save(@Valid @ModelAttribute ExhibitSaveDto dto) {
     service.save(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
+    return "redirect:/exhibit";
   }
 
   /** Method that update exhibit. */
   @PostMapping("/update")
-  public void update(
-      @Valid @ModelAttribute ExhibitUpdateDtoRequest dto, HttpServletResponse httpServletResponse) {
-    service.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
+  public String update(@Valid @ModelAttribute ExhibitUpdateDto dto, ModelMap modelMap) {
+    try {
+      service.update(dto);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "redirect:/exhibit";
   }
 
   /** Method that delete exhibit by id. */
   @GetMapping("/delete")
-  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
-    service.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/exhibit");
-    httpServletResponse.setStatus(302);
+  public String delete(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      service.deleteById(id);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "redirect:/exhibit";
   }
 
   /** Method for jsp add page. */
@@ -79,22 +85,26 @@ public class ExhibitController {
   public String addExhibitPage(ModelMap modelMap) {
     modelMap.addAttribute("authors", authorService.findAll());
     modelMap.addAttribute("halls", hallService.findAll());
-    return "exhibit/addExhibit";
+    return "exhibit/addAndEditExhibit";
   }
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
-    ExhibitDtoResponse exhibit = service.findById(id);
-    modelMap.addAttribute("exhibit", exhibit);
-    modelMap.addAttribute("authors", authorService.findAll());
-    modelMap.addAttribute("halls", hallService.findAll());
-    return "exhibit/editExhibit";
+    try {
+      modelMap.addAttribute("exhibit", service.findById(id));
+      modelMap.addAttribute("authors", authorService.findAll());
+      modelMap.addAttribute("halls", hallService.findAll());
+    } catch (Exception e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "exhibit/addAndEditExhibit";
   }
 
   /** Method for jsp statistic page. */
   @RequestMapping("/stat")
   public String getStatistic(ModelMap modelMap) {
-    List<ExhibitMaterialStat> exhibitMaterialStats = service.getMaterialStat();
+    List<ExhibitMaterialStatDto> exhibitMaterialStats = service.getMaterialStat();
     modelMap.addAttribute("exhibitMaterialStats", exhibitMaterialStats);
     List<ExhibitTechnologyStat> exhibitTechnologyStats = service.getTechnologyStat();
     modelMap.addAttribute("exhibitTechnologyStats", exhibitTechnologyStats);
