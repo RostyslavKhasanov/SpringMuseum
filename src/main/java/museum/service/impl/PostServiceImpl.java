@@ -1,11 +1,13 @@
 package museum.service.impl;
 
+import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
 import museum.dao.PostDao;
 import museum.dto.post.PostDto;
 import museum.dto.post.PostSaveDto;
 import museum.entity.Post;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.exception.PostExistException;
 import museum.service.PostService;
 import org.springframework.stereotype.Service;
@@ -89,9 +91,12 @@ public class PostServiceImpl implements PostService {
   @Transactional
   @Override
   public void delete(Long id) {
-    Boolean isDeleted = postDao.deleteById(id);
-    if (!isDeleted) {
-      throw new BadIdException("Post with entered id doesn't exist");
+    Post post = postDao.findById(id);
+    if (post.getWorkers().size() != 0) {
+      throw new EntityConstraintException(
+          "You can't delete this post, because exist workers with this post!");
+    } else {
+      postDao.deleteById(id);
     }
   }
 }
