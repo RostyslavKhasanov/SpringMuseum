@@ -2,6 +2,7 @@ package museum.controller;
 
 import museum.dto.post.PostDto;
 import museum.dto.post.PostSaveDto;
+import museum.exception.EntityConstraintException;
 import museum.exception.PostExistException;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,9 @@ public class PostController {
     try {
       postService.delete(id);
       return "redirect:/worker";
-    } catch (JpaSystemException e) {
+    } catch (EntityConstraintException e) {
       modelMap.addAttribute(
-          "message", "Disable to delete this post, because exist workers with this post!");
+          "message", e.getMessage());
       return "errorMessage";
     }
   }
