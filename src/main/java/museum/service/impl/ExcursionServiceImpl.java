@@ -43,18 +43,20 @@ public class ExcursionServiceImpl implements ExcursionService {
 
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
-    excursionDao.save(Excursion.builder()
+    excursionDao.save(
+        Excursion.builder()
             .description(dtoRequest.getDescription())
             .begin(begin)
             .end(end)
             .price(dtoRequest.getPrice())
-            .worker(workerService.getOneById(dtoRequest.getWorkerId())).build());
+            .worker(workerService.getOneById(dtoRequest.getWorkerId()))
+            .build());
   }
 
   /** Method that update excursion. */
   @Transactional
   @Override
-  public void update(ExcursionUpdateDto dtoRequest) throws BadIdException, BadRequestForInputDate{
+  public void update(ExcursionUpdateDto dtoRequest) throws BadIdException, BadRequestForInputDate {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
@@ -62,13 +64,14 @@ public class ExcursionServiceImpl implements ExcursionService {
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
     Excursion excursion =
-    Excursion.builder()
+        Excursion.builder()
             .id(dtoRequest.getId())
             .description(dtoRequest.getDescription())
             .begin(begin)
             .end(end)
             .price(dtoRequest.getPrice())
-            .worker(workerService.getOneById(dtoRequest.getWorkerId())).build();
+            .worker(workerService.getOneById(dtoRequest.getWorkerId()))
+            .build();
 
     Excursion newExcursion = excursionDao.update(excursion);
     if (newExcursion == null) {
@@ -86,7 +89,9 @@ public class ExcursionServiceImpl implements ExcursionService {
   @Transactional
   @Override
   public List<ExcursionIdNameDto> findAll() {
-    return excursionDao.findAll().stream().map(ExcursionIdNameDto::new).collect(Collectors.toList());
+    return excursionDao.findAll().stream()
+        .map(ExcursionIdNameDto::new)
+        .collect(Collectors.toList());
   }
 
   /**
@@ -111,7 +116,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    */
   @Transactional
   @Override
-  public Excursion getOneById(Long id) throws BadIdException{
+  public Excursion getOneById(Long id) throws BadIdException {
     Excursion excursion = excursionDao.findById(id);
     if (excursion == null) {
       throw new BadIdException("Excursion has no any row with id " + id);
@@ -122,7 +127,7 @@ public class ExcursionServiceImpl implements ExcursionService {
   /** Method that delete excursion by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) throws BadIdException{
+  public void deleteById(Long id) throws BadIdException {
     Boolean isDeleted = excursionDao.deleteById(id);
     if (!isDeleted) {
       throw new BadIdException("Excursion with id " + id + " does not exists");

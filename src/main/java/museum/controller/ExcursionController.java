@@ -43,7 +43,7 @@ public class ExcursionController {
   /** Method for giving form for searching excursions in time period based on given input. */
   @RequestMapping("/byPeriodForm")
   public String showFormPage(ModelMap modelMap) {
-      return "excursion/excursionForm";
+    return "excursion/excursionForm";
   }
 
   /**

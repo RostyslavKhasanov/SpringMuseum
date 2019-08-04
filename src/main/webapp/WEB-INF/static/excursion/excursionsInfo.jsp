@@ -17,26 +17,27 @@
 
 <div class="row no-gutter">
     <div class="col-md-10">
-<c:choose>
-    <c:when test="${not empty excursions}">
-        <div class="list-group">
-            <c:forEach items="${excursions}" var="item">
+        <c:choose>
+            <c:when test="${not empty excursions}">
+                <div class="list-group">
+                    <c:forEach items="${excursions}" var="item">
 
-                <a href="?id=${item.id}"
-                   class="list-group-item list-group-item-action disabled">${item.description}
-                </a>
+                        <a href="?id=${item.id}"
+                           class="list-group-item list-group-item-action disabled">${item.description}
+                        </a>
 
-            </c:forEach>
-        </div>
-    </c:when>
-    <c:otherwise>
-        <h3 class="w3-wide" style="margin: 20px;">Not found any excursions!</h3>
-    </c:otherwise>
-</c:choose>
-</div>
+                    </c:forEach>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <h3 class="w3-wide" style="margin: 20px;">Not found any excursions!</h3>
+            </c:otherwise>
+        </c:choose>
+    </div>
     <div class="col-md-2">
         <div class="col-10">
-            <a href="/excursion/add" class="btn btn-primary" style="float: right; margin-top: 15px; margin-left: 0">Add new
+            <a href="/excursion/add" class="btn btn-primary" style="float: right; margin-top: 15px; margin-left: 0">Add
+                new
                 excursion</a>
 
             <a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 15px">Find

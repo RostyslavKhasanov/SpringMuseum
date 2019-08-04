@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<spring:url value="/resources/images/main.jpg" var="main" />
+<spring:url value="/resources/images/main.jpg" var="main"/>
 <html>
 <head>
     <title>Museum</title>
@@ -29,11 +29,12 @@
     top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);">
-    <h1 class="w3-wide">WELCOME TO THE MUSEUM</h1>
+        <h1 class="w3-wide">WELCOME TO THE MUSEUM</h1>
     </div>
 </div>
 
-<p class="w3-justify" style="text-align: center; padding-top: 5%; padding-bottom: 5%">Browse this museum for a quick history of the<br>
+<p class="w3-justify" style="text-align: center; padding-top: 5%; padding-bottom: 5%">Browse this museum for a quick
+    history of the<br>
     city that you are about to visit. There are three floors, each<br>
     dedicated to several aspects of the city from economic development,<br>
     social development, and city development to the history of Brussels’<br>
@@ -45,53 +46,53 @@
 <div id="map" style="height: 350px; filter: grayscale(50%);-webkit-filter: grayscale(50%);"></div>
 <%--<!-- Footer -->--%>
 <%--<footer--%>
-        <%--class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge" style="background-color: lavender">--%>
-    <%--<!-- Footer Links -->--%>
-    <%--<div class="container">--%>
+<%--class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge" style="background-color: lavender">--%>
+<%--<!-- Footer Links -->--%>
+<%--<div class="container">--%>
 
-        <%--<!-- Grid row-->--%>
-        <%--<div class="row text-center d-flex justify-content-center pt-5 mb-3">--%>
+<%--<!-- Grid row-->--%>
+<%--<div class="row text-center d-flex justify-content-center pt-5 mb-3">--%>
 
-            <%--<!-- Grid column -->--%>
-            <%--<div class="col-md-2 mb-3">--%>
-                <%--<h6 class="text-uppercase font-weight-bold">--%>
-                    <%--<a href="#!">About us</a>--%>
-                <%--</h6>--%>
-            <%--</div>--%>
-            <%--<!-- Grid column -->--%>
+<%--<!-- Grid column -->--%>
+<%--<div class="col-md-2 mb-3">--%>
+<%--<h6 class="text-uppercase font-weight-bold">--%>
+<%--<a href="#!">About us</a>--%>
+<%--</h6>--%>
+<%--</div>--%>
+<%--<!-- Grid column -->--%>
 
-            <%--<!-- Grid column -->--%>
-            <%--<div class="col-md-2 mb-3">--%>
-                <%--<h6 class="text-uppercase font-weight-bold">--%>
-                    <%--<a href="#!">Awards</a>--%>
-                <%--</h6>--%>
-            <%--</div>--%>
-            <%--<!-- Grid column -->--%>
+<%--<!-- Grid column -->--%>
+<%--<div class="col-md-2 mb-3">--%>
+<%--<h6 class="text-uppercase font-weight-bold">--%>
+<%--<a href="#!">Awards</a>--%>
+<%--</h6>--%>
+<%--</div>--%>
+<%--<!-- Grid column -->--%>
 
-            <%--<!-- Grid column -->--%>
-            <%--<div class="col-md-2 mb-3">--%>
-                <%--<h6 class="text-uppercase font-weight-bold">--%>
-                    <%--<a href="#!">Help</a>--%>
-                <%--</h6>--%>
-            <%--</div>--%>
-            <%--<!-- Grid column -->--%>
+<%--<!-- Grid column -->--%>
+<%--<div class="col-md-2 mb-3">--%>
+<%--<h6 class="text-uppercase font-weight-bold">--%>
+<%--<a href="#!">Help</a>--%>
+<%--</h6>--%>
+<%--</div>--%>
+<%--<!-- Grid column -->--%>
 
-            <%--<!-- Grid column -->--%>
-            <%--<div class="col-md-2 mb-3">--%>
-                <%--<h6 class="text-uppercase font-weight-bold">--%>
-                    <%--<a href="#!">Contact</a>--%>
-                <%--</h6>--%>
-            <%--</div>--%>
-            <%--<!-- Grid column -->--%>
+<%--<!-- Grid column -->--%>
+<%--<div class="col-md-2 mb-3">--%>
+<%--<h6 class="text-uppercase font-weight-bold">--%>
+<%--<a href="#!">Contact</a>--%>
+<%--</h6>--%>
+<%--</div>--%>
+<%--<!-- Grid column -->--%>
 
-        <%--</div>--%>
+<%--</div>--%>
 
-        <%--<div class="footer-copyright text-center text-black-50 py-3">© 2018 Copyright:--%>
-            <%--<a class="dark-grey-text" href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>--%>
-        <%--</div>--%>
+<%--<div class="footer-copyright text-center text-black-50 py-3">© 2018 Copyright:--%>
+<%--<a class="dark-grey-text" href="https://mdbootstrap.com/education/bootstrap/"> MDBootstrap.com</a>--%>
+<%--</div>--%>
 
-    <%--</div>--%>
-    <%--<!-- Footer Links -->--%>
+<%--</div>--%>
+<%--<!-- Footer Links -->--%>
 <%--</footer>--%>
 <%--<!-- Footer -->--%>
 <script>
