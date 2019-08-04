@@ -23,12 +23,7 @@
     <img src="${main}" style="width: 100%">
 
     <div class="textMainPage" style="position: absolute;
-    background-color: rgba(255, 255, 255, 0.35);
-    padding: 19% 100%;
-    color: black;
-    top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);">
+     background-color: rgba(255, 255, 255, 0.35); padding: 19% 100%; color: black; top: 50%; left: 50%; transform: translate(-50%, -50%);">
         <h1 class="w3-wide">WELCOME TO THE MUSEUM</h1>
     </div>
 </div>
