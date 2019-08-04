@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import museum.entity.Exhibit;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,4 +22,13 @@ public class ExhibitUpdateDto {
 
   @NotNull private Long authorId;
   @NotNull private Long hallId;
+
+  public ExhibitUpdateDto(Exhibit exhibit) {
+    this.id = exhibit.getId();
+    this.name = exhibit.getName();
+    this.material = exhibit.getMaterial();
+    this.technology = exhibit.getTechnology();
+    this.authorId = exhibit.getAuthor().getId();
+    this.hallId = exhibit.getHall().getId();
+  }
 }

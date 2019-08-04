@@ -8,6 +8,12 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         <%@include file="../../../resources/index.css"%>
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -23,7 +29,7 @@
                 <h5>Post: ${(worker.getPost().getName())}</h5>
                 <br>
                 <c:forEach items="${worker.getHalls()}" var="item">
-                    <h5>Serves ${(item.getName())}</h5>
+                    <h5>Serves <a href="/hall?id=${item.id}">${(item.getName())}</a></h5>
                 </c:forEach>
                 <c:forEach items="${worker.getExcursions()}" var="item">
                     <h5>Excursion: begin - ${(item.getBegin()).format( DateTimeFormatter.ofPattern("dd.MM.yyyy HH-mm"))}

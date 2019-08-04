@@ -18,12 +18,12 @@
         <c:when test="${worker.id == null}">
             <form action="/worker" method="post" class="col-4" id="workerForm">
                 <h1>New worker: </h1>
-                <input type="text" name="firstName" class="form-control" placeholder="first Name"
+                <input type="text" name="firstName" class="form-control" placeholder="First name"
                        aria-label="First name"
                        aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
                        oninvalid="this.setCustomValidity('Only english letters')">
                 <br>
-                <input type="text" name="secondName" class="form-control" placeholder="Second Name"
+                <input type="text" name="secondName" class="form-control" placeholder="Second name"
                        aria-label="Second name"
                        aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
                        oninvalid="this.setCustomValidity('Only english letters')">
@@ -43,12 +43,12 @@
             <form action="/worker/update" method="post" class="col-4" id="workerFormUpdate">
                 <h1>Edit</h1>
                 <input type="hidden" name="id" value="${worker.getId()}" required pattern="^[a-zA-Z]+$">
-                <input type="text" name="firstName" class="form-control" placeholder="first Name"
+                <input type="text" name="firstName" class="form-control" placeholder="First name"
                        aria-label="First name"
                        aria-describedby="basic-addon2" value="${worker.getFirstName()}" required
                        pattern="^[a-zA-Z]{1,20}$">
                 <br>
-                <input type="text" name="secondName" class="form-control" placeholder="Second Name"
+                <input type="text" name="secondName" class="form-control" placeholder="Second name"
                        aria-label="Second name"
                        aria-describedby="basic-addon2" value="${worker.getSecondName()}" pattern="^[a-zA-Z]{1,20}$">
                 <br>

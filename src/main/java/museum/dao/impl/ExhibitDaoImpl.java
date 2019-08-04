@@ -2,7 +2,7 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.ExhibitDao;
-import museum.dto.exhibit.ExhibitMaterialStat;
+import museum.dto.exhibit.ExhibitMaterialStatDto;
 import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,10 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
   /**
    * Method for Exhibit material statistic.
    *
-   * @return List of ExhibitMaterialStat
+   * @return List of ExhibitMaterialStatDto
    */
   @Override
-  public List<ExhibitMaterialStat> getMaterialStat() {
+  public List<ExhibitMaterialStatDto> getMaterialStat() {
 
     List<Object[]> resultList =
         manager
@@ -41,9 +41,9 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
                 Object[].class)
             .getResultList();
 
-    List<ExhibitMaterialStat> exhibitTechnologyStats = new ArrayList<>();
+    List<ExhibitMaterialStatDto> exhibitTechnologyStats = new ArrayList<>();
     for (Object[] a : resultList) {
-      exhibitTechnologyStats.add(new ExhibitMaterialStat(a[0].toString(), (Long) a[1]));
+      exhibitTechnologyStats.add(new ExhibitMaterialStatDto(a[0].toString(), (Long) a[1]));
     }
     return exhibitTechnologyStats;
   }
@@ -51,7 +51,7 @@ public class ExhibitDaoImpl extends ElementDaoImpl<Exhibit> implements ExhibitDa
   /**
    * Method for Exhibit technology statistic.
    *
-   * @return List of ExhibitMaterialStat
+   * @return List of ExhibitMaterialStatDto
    */
   @Override
   public List<ExhibitTechnologyStat> getTechnologyStat() {

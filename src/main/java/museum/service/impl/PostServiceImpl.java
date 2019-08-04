@@ -8,11 +8,11 @@ import museum.entity.Post;
 import museum.exception.BadIdException;
 import museum.exception.PostExistException;
 import museum.service.PostService;
-import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service implementation for Post entity.
@@ -26,8 +26,6 @@ public class PostServiceImpl implements PostService {
 
   private PostDao postDao;
 
-  private ObjectMapperUtils modelMapper;
-
   /**
    * Save post.
    *
@@ -37,7 +35,7 @@ public class PostServiceImpl implements PostService {
   @Override
   public void save(PostSaveDto postSaveDto) {
     if (postDao.findByName(postSaveDto.getName()) == null) {
-      postDao.save(modelMapper.map(postSaveDto, Post.class));
+      postDao.save(Post.builder().name(postSaveDto.getName()).build());
     } else {
       throw new PostExistException("Post is already exist!  ");
     }
@@ -51,7 +49,8 @@ public class PostServiceImpl implements PostService {
   @Transactional
   @Override
   public PostDto findById(Long id) {
-    return modelMapper.map(postDao.findById(id), PostDto.class);
+    PostDto postDto = new PostDto(postDao.findById(id));
+    return postDto;
   }
 
   /**
@@ -62,7 +61,8 @@ public class PostServiceImpl implements PostService {
   @Transactional
   @Override
   public List<PostDto> findAll() {
-    return modelMapper.mapAll(postDao.findAll(), PostDto.class);
+    List<Post> posts = postDao.findAll();
+    return posts.stream().map(PostDto::new).collect(Collectors.toList());
   }
 
   /**

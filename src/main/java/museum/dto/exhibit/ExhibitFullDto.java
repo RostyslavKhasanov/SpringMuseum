@@ -21,4 +21,13 @@ public class ExhibitFullDto {
   private AuthorIdInitialsDto author;
 
   private HallIdNameDtoResponse hall;
+
+  public ExhibitFullDto(Exhibit exhibit) {
+    this.id = exhibit.getId();
+    this.name = exhibit.getName();
+    this.material = exhibit.getMaterial();
+    this.technology = exhibit.getTechnology();
+    this.author = new AuthorIdInitialsDto(exhibit.getAuthor());
+    this.hall = new HallIdNameDtoResponse(exhibit.getHall());
+  }
 }

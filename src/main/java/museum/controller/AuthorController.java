@@ -3,6 +3,7 @@ package museum.controller;
 import museum.dto.author.AuthorIdInitialsDto;
 import museum.dto.author.AuthorInitialsDto;
 import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 import museum.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,7 +67,7 @@ public class AuthorController {
   public String delete(@RequestParam Long id, ModelMap modelMap) {
     try {
       service.deleteById(id);
-    } catch (BadIdException e) {
+    } catch (BadIdException | EntityConstraintException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -76,13 +77,13 @@ public class AuthorController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addAuthorPage() {
-    return "author/addAuthor";
+    return "author/addAndEditAuthor";
   }
 
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
     findById(id, modelMap);
-    return "author/editAuthor";
+    return "author/addAndEditAuthor";
   }
 }

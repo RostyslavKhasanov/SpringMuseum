@@ -32,4 +32,18 @@ public class WorkerDto {
 
   private List<HallIdNameDtoResponse> halls;
   private List<ExcursionBeginEndDtoResponse> excursions;
+
+  public WorkerDto(Worker worker) {
+    this.id = worker.getId();
+    this.firstName = worker.getFirstName();
+    this.secondName = worker.getSecondName();
+    this.post = worker.getPost();
+    this.halls =
+            worker.getHalls().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
+    this.excursions =
+            worker.getExcursions().stream()
+                    .map(ExcursionBeginEndDtoResponse::new)
+                    .collect(Collectors.toList());
+    ;
+  }
 }

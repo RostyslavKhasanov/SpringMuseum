@@ -35,5 +35,6 @@ public class Excursion {
   @Column(nullable = false)
   private Double price;
 
-  @ManyToOne private Worker worker;
+  @ManyToOne
+  private Worker worker;
 }
