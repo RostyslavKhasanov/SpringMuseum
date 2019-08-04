@@ -68,9 +68,14 @@ public class WorkerController {
       method = RequestMethod.GET,
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("halls", hallService.findByWorkerId(id));
-    return "worker/workerInfo";
+    try {
+      modelMap.addAttribute("worker", workerService.findById(id));
+      modelMap.addAttribute("halls", hallService.findByWorkerId(id));
+      return "worker/workerInfo";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /**
@@ -173,9 +178,14 @@ public class WorkerController {
    */
   @GetMapping(value = "/edit", params = "id")
   public String editWorker(@RequestParam Long id, ModelMap modelMap) {
-    modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("posts", postService.findAll());
-    return "worker/addWorker";
+    try {
+      modelMap.addAttribute("worker", workerService.findById(id));
+      modelMap.addAttribute("posts", postService.findAll());
+      return "worker/addWorker";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /**
