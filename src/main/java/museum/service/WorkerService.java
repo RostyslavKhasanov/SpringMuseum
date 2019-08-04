@@ -2,6 +2,9 @@ package museum.service;
 
 import museum.dto.worker.*;
 import museum.entity.Worker;
+import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
+import museum.exception.WorkerStatException;
 
 import java.util.List;
 
@@ -62,14 +65,14 @@ public interface WorkerService {
    *
    * @return List of WorkerStatDtoResponse;
    */
-  List<WorkerStatDto> findGuidesStat();
+  List<WorkerStatDto> findGuidesStat() throws WorkerStatException;
 
   /**
    * Delete worker by id.
    *
    * @param id worker id.
    */
-  void deleteById(Long id);
+  void deleteById(Long id) throws BadIdException, EntityConstraintException;
 
   /**
    * Get worker by id..

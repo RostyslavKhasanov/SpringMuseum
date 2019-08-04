@@ -7,6 +7,7 @@ import museum.entity.Worker;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.exception.EntityConstraintException;
+import museum.exception.WorkerStatException;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.stereotype.Service;
@@ -124,13 +125,17 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public List<WorkerStatDto> findGuidesStat() {
+  public List<WorkerStatDto> findGuidesStat() throws WorkerStatException {
+    try {
     List<Worker> workers = workerDao.findAllGuide();
     List<WorkerStatDto> workerStatDto = new ArrayList<>();
     for (Worker worker : workers) {
       workerStatDto.add(mapperForStat(worker));
     }
     return workerStatDto;
+    } catch (NoResultException e) {
+      throw new WorkerStatException("Excursion or halls doesn't exist");
+    }
   }
 
   /**
@@ -140,8 +145,11 @@ public class WorkerServiceImpl implements WorkerService {
    */
   @Transactional
   @Override
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws BadIdException, EntityConstraintException {
     Worker worker = workerDao.findById(id);
+    if (worker == null) {
+      throw new BadIdException("Worker with entered id doesn't exist!");
+    }
     if ((worker.getHalls().size() != 0) || (worker.getExcursions().size() != 0)) {
       throw new EntityConstraintException(
           "You can not delete this worker because he have some responsibility!");
