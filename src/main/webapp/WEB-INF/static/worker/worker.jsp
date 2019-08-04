@@ -69,7 +69,8 @@
         if (input.checkValidity()) {
             document.location.href = "worker?name=" + fName;
         } else {
-            alert("Enter only eng letters!")
+            alert("Enter surname with eng letters!");
+            document.location.reload();
         }
     }
 

@@ -12,17 +12,28 @@
 <jsp:include page="../menu.jsp"/>
 <div class="row">
     <div class="col-4"></div>
-    <div class="col-4"  align="center">
-        <br><br>
-        <h4>Exhibits of <a href="/worker?id=${worker.id}">${(worker.getFirstName())} ${(worker.getSecondName())}</a></h4>
-        <br>
-        <div>
-            <c:forEach items="${halls}" var="item">
-                <c:forEach items="${item.getExhibits()}" var="item1">
-                    <h6>${(item1.getName())}</h6>
-                </c:forEach>
-            </c:forEach>
-        </div>
+    <div class="col-4" align="center">
+        <c:choose>
+            <c:when test="${worker.id == null}">
+                <br><br>
+                <h4>Exhibits of <a
+                        href="/worker?id=${worker.id}">${(worker.getFirstName())} ${(worker.getSecondName())}</a></h4>
+                <br>
+                <div>
+                    <c:forEach items="${halls}" var="item">
+                        <c:forEach items="${item.getExhibits()}" var="item1">
+                            <h6>${(item1.getName())}</h6>
+                        </c:forEach>
+                    </c:forEach>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <br><br>
+                <h2><a
+                        href="/worker?id=${worker.id}">${(worker.getFirstName())} ${(worker.getSecondName())}</a>
+                    doesn't serve any exhibits!</h2>
+            </c:otherwise>
+        </c:choose>
         <div class="col-4"></div>
     </div>
 </div>
