@@ -27,7 +27,7 @@
         <form action="/hall/save" method="post" class="hall-Form col-4">
             <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
                    aria-describedby="basic-addon2" required
-                   pattern="[a-zA-Z0-9 ]{6,30}">
+                   pattern="[a-zA-Z0-9 ]{3, 15}">
             <br>
 
             <select name="workerId" class="custom-select" required>
@@ -46,7 +46,7 @@
         <input type="hidden" name="id" value="${hall.id}">
         <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
         value="${hall.name}" required
-        pattern="[a-zA-Z0-9 ]{6,30}">
+        pattern="[a-zA-Z0-9 ]{3, 15}">
         <br>
 
         <select name="workerId" class="custom-select" required>
