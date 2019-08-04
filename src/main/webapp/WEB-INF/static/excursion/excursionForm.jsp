@@ -30,10 +30,10 @@
         <div class="excursionForm col-4" style="margin-left: 32%">
             <label for="startTime">Start:</label>
             <input id="startTime" type="datetime-local" name="begin" class="form-control" aria-label="Begin"
-                   aria-describedby="basic-addon2" required><br>
+                   aria-describedby="basic-addon2" required min="2010-08-03T22:22" max="2020-08-03T22:22"><br>
             <label for="endTime">End:</label>
             <input id="endTime" type="datetime-local" name="end" class="form-control" aria-label="End"
-                   aria-describedby="basic-addon2" required><br>
+                   aria-describedby="basic-addon2" required min="2010-08-03T22:22" max="2020-08-03T22:22"><br>
             <button type="button" class="btn btn-primary" onclick="submitAction()">Submit</button>
         </div>
     </div>
