@@ -1,5 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Katay
+  Date: 20.07.2019
+  Time: 14:57
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -16,26 +23,34 @@
 <jsp:include page="../menu.jsp"/>
 
 <div class="container">
-
-<pre id="main-text">Please, enter the period you want to visit
+    <div class="row">
+        <div class="col-4"></div>
+        <pre id="main-text">Please, enter the period you want to visit
             excursion in our museum.</pre>
-
-<div class="col-4" id="excursionForm" style="margin-left: 34%">
-    <label for="start">Start:</label>
-    <input id="start" type="datetime-local" class="form-control" name="start"><br>
-    <label for="end">End:</label>
-    <input id="end" type="datetime-local" class="form-control" name="end"><br>
-    <button type="button" class="btn btn-primary" onclick="submitAction()">Submit</button>
-</div>
+        <div class="excursionForm col-4" style="margin-left: 32%">
+            <label for="startTime">Start:</label>
+            <input id="startTime" type="datetime-local" name="begin" class="form-control" aria-label="Begin" aria-describedby="basic-addon2" required><br>
+            <label for="endTime">End:</label>
+            <input id="endTime" type="datetime-local" name="end" class="form-control" aria-label="End" aria-describedby="basic-addon2" required><br>
+            <button type="button" class="btn btn-primary" onclick="submitAction()">Submit</button>
+        </div>
+    </div>
 </div>
 </body>
 <script>
     function submitAction() {
-        var start = document.getElementById("start").value;
-        var end = document.getElementById("end").value;
-        alert(start);
+        var start = document.getElementById("startTime").value;
+        var end = document.getElementById("endTime").value;
+
+        // Check if empty of not
+        if (start.length < 1 || end.length < 1) {
+            alert('Please, write in all fields');
+            return false;
+        }
+        // alert(start);
         document.location.href = "http://localhost:8080//excursion/byPeriod?start=" + start + "&end=" + end;
     }
+
 </script>
 </body>
 

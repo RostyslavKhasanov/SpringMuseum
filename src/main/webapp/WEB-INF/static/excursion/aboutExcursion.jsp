@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.time.format.DateTimeFormatter" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%--
   Created by IntelliJ IDEA.
   User: Katay
@@ -23,8 +24,12 @@
         <div class="col-10">
 
             <div class="info">
-                <div>Start: ${excursion.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
-                <div>End: ${excursion.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
+                <c:set var = "beginI" value = "${excursion.begin}"/>
+                <c:set var = "begin" value = "${fn:replace(beginI, 'T', ' ')}" />
+                <c:set var = "endI" value = "${excursion.end}"/>
+                <c:set var = "end" value = "${fn:replace(endI, 'T', ' ')}" />
+                    <div>Start: ${begin}</div>
+                    <div>End: ${end}</div>
                 <div>Price, UAH: ${excursion.price}</div>
             </div>
             <div class="worker">

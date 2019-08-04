@@ -1,14 +1,20 @@
 package museum.dao;
 
-import museum.dto.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionIdNameDto;
 import museum.entity.Excursion;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * DAO interface for Excursion entity.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 public interface ExcursionDao extends ElementDao<Excursion> {
 
-  List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end);
+  List<ExcursionIdNameDto> findByPeriod(LocalDateTime begin, LocalDateTime end);
 
-  Integer findCountByPeriod(LocalDateTime start, LocalDateTime end);
+  Integer findCountByPeriod(LocalDateTime begin, LocalDateTime end);
 }

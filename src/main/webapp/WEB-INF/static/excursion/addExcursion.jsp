@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Excursion</title>
+    <title>Add Excursion</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
@@ -22,18 +22,18 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/excursion/save" method="post" class="col-4" id="excursionForm">
+        <form action="/excursion/save" method="post" class="excursionForm col-4">
             <input type="text" name="description" class="form-control" placeholder="Description"
-                   style="margin: 6% 0" required pattern="^[a-zA-Z]{1,30}$">
+                   style="margin: 6% 0" aria-label="Description" aria-describedby="basic-addon2" required pattern="[a-zA-Z0-9 ]{6,30}">
             <label for="startTime">Start:</label>
-            <input id="startTime" type="datetime-local" name="begin" class="form-control"><br>
+            <input id="startTime" type="datetime-local" name="begin" class="form-control" aria-label="Begin" aria-describedby="basic-addon2" required><br>
             <label for="endTime">End:</label>
-            <input id="endTime" type="datetime-local" name="end" class="form-control"><br>
+            <input id="endTime" type="datetime-local" name="end" class="form-control" aria-label="End" aria-describedby="basic-addon2" required><br>
             <label for="price">Price</label>
             <input type="number" value="100" min="0" step="0.1"
-                   data-number-to-fixed="2" data-number-stepfactor="100" id="price"
-                   name="price" class="form-control"/>
-            <select name="workerId" class="custom-select" style="margin-top: 10%">
+                   data-number-to-fixed="2" aria-describedby="basic-addon2" data-number-stepfactor="100" id="price"
+                   name="price" aria-label="Price" class="form-control" required/>
+            <select name="workerId" required class="custom-select" style="margin-top: 10%">
                 <option selected value="0">Select worker</option>
                 <c:forEach var="worker" items="${workers}">
                     <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>

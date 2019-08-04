@@ -29,6 +29,7 @@ public class ExhibitServiceImpl implements ExhibitService {
   private AuthorService authorService;
 
   private HallService hallService;
+
   private ObjectMapperUtils mapper;
 
   /** Method that save new exhibit. */

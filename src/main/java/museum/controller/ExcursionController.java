@@ -1,6 +1,7 @@
 package museum.controller;
 
-import museum.dto.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionFullDto;
+import museum.dto.excursion.ExcursionIdNameDto;
 import museum.dto.excursion.ExcursionSaveDto;
 import museum.dto.excursion.ExcursionUpdateDto;
 import museum.dto.worker.WorkerFirstSecondNameDtoResponse;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -36,19 +36,14 @@ public class ExcursionController {
   /** Method that return all excursions. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
-    List<ExcursionResponse> excursions = excursionService.findAll();
-    modelMap.addAttribute("excursions", excursions);
+    modelMap.addAttribute("excursions", excursionService.findAll());
     return "excursion/excursionsInfo";
   }
 
-  /**
-   * Method for giving form for searching excursions in time period based on given input.
-   *
-   * @return "/excursion/excursionForm"
-   */
+  /** Method for giving form for searching excursions in time period based on given input. */
   @RequestMapping("/byPeriodForm")
   public String showFormPage(ModelMap modelMap) {
-    return "/excursion/excursionForm";
+      return "excursion/excursionForm";
   }
 
   /**
@@ -70,14 +65,14 @@ public class ExcursionController {
       String fromS = from.replaceAll("T", " ");
       String toS = to.replaceAll("T", " ");
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-      LocalDateTime start = LocalDateTime.parse(fromS, formatter);
+      LocalDateTime begin = LocalDateTime.parse(fromS, formatter);
       LocalDateTime end = LocalDateTime.parse(toS, formatter);
-      List<ExcursionResponse> excursions = excursionService.findByPeriod(start, end);
+      List<ExcursionIdNameDto> excursions = excursionService.findByPeriod(begin, end);
       modelMap.addAttribute("excursions", excursions);
 
-      int excursionsStatistic = excursionService.findCountByPeriod(start, end);
+      int excursionsStatistic = excursionService.findCountByPeriod(begin, end);
       modelMap.addAttribute("excursionsStatistic", excursionsStatistic);
-      return "/excursion/excursions";
+      return "excursion/excursions";
     } catch (BadRequestForInputDate e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
@@ -88,8 +83,7 @@ public class ExcursionController {
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     try {
-      ExcursionResponse excursion = excursionService.findById(id);
-      modelMap.addAttribute("exhibit", excursion);
+      modelMap.addAttribute("excursion", excursionService.findById(id));
     } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
@@ -100,7 +94,7 @@ public class ExcursionController {
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam Long id, ModelMap modelMap) {
-    ExcursionResponse excursion = excursionService.findById(id);
+    ExcursionFullDto excursion = excursionService.findById(id);
     modelMap.addAttribute("excursion", excursion);
     modelMap.addAttribute("workers", workerService.findAll());
     return "excursion/editExcursion";
@@ -108,8 +102,13 @@ public class ExcursionController {
 
   /** Method that update excursion. */
   @PostMapping("/update")
-  public String update(@Valid @ModelAttribute ExcursionUpdateDto dto) {
-    excursionService.update(dto);
+  public String update(@Valid @ModelAttribute ExcursionUpdateDto dto, ModelMap modelMap) {
+    try {
+      excursionService.update(dto);
+    } catch (BadIdException | BadRequestForInputDate e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/excursion";
   }
 
@@ -123,19 +122,20 @@ public class ExcursionController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addExcursionPage(ModelMap modelMap) {
-    //    try {
     List<WorkerFirstSecondNameDtoResponse> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "excursion/addExcursion";
-    //    } catch (Exception e) {
-    //      return "errorMessage";
-    //    }
   }
 
   /** Method that delete excursion. */
-  @PostMapping(value = "/delete", params = "id")
-  public String delete(@RequestParam Long id) {
-    excursionService.deleteById(id);
+  @GetMapping(value = "/delete", params = "id")
+  public String delete(@RequestParam Long id, ModelMap modelMap) {
+    try {
+      excursionService.deleteById(id);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/excursion";
   }
 }

@@ -15,12 +15,8 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<a href="/excursion/add" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Add new
-    excursion</a> <br><br>
-
-<a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Find
-    by period</a>
-
+<div class="row no-gutter">
+    <div class="col-md-10">
 <c:choose>
     <c:when test="${not empty excursions}">
         <div class="list-group">
@@ -37,6 +33,16 @@
         <h3 class="w3-wide" style="margin: 20px;">Not found any excursions!</h3>
     </c:otherwise>
 </c:choose>
+</div>
+    <div class="col-md-2">
+        <div class="col-10">
+            <a href="/excursion/add" class="btn btn-primary" style="float: right; margin-top: 15px; margin-left: 0">Add new
+                excursion</a>
+
+            <a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 15px">Find
+                by period</a>
+        </div>
+    </div>
 </div>
 
 </body>

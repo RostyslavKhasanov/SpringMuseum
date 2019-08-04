@@ -1,16 +1,15 @@
 package museum.service.impl;
 
-import lombok.AllArgsConstructor;
 import museum.dao.ExcursionDao;
+import museum.dto.excursion.ExcursionFullDto;
+import museum.dto.excursion.ExcursionIdNameDto;
 import museum.dto.excursion.ExcursionSaveDto;
 import museum.dto.excursion.ExcursionUpdateDto;
-import museum.dto.excursion.ExcursionResponse;
 import museum.entity.Excursion;
 import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
-import museum.utils.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +26,11 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 @Service
-//@AllArgsConstructor
 public class ExcursionServiceImpl implements ExcursionService {
 
   @Autowired private ExcursionDao excursionDao;
 
   @Autowired private WorkerService workerService;
-
-  private ObjectMapperUtils mapper;
 
   /** Method that save new excursion. */
   @Transactional
@@ -47,48 +43,50 @@ public class ExcursionServiceImpl implements ExcursionService {
 
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
-    Excursion excursion = new Excursion();
-    excursion.setDescription(dtoRequest.getDescription());
-    excursion.setBegin(begin);
-    excursion.setEnd(end);
-    excursion.setPrice(dtoRequest.getPrice());
-    excursion.setWorker(workerService.getOneById(dtoRequest.getWorkerId()));
-    excursionDao.save(excursion);
+    excursionDao.save(Excursion.builder()
+            .description(dtoRequest.getDescription())
+            .begin(begin)
+            .end(end)
+            .price(dtoRequest.getPrice())
+            .worker(workerService.getOneById(dtoRequest.getWorkerId())).build());
   }
 
   /** Method that update excursion. */
   @Transactional
   @Override
-  public void update(ExcursionUpdateDto dtoRequest) {
-
+  public void update(ExcursionUpdateDto dtoRequest) throws BadIdException, BadRequestForInputDate{
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
 
     LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
 
-    Excursion excursion = new Excursion();
-    excursion.setId(dtoRequest.getId());
-    excursion.setDescription(dtoRequest.getDescription());
-    excursion.setBegin(begin);
-    excursion.setEnd(end);
-    excursion.setPrice(dtoRequest.getPrice());
-    excursion.setWorker(workerService.findById(dtoRequest.getWorkerId()));
+    Excursion excursion =
+    Excursion.builder()
+            .id(dtoRequest.getId())
+            .description(dtoRequest.getDescription())
+            .begin(begin)
+            .end(end)
+            .price(dtoRequest.getPrice())
+            .worker(workerService.findById(dtoRequest.getWorkerId())).build();
+
     Excursion newExcursion = excursionDao.update(excursion);
     if (newExcursion == null) {
       throw new BadIdException("Excursion has no any row with id " + dtoRequest.getId());
+    } else {
+      throw new BadRequestForInputDate("Field have not correct given input. Try again, please");
     }
   }
 
   /**
    * Method that return all excursion dto.
    *
-   * @return List of ExcursionResponse.
+   * @return List of ExcursionFullDto.
    */
   @Transactional
   @Override
-  public List<ExcursionResponse> findAll() {
-    return excursionDao.findAll().stream().map(ExcursionResponse::new).collect(Collectors.toList());
+  public List<ExcursionIdNameDto> findAll() {
+    return excursionDao.findAll().stream().map(ExcursionIdNameDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -98,12 +96,12 @@ public class ExcursionServiceImpl implements ExcursionService {
    */
   @Transactional
   @Override
-  public ExcursionResponse findById(Long id) {
+  public ExcursionFullDto findById(Long id) throws BadIdException {
     Excursion excursion = excursionDao.findById(id);
-    if (excursionDao == null) {
-      throw new BadIdException("Excursion with id " + id + " does not exists");
+    if (excursion == null) {
+      throw new BadIdException("Excursion has no row with id " + id);
     }
-    return new ExcursionResponse(excursion);
+    return new ExcursionFullDto(excursion);
   }
 
   /**
@@ -113,7 +111,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    */
   @Transactional
   @Override
-  public Excursion getOneById(Long id) {
+  public Excursion getOneById(Long id) throws BadIdException{
     Excursion excursion = excursionDao.findById(id);
     if (excursion == null) {
       throw new BadIdException("Excursion has no any row with id " + id);
@@ -124,28 +122,28 @@ public class ExcursionServiceImpl implements ExcursionService {
   /** Method that delete excursion by id. */
   @Transactional
   @Override
-  public void deleteById(Long id) {
+  public void deleteById(Long id) throws BadIdException{
     Boolean isDeleted = excursionDao.deleteById(id);
     if (!isDeleted) {
-      throw new BadIdException("Excursion has not row with id " + id);
+      throw new BadIdException("Excursion with id " + id + " does not exists");
     }
   }
 
   /**
    * Method for searching excursions in time period based on given input.
    *
-   * @param start start of time slot to search in
+   * @param begin start of time slot to search in
    * @param end end of time slot to search in
-   * @return List of ExcursionResponse
+   * @return List of ExcursionFullDto
    * @exception BadRequestForInputDate
    */
   @Transactional
   @Override
-  public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end)
+  public List<ExcursionIdNameDto> findByPeriod(LocalDateTime begin, LocalDateTime end)
       throws BadRequestForInputDate {
-    if (start != null && end != null) {
-      if (start.isBefore(end)) {
-        return excursionDao.findByPeriod(start, end);
+    if (begin != null && end != null) {
+      if (begin.isBefore(end)) {
+        return excursionDao.findByPeriod(begin, end);
       } else {
         throw new BadRequestForInputDate("Second given date has to be late than first.");
       }
@@ -157,14 +155,14 @@ public class ExcursionServiceImpl implements ExcursionService {
   /**
    * Method for statistic excursions in time period based on given input.
    *
-   * @param start start of time slot to search in
+   * @param begin start of time slot to search in
    * @param end end of time slot to search in
    * @return int count
    */
   @Transactional
   @Override
-  public Integer findCountByPeriod(LocalDateTime start, LocalDateTime end) {
-    int excursions = excursionDao.findCountByPeriod(start, end);
+  public Integer findCountByPeriod(LocalDateTime begin, LocalDateTime end) {
+    int excursions = excursionDao.findCountByPeriod(begin, end);
     return excursions;
   }
 }

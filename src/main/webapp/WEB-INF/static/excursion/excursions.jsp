@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="java.time.format.DateTimeFormatter" %>
 <%--
   Created by IntelliJ IDEA.
   User: Katay
@@ -22,48 +21,37 @@
 <body>
 <jsp:include page="../menu.jsp"/>
 
-<a href="/excursion/add" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Add new
-    excursion</a> <br><br>
+<div class="row no-gutter" style="margin-left: 1px">
+    <div class="col-md-10">
+        <c:choose>
+            <c:when test="${not empty excursions}">
+                <button type="button" id="openModal" class="btn btn-primary">Show statistic</button>
+                <h4 id="modal">Count of excursions at this period: ${excursionsStatistic}</h4>
+                <div class="list-group">
+                    <c:forEach items="${excursions}" var="item">
 
-<a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 5px; margin-right: 5px">Find
-    by period</a>
+                        <a href="/excursion?id=${item.id}"
+                           class="list-group-item list-group-item-action disabled">${item.description}
+                        </a>
 
-<div class="w3-container w3-content w3-center w3-padding-64 w3-card-8"
-style="max-width: 800px; margin: 30px">
-<h2 class="w3-wide">Excursions in given time period:</h2>
-<c:choose>
-    <c:when test="${not empty excursions}">
-        <button type="button" id="openModal" class="btn btn-primary">Show statistic</button>
-        <div class="container">
-            <div class="row">
+                    </c:forEach>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <h3 class="w3-wide" style="margin: 20px;">Not found any excursions!</h3>
+            </c:otherwise>
+        </c:choose>
+    </div>
+    <div class="col-md-2">
+        <div class="col-10">
+            <a href="/excursion/add" class="btn btn-primary" style="float: right">Add new
+                excursion</a>
 
-                <div class="col-1"></div>
-
-                    <div class="author-exhibits col-10">
-
-                        <div class="info">
-                            <div>Start: ${excursion.begin.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
-                            <div>End: ${excursion.end.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}</div>
-                            <div>Price, UAH: ${excursion.price}</div>
-                        </div>
-                            <div class="worker">
-                                Responsible worker:
-                                <a href="/worker?id=${excursion.worker.id}">${excursion.worker.firstName} ${excursion.worker.secondName}</a>
-                            </div>
-
-                    </div>
-
-
-            <div class="buttons col-1">
-                <a href="/author/edit?id=${excursion.id}" class="btn btn-primary">Edit</a>
-
-                    <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})">Delete this
-                    excursion
-                    </button>
-            </div>
-
+            <a href="/excursion/byPeriodForm" class="btn btn-primary" style="float: right; margin-top: 15px">Find
+                by period</a>
         </div>
-        </div>
+    </div>
+</div>
 <script>
 getInfoAboutCount();
 

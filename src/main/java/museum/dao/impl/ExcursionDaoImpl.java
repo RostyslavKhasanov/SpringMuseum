@@ -2,7 +2,8 @@ package museum.dao.impl;
 
 import museum.dao.ElementDaoImpl;
 import museum.dao.ExcursionDao;
-import museum.dto.excursion.ExcursionResponse;
+import museum.dto.excursion.ExcursionFullDto;
+import museum.dto.excursion.ExcursionIdNameDto;
 import museum.entity.Excursion;
 import org.springframework.stereotype.Repository;
 
@@ -32,10 +33,10 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
    *
    * @param start start of time slot to search in
    * @param end end of time slot to search in
-   * @return List of ExcursionResponse.
+   * @return List of ExcursionIdNameDto.
    */
   @Override
-  public List<ExcursionResponse> findByPeriod(LocalDateTime start, LocalDateTime end) {
+  public List<ExcursionIdNameDto> findByPeriod(LocalDateTime start, LocalDateTime end) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     String query1 = "select e from Excursion e where e.begin >= :begin and e.end <= :end";
     TypedQuery query =
@@ -43,7 +44,7 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
             .createQuery(query1, Excursion.class)
             .setParameter("begin", start)
             .setParameter("end", end);
-    List<ExcursionResponse> excursions = query.getResultList();
+    List<ExcursionIdNameDto> excursions = query.getResultList();
     return excursions;
   }
 

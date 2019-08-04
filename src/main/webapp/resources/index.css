@@ -39,7 +39,7 @@ th a:hover {
     margin-top: -1px;
 }
 
-#workerForm, .authorForm, .exhibitForm, .hallForm, #excursionForm {
+#workerForm, .authorForm, .exhibitForm, .hallForm, .excursionForm {
     margin-top: 10px;
 }
 
@@ -100,6 +100,10 @@ th a:hover {
     border-color: hsl(0, 76%, 50%);
 }
 
+.excursionForm input:not(:placeholder-shown) {
+    border-color: hsl(0, 76%, 50%);
+}
+
 .authorForm input:valid {
     border-color: hsl(120, 76%, 50%);
 }
@@ -113,12 +117,8 @@ th a:hover {
     border-color: hsl(120, 76%, 50%);
 }
 
-#excursionForm input:valid {
+.excursionForm input:valid {
     border-color: hsl(120, 76%, 50%);
-}
-
-#excursionForm input:not(:placeholder-shown) {
-    border-color: hsl(0, 76%, 50%);
 }
 
 #openModal {
@@ -144,26 +144,17 @@ th a:hover {
     margin-top: 2%;
 }
 
-/*#excursionTable {*/
-    /*font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;*/
-    /*border-collapse: collapse;*/
-    /*width: 100%;*/
-    /*margin: 20px;*/
+/*.firstPage {*/
+    /*position: relative;*/
+    /*!*text-align: center;*!*/
 /*}*/
 
-/*#excursionTable td, #excursionTable th {*/
-    /*border: 2px solid #dddddd;*/
-    /*padding: 10px;*/
-/*}*/
-
-/*#excursionTable tr:nth-child(even){background-color: white;}*/
-
-/*#excursionTable tr:hover {background-color: white;}*/
-
-/*#excursionTable th {*/
-    /*padding-top: 16px;*/
-    /*padding-bottom: 16px;*/
-    /*text-align: center;*/
-    /*background-color: gainsboro;*/
+/*.textMainPage{*/
+    /*position: absolute;*/
+    /*bottom: 20px;*/
+    /*right: 20px;*/
+    /*background-color: black;*/
     /*color: white;*/
+    /*padding-left: 20px;*/
+    /*padding-right: 20px;*/
 /*}*/

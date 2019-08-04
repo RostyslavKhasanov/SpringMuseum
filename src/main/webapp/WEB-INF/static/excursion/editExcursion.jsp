@@ -24,17 +24,17 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-        <form action="/excursion/update" method="post" class="col-4" id="excursionForm">
+        <form action="/excursion/update" method="post" class="excursionForm col-4">
             <input type="hidden" name="id" value="${excursion.id}">
             <input type="text" name="description" class="form-control" placeholder="Description"
-                   style="margin: 6% 0" required pattern="^[a-zA-Z]{1,30}$" value="${excursion.description}">
+                   style="margin: 6% 0" aria-label="Description" aria-describedby="basic-addon2" required pattern="[a-zA-Z0-9 ]{6,30} value="${excursion.description}">
             <label for="startTime">Start:</label>
-            <input id="startTime" type="datetime-local" class="form-control" name="begin" value="${excursion.begin}"/><br>
+            <input id="startTime" type="datetime-local" class="form-control" name="begin" required value="${excursion.begin}"/><br>
             <label for="endTime">End:</label>
-            <input id="endTime" type="datetime-local" class="form-control" name="end" value="${excursion.end}"/><br>
+            <input id="endTime" type="datetime-local" class="form-control" name="end" required value="${excursion.end}"/><br>
             <label for="price">Price</label>
             <input type="number" class="form-control" value="100" min="0" step="0.1"
-                   data-number-to-fixed="2" data-number-stepfactor="100" class="currency" id="price" name="price"
+                   data-number-to-fixed="2" data-number-stepfactor="100" class="currency" id="price" name="price" required
                    value="${excursion.price}"/>
             <select name="workerId" class="custom-select" required style="margin-top: 10%">
                 <c:forEach var="worker" items="${workers}">

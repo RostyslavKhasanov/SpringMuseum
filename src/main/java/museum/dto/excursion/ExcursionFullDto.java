@@ -3,23 +3,32 @@ package museum.dto.excursion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import museum.dto.worker.WorkerIdFirstSecondNameDtoResponse;
+import museum.entity.Excursion;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ExcursionFullDto {
 
-  @NotBlank private String description;
+  private Long id;
 
-  @NotBlank private String begin;
+  private String description;
 
-  @NotBlank private String end;
+  private String begin;
 
-  @NotNull private Double price;
+  private String end;
 
-  @NotNull private Long workerId;
+  private Double price;
+
+  private WorkerIdFirstSecondNameDtoResponse worker;
+
+  public ExcursionFullDto(Excursion excursion) {
+    this.id = excursion.getId();
+    this.description = excursion.getDescription();
+    this.begin = excursion.getBegin().toString();
+    this.end = excursion.getEnd().toString();
+    this.price = excursion.getPrice();
+    this.worker = new WorkerIdFirstSecondNameDtoResponse(excursion.getWorker());
+  }
 }

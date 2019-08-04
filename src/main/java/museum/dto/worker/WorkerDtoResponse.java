@@ -48,6 +48,5 @@ public class WorkerDtoResponse {
         worker.getExcursions().stream()
             .map(ExcursionBeginEndDtoResponse::new)
             .collect(Collectors.toList());
-    ;
   }
 }
