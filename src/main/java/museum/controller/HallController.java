@@ -39,11 +39,12 @@ public class HallController {
     return "hall/halls";
   }
 
+  /** Method that return excursion by id. */
   @GetMapping(params = "id")
   public String findById(@RequestParam Long id, ModelMap modelMap) {
     try {
       modelMap.addAttribute("hall", service.findById(id));
-    } catch (Exception e) {
+    } catch (BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
