@@ -1,29 +1,31 @@
 package museum.service;
 
-import museum.dto.exhibit.ExhibitSaveDtoRequest;
-import museum.dto.exhibit.ExhibitUpdateDtoRequest;
-import museum.dto.exhibit.ExhibitDtoResponse;
-import museum.dto.exhibit.ExhibitIdNameDtoResponse;
-import museum.dto.exhibit.ExhibitMaterialStat;
+import museum.dto.exhibit.ExhibitSaveDto;
+import museum.dto.exhibit.ExhibitUpdateDto;
+import museum.dto.exhibit.ExhibitFullDto;
+import museum.dto.exhibit.ExhibitIdInitialsDto;
+import museum.dto.exhibit.ExhibitMaterialStatDto;
 import museum.dto.exhibit.ExhibitTechnologyStat;
 import museum.entity.Exhibit;
+import museum.exception.BadIdException;
+import museum.exception.EntityConstraintException;
 
 import java.util.List;
 
 public interface ExhibitService {
-  void save(ExhibitSaveDtoRequest dto);
+  void save(ExhibitSaveDto dto);
 
-  List<ExhibitIdNameDtoResponse> findAll();
+  List<ExhibitIdInitialsDto> findAll();
 
-  ExhibitDtoResponse findById(Long id);
+  ExhibitFullDto findById(Long id) throws BadIdException;
 
-  Exhibit getOneById(Long id);
+  Exhibit getOneById(Long id) throws BadIdException;
 
-  void update(ExhibitUpdateDtoRequest dto);
+  void update(ExhibitUpdateDto dto) throws BadIdException;
 
-  void deleteById(Long id);
+  void deleteById(Long id) throws BadIdException, EntityConstraintException;
 
-  List<ExhibitMaterialStat> getMaterialStat();
+  List<ExhibitMaterialStatDto> getMaterialStat();
 
   List<ExhibitTechnologyStat> getTechnologyStat();
 }

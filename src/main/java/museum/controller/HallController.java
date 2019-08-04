@@ -1,9 +1,9 @@
 package museum.controller;
 
-import museum.dto.hall.HallSaveRequest;
-import museum.dto.hall.HallUpdateRequest;
 import museum.dto.hall.HallDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
+import museum.dto.hall.HallSaveRequest;
+import museum.dto.hall.HallUpdateRequest;
 import museum.dto.worker.WorkerNamesDto;
 import museum.service.HallService;
 import museum.service.WorkerService;
@@ -47,28 +47,24 @@ public class HallController {
 
   /** Method that save new hall. */
   @PostMapping("/save")
-  public void save(
-      @Valid @ModelAttribute HallSaveRequest dto, HttpServletResponse httpServletResponse) {
+  public String save(@Valid @ModelAttribute HallSaveRequest dto) {
     service.save(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/hall");
-    httpServletResponse.setStatus(302);
+    return "redirect:/hall";
   }
 
   /** Method that update hall. */
   @PostMapping("/update")
-  public void update(
-      @Valid @ModelAttribute HallUpdateRequest dto, HttpServletResponse httpServletResponse) {
+  public String update(
+      @Valid @ModelAttribute HallUpdateRequest dto) {
     service.update(dto);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/hall");
-    httpServletResponse.setStatus(302);
+    return "redirect:/hall";
   }
 
   /** Method that delete hall. */
   @GetMapping(value = "/delete", params = "id")
-  public void delete(@RequestParam Long id, HttpServletResponse httpServletResponse) {
+  public String delete(@RequestParam Long id) {
     service.deleteById(id);
-    httpServletResponse.setHeader("Location", "http://localhost:8080/hall");
-    httpServletResponse.setStatus(302);
+    return "redirect:/hall";
   }
 
   /** Method for jsp add page. */
