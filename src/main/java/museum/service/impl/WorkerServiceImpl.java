@@ -72,7 +72,11 @@ public class WorkerServiceImpl implements WorkerService {
   @Override
   public WorkerDto findById(Long id) {
     WorkerDto workerDto = new WorkerDto(workerDao.findById(id));
-    return workerDto;
+    if (workerDto != null) {
+      return workerDto;
+    } else {
+      throw new BadIdException("Worker with entered id doesn't exist!");
+    }
   }
 
   /**
@@ -146,10 +150,7 @@ public class WorkerServiceImpl implements WorkerService {
   @Transactional
   @Override
   public void deleteById(Long id) throws BadIdException, EntityConstraintException {
-    Worker worker = workerDao.findById(id);
-    if (worker == null) {
-      throw new BadIdException("Worker with entered id doesn't exist!");
-    }
+    Worker worker = getOneById(id);
     if ((worker.getHalls().size() != 0) || (worker.getExcursions().size() != 0)) {
       throw new EntityConstraintException(
           "You can not delete this worker because he have some responsibility!");
