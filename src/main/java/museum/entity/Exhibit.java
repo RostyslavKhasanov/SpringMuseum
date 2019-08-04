@@ -1,8 +1,6 @@
 package museum.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -16,6 +14,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Exhibit {
 
   @Id
@@ -31,7 +31,9 @@ public class Exhibit {
   @Column(nullable = false)
   private String technology;
 
-  @ManyToOne private Author author;
+  @ManyToOne
+  private Author author;
 
-  @ManyToOne private Hall hall;
+  @ManyToOne
+  private Hall hall;
 }

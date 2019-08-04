@@ -9,11 +9,11 @@ import museum.exception.EntityConstraintException;
 import museum.service.AuthorService;
 import museum.service.ExhibitService;
 import museum.service.HallService;
-import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Service for Exhibit logic.
@@ -31,16 +31,18 @@ public class ExhibitServiceImpl implements ExhibitService {
 
   private HallService hallService;
 
-  private ObjectMapperUtils mapper;
-
   /** Method that save new exhibit. */
   @Transactional
   @Override
   public void save(ExhibitSaveDto dto) {
-    Exhibit exhibit = mapper.map(dto, Exhibit.class);
-    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
-    exhibit.setHall(hallService.getOneById(dto.getHallId()));
-    dao.save(exhibit);
+    dao.save(
+        Exhibit.builder()
+            .name(dto.getName())
+            .material(dto.getMaterial())
+            .technology(dto.getTechnology())
+            .author(authorService.getOneById(dto.getAuthorId()))
+            .hall(hallService.getOneById(dto.getHallId()))
+            .build());
   }
 
   /**
@@ -51,7 +53,7 @@ public class ExhibitServiceImpl implements ExhibitService {
   @Transactional
   @Override
   public List<ExhibitIdInitialsDto> findAll() {
-    return mapper.mapAll(dao.findAll(), ExhibitIdInitialsDto.class);
+    return dao.findAll().stream().map(ExhibitIdInitialsDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -66,7 +68,7 @@ public class ExhibitServiceImpl implements ExhibitService {
     if (exhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + id);
     }
-    return mapper.map(exhibit, ExhibitFullDto.class);
+    return new ExhibitFullDto(exhibit);
   }
 
   /**
@@ -88,9 +90,15 @@ public class ExhibitServiceImpl implements ExhibitService {
   @Transactional
   @Override
   public void update(ExhibitUpdateDto dto) throws BadIdException {
-    Exhibit exhibit = mapper.map(dto, Exhibit.class);
-    exhibit.setAuthor(authorService.getOneById(dto.getAuthorId()));
-    exhibit.setHall(hallService.getOneById(dto.getHallId()));
+    Exhibit exhibit =
+        Exhibit.builder()
+            .id(dto.getId())
+            .name(dto.getName())
+            .material(dto.getMaterial())
+            .technology(dto.getTechnology())
+            .author(authorService.getOneById(dto.getAuthorId()))
+            .hall(hallService.getOneById(dto.getHallId()))
+            .build();
     Exhibit newExhibit = dao.update(exhibit);
     if (newExhibit == null) {
       throw new BadIdException("Exhibit has no any row with id " + dto.getId());

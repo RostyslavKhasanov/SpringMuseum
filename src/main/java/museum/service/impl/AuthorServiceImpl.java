@@ -9,7 +9,6 @@ import museum.entity.Author;
 import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
 import museum.service.AuthorService;
-import museum.utils.ObjectMapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,13 +26,13 @@ import java.util.stream.Collectors;
 public class AuthorServiceImpl implements AuthorService {
 
   private AuthorDao dao;
-  private ObjectMapperUtils mapper;
 
   /** Method that save new author. */
   @Transactional
   @Override
   public void save(AuthorInitialsDto dto) {
-    dao.save(mapper.map(dto, Author.class));
+    dao.save(
+        Author.builder().firstName(dto.getFirstName()).secondName(dto.getSecondName()).build());
   }
 
   /**
@@ -59,7 +58,7 @@ public class AuthorServiceImpl implements AuthorService {
     if (author == null) {
       throw new BadIdException("Author has no row with id " + id);
     }
-    return mapper.map(author, AuthorFullDto.class);
+    return new AuthorFullDto(author);
   }
 
   /**
@@ -80,7 +79,13 @@ public class AuthorServiceImpl implements AuthorService {
   @Transactional
   @Override
   public void update(AuthorIdInitialsDto dto) throws BadIdException {
-    Author author = mapper.map(dto, Author.class);
+    Author author =
+        Author.builder()
+            .id(dto.getId())
+            .firstName(dto.getFirstName())
+            .secondName(dto.getSecondName())
+            .build();
+
     Author newAuthor = dao.update(author);
     if (newAuthor == null) {
       throw new BadIdException("Author has no row with id " + dto.getId());
@@ -92,12 +97,9 @@ public class AuthorServiceImpl implements AuthorService {
   @Override
   public void deleteById(Long id) throws BadIdException {
     Author author = getOneById(id);
-    if (author.getExhibits().size()!=0){
+    if (author.getExhibits().size() != 0) {
       throw new EntityConstraintException("You can not delete this author because he is using.");
     }
-    Boolean isDeleted = dao.deleteById(id);
-    if (!isDeleted) {
-      throw new BadIdException("Author has no row with id " + id);
-    }
+    dao.deleteById(id);
   }
 }
