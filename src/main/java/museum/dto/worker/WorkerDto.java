@@ -7,6 +7,7 @@ import museum.dto.excursion.ExcursionBeginEndDtoResponse;
 import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Post;
 import museum.entity.Worker;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -25,9 +26,13 @@ public class WorkerDto {
 
   private Long id;
 
-  @NotBlank private String firstName;
+  @NotBlank
+  @Length(min = 1, max = 20)
+  private String firstName;
 
-  @NotBlank private String secondName;
+  @NotBlank
+  @Length(min = 1, max = 20)
+  private String secondName;
 
   private Post post;
 

@@ -101,6 +101,7 @@ public class WorkerServiceImpl implements WorkerService {
    * Get all free guides.
    *
    * @return List of WorkerDtoResponse.
+   * @return List of WorkerDtoResponse.
    */
   @Transactional
   @Override
@@ -157,7 +158,7 @@ public class WorkerServiceImpl implements WorkerService {
     Worker worker = getOneById(id);
     if ((worker.getHalls().size() != 0) || (worker.getExcursions().size() != 0)) {
       throw new EntityConstraintException(
-          "You can not delete this worker because he have some responsibility!");
+          "You can not delete this worker because he has some responsibility!");
     } else {
       workerDao.deleteById(id);
     }
@@ -175,8 +176,9 @@ public class WorkerServiceImpl implements WorkerService {
     Worker worker = workerDao.findById(id);
     if (worker == null) {
       throw new BadIdException("Worker with id " + id + " doesn't exist");
+    } else {
+      return worker;
     }
-    return worker;
   }
 
   /**

@@ -8,6 +8,12 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Technology statistic DTO for Exhibit.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
