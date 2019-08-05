@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExhibitTechnologyStat {
-  private String technologyName;
-  private Long technologyCount;
+  @NotBlank private String technologyName;
+  @NotNull private Long technologyCount;
 }
