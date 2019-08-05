@@ -1,9 +1,9 @@
 package museum.controller;
 
 import museum.dto.hall.HallDtoResponse;
-import museum.dto.hall.HallIdNameDtoResponse;
-import museum.dto.hall.HallSaveRequest;
-import museum.dto.hall.HallUpdateRequest;
+import museum.dto.hall.HallIdNameDto;
+import museum.dto.hall.HallSaveDto;
+import museum.dto.hall.HallUpdateDto;
 import museum.dto.worker.WorkerNamesDto;
 import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
@@ -34,7 +34,7 @@ public class HallController {
   /** Method that return all halls. */
   @GetMapping
   public String findAll(ModelMap modelMap) {
-    List<HallIdNameDtoResponse> halls = service.findAll();
+    List<HallIdNameDto> halls = service.findAll();
     modelMap.addAttribute("halls", halls);
     return "hall/halls";
   }
@@ -53,14 +53,14 @@ public class HallController {
 
   /** Method that save new hall. */
   @PostMapping("/save")
-  public String save(@Valid @ModelAttribute HallSaveRequest dto) {
+  public String save(@Valid @ModelAttribute HallSaveDto dto) {
     service.save(dto);
     return "redirect:/hall";
   }
 
   /** Method that update hall. */
   @PostMapping("/update")
-  public String update(@Valid @ModelAttribute HallUpdateRequest dto) {
+  public String update(@Valid @ModelAttribute HallUpdateDto dto) {
     service.update(dto);
     return "redirect:/hall";
   }
