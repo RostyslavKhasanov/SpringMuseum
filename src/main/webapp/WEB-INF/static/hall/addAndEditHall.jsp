@@ -22,46 +22,45 @@
 <div class="container">
     <div class="row">
         <div class="col-4"></div>
-<c:choose>
-    <c:when test="${hall.id==null}">
-        <form action="/hall/save" method="post" class="hall-Form col-4">
-            <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-                   aria-describedby="basic-addon2" required
-                   pattern="[a-zA-Z0-9 ]{3, 30}">
-            <br>
+        <c:choose>
+            <c:when test="${hall.id==null}">
+                <form action="/hall/save" method="post" class="hallForm col-4">
+                    <input type="text" name="name" class="form-control" placeholder="Name"
+                           aria-label="Name" aria-describedby="basic-addon2" required
+                           pattern="[a-zA-Z0-9\s]{3,30}">
+                    <br>
 
-            <select name="workerId" class="custom-select" required>
-                <option selected value="">Select worker</option>
-                <c:forEach var="worker" items="${workers}">
-                    <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
-                </c:forEach>
-            </select>
+                    <select name="workerId" class="custom-select" required>
+                        <option selected value="">Select worker</option>
+                        <c:forEach var="worker" items="${workers}">
+                            <option value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
+                        </c:forEach>
+                    </select>
 
-            <br><br>
-            <input type="submit" class="btn btn-primary" value="Save"/>
-        </form>
-    </c:when>
-    <c:otherwise>
-        <form action="/hall/update" method="post" class="hall-Form col-4">
-        <input type="hidden" name="id" value="${hall.id}">
-        <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-        value="${hall.name}" required
-        pattern="[a-zA-Z0-9 ]{3, 30}">
-        <br>
+                    <br><br>
+                    <input type="submit" class="btn btn-primary" value="Save"/>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <form action="/hall/update" method="post" class="hallForm col-4">
+                    <input type="hidden" name="id" value="${hall.id}">
+                    <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
+                           aria-describedby="basic-addon2" value="${hall.name}" required pattern="[a-zA-Z0-9\s]{3, 30}">
+                    <br>
 
-        <select name="workerId" class="custom-select" required>
-        <c:forEach var="worker" items="${workers}">
-            <option
-                    <c:if test="${worker.id == hall.worker.id}">selected</c:if>
-                    value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
-        </c:forEach>
-        </select>
+                    <select name="workerId" class="custom-select" required>
+                        <c:forEach var="worker" items="${workers}">
+                            <option
+                                    <c:if test="${worker.id == hall.worker.id}">selected</c:if>
+                                    value="${worker.id}">${worker.firstName} ${worker.secondName}</option>
+                        </c:forEach>
+                    </select>
 
-        <br><br>
-        <input type="submit" class="btn btn-primary" value="Save"/>
-        </form>
-    </c:otherwise>
-</c:choose>
+                    <br><br>
+                    <input type="submit" class="btn btn-primary" value="Save"/>
+                </form>
+            </c:otherwise>
+        </c:choose>
     </div>
 </div>
 </body>

@@ -17,11 +17,8 @@
 
 <div class="container">
     <div class="row">
-
         <div class="col-1"></div>
-
         <div class="col-10">
-
             <div class="info">
                 <c:set var="beginI" value="${excursion.begin}"/>
                 <c:set var="begin" value="${fn:replace(beginI, 'T', ' ')}"/>
@@ -35,14 +32,12 @@
                 Responsible worker:
                 <a href="/worker?id=${excursion.worker.id}">${excursion.worker.firstName} ${excursion.worker.secondName}</a>
             </div>
-
         </div>
-
 
         <div class="buttons col-1">
             <a href="/excursion/edit?id=${excursion.id}" class="btn btn-primary">Edit</a>
-
-            <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})" style="margin-top: 10px">Delete this
+            <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})"
+                    style="margin-top: 10px">Delete this
                 excursion
             </button>
         </div>

@@ -39,55 +39,14 @@
 </p>
 
 <!-- Footer -->
-<footer
-        class="w3-container w3-padding-64 w3-center w3-opacity w3-light-grey w3-xlarge"
-        style="background-color: gainsboro">
-    <!-- Footer Links -->
-    <div class="container">
+<footer class="page-footer font-small blue" style="background-color: gainsboro">
 
-        <!-- Grid row-->
-        <div class="row text-center d-flex justify-content-center pt-5 mb-3">
-
-            <!-- Grid column -->
-            <div class="col-md-2 mb-3">
-                <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">About us</a>
-                </h6>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-2 mb-3">
-                <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">Awards</a>
-                </h6>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-2 mb-3">
-                <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">Help</a>
-                </h6>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-2 mb-3">
-                <h6 class="text-uppercase font-weight-bold">
-                    <a href="#!">Contact</a>
-                </h6>
-            </div>
-            <!-- Grid column -->
-
-        </div>
-
-        <div class="footer-copyright text-center text-black-50 py-3">© 2018 Copyright:
-            <a class="dark-grey-text" href="#!"> Museum.com</a>
-        </div>
-
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+        <a href="/"> Museum.com</a>
     </div>
-    <!-- Footer Links -->
+    <!-- Copyright -->
+
 </footer>
 <!-- Footer -->
 

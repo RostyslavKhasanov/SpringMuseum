@@ -32,7 +32,8 @@
         </div>
         <div class="col-1">
             <a href="/hall/edit?id=${hall.id}" class="btn btn-primary">Edit</a>
-            <button type="button" class="btn btn-primary" onclick="deleteExhibit(${hall.id})">Delete this
+            <button type="button" class="btn btn-primary" style="margin-top: 10px" onclick="deleteExhibit(${hall.id})">
+                Delete this
                 hall
             </button>
         </div>
