@@ -66,11 +66,12 @@ public class WorkerServiceImpl implements WorkerService {
    * Get worker by id.
    *
    * @param id worker id.
+   * @throws BadIdException if worker with entered id doesn't exist.
    * @return worker;
    */
   @Transactional
   @Override
-  public WorkerDto findById(Long id) {
+  public WorkerDto findById(Long id) throws BadIdException {
     Worker worker = workerDao.findById(id);
     if (worker == null) {
       throw new BadIdException("Worker with entered id doesn't exist!");
@@ -83,12 +84,12 @@ public class WorkerServiceImpl implements WorkerService {
    * Get worker id by name.
    *
    * @param name worker name.
-   * @throws BadIdException;
-   * @return id of worker;
+   * @throws BadNameException if worker with entered name doesn't exist.
+   * @return id of worker.
    */
   @Transactional
   @Override
-  public Long findWorkerIdByName(String name) throws BadIdException {
+  public Long findWorkerIdByName(String name) throws BadNameException {
     try {
       return workerDao.findWorkerIdByName(name);
     } catch (NoResultException e) {
@@ -99,7 +100,7 @@ public class WorkerServiceImpl implements WorkerService {
   /**
    * Get all free guides.
    *
-   * @return List of WorkerDtoResponse;
+   * @return List of WorkerDtoResponse.
    */
   @Transactional
   @Override
@@ -113,7 +114,7 @@ public class WorkerServiceImpl implements WorkerService {
   /**
    * Get all guides.
    *
-   * @return List of WorkerNamesDto;
+   * @return List of WorkerNamesDto.
    */
   @Transactional
   @Override
@@ -125,7 +126,8 @@ public class WorkerServiceImpl implements WorkerService {
   /**
    * Get guides statistic.
    *
-   * @return List of WorkerStatDtoResponse;
+   * @throws WorkerStatException if excursions doesn't exist.
+   * @return List of WorkerStatDto.
    */
   @Transactional
   @Override
@@ -134,7 +136,7 @@ public class WorkerServiceImpl implements WorkerService {
       List<Worker> workers = workerDao.findAllGuide();
       List<WorkerStatDto> workerStatDto = new ArrayList<>();
       for (Worker worker : workers) {
-        workerStatDto.add(mapperForStat(worker));
+        workerStatDto.add(mapperToWorkerStatDto(worker));
       }
       return workerStatDto;
     } catch (NoResultException e) {
@@ -145,11 +147,13 @@ public class WorkerServiceImpl implements WorkerService {
   /**
    * Delete worker by id.
    *
+   * @throws EntityConstraintException if worker has some responsibility (serve halls or has
+   *     excursion).
    * @param id worker id.
    */
   @Transactional
   @Override
-  public void deleteById(Long id) throws BadIdException, EntityConstraintException {
+  public void deleteById(Long id) throws EntityConstraintException {
     Worker worker = getOneById(id);
     if ((worker.getHalls().size() != 0) || (worker.getExcursions().size() != 0)) {
       throw new EntityConstraintException(
@@ -160,13 +164,14 @@ public class WorkerServiceImpl implements WorkerService {
   }
 
   /**
-   * Get worker by id..
+   * Get worker by id.
    *
-   * @return Worker;
+   * @throws BadIdException if worker with entered id doesn't exist.
+   * @return Worker.
    */
   @Transactional
   @Override
-  public Worker getOneById(Long id) {
+  public Worker getOneById(Long id) throws BadIdException {
     Worker worker = workerDao.findById(id);
     if (worker == null) {
       throw new BadIdException("Worker with id " + id + " doesn't exist");
@@ -175,7 +180,7 @@ public class WorkerServiceImpl implements WorkerService {
   }
 
   /**
-   * Update worker info. s
+   * Update worker info.
    *
    * @param workerEditDto request worker dto.
    */
@@ -197,7 +202,7 @@ public class WorkerServiceImpl implements WorkerService {
    * @param worker worker object.
    * @return workerStatDto response dto.
    */
-  private WorkerStatDto mapperForStat(Worker worker) {
+  private WorkerStatDto mapperToWorkerStatDto(Worker worker) {
     WorkerStatDto workerStat = new WorkerStatDto();
     workerStat.setFirstName(worker.getFirstName());
     workerStat.setSecondName(worker.getSecondName());

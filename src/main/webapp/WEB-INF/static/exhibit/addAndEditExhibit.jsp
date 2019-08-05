@@ -27,15 +27,15 @@
         <c:when test="${exhibit.id==null}">
             <form action="/exhibit/save" method="post" class="exhibitForm col-4">
                 <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z\s]{1,30}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z\s]{1,100}$">
                 <br>
                 <input type="text" name="material" class="form-control" placeholder="Material" aria-label="Material"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z\s]{1,40}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z\s]{1,50}$">
                 <br>
 
                 <input type="text" name="technology" class="form-control" placeholder="Technology"
                        aria-label="Technology"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z\s]{1,40}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z\s]{1,50}$">
                 <br>
 
                 <select name="authorId" class="custom-select" required>

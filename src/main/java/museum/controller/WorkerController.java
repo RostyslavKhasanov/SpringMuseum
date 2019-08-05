@@ -10,12 +10,12 @@ import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Controller class for 'worker' page.
@@ -67,7 +67,7 @@ public class WorkerController {
   @RequestMapping(
       method = RequestMethod.GET,
       params = {"id"})
-  public String findById(@RequestParam Long id, ModelMap modelMap) {
+  public String findById(@RequestParam @NotNull Long id, ModelMap modelMap) {
     try {
       modelMap.addAttribute("worker", workerService.findById(id));
       modelMap.addAttribute("halls", hallService.findByWorkerId(id));
@@ -159,7 +159,7 @@ public class WorkerController {
    * @param id worker id.
    */
   @GetMapping(value = "/delete", params = "id")
-  public String deleteWorker(@RequestParam Long id, ModelMap modelMap) {
+  public String deleteWorker(@RequestParam @NotNull Long id, ModelMap modelMap) {
     try {
       workerService.deleteById(id);
       return "redirect:/worker";
@@ -177,7 +177,7 @@ public class WorkerController {
    * @return Path page to continues processing the request and to be send as response.
    */
   @GetMapping(value = "/edit", params = "id")
-  public String editWorker(@RequestParam Long id, ModelMap modelMap) {
+  public String editWorker(@RequestParam @NotNull Long id, ModelMap modelMap) {
     try {
       modelMap.addAttribute("worker", workerService.findById(id));
       modelMap.addAttribute("posts", postService.findAll());
