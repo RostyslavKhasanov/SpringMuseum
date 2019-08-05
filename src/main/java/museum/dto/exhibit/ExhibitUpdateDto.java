@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Exhibit;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -15,10 +17,19 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ExhibitUpdateDto {
 
-  @NotNull private Long id;
-  @NotBlank private String name;
-  @NotBlank private String material;
-  @NotBlank private String technology;
+  @NotNull @Positive private Long id;
+
+  @NotBlank
+  @Length(max = 100)
+  private String name;
+
+  @NotBlank
+  @Length(max = 50)
+  private String material;
+
+  @NotBlank
+  @Length(max = 50)
+  private String technology;
 
   @NotNull private Long authorId;
   @NotNull private Long hallId;
