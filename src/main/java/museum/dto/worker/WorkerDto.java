@@ -44,6 +44,5 @@ public class WorkerDto {
             worker.getExcursions().stream()
                     .map(ExcursionBeginEndDtoResponse::new)
                     .collect(Collectors.toList());
-    ;
   }
 }

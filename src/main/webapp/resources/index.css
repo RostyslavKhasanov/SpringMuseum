@@ -144,17 +144,28 @@ th a:hover {
     margin-top: 2%;
 }
 
-/*.firstPage {*/
-    /*position: relative;*/
-    /*!*text-align: center;*!*/
-/*}*/
+.firstPage {
+    position: relative;
+}
 
-/*.textMainPage{*/
-    /*position: absolute;*/
-    /*bottom: 20px;*/
-    /*right: 20px;*/
-    /*background-color: black;*/
-    /*color: white;*/
-    /*padding-left: 20px;*/
-    /*padding-right: 20px;*/
-/*}*/
+.textMainPage{
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.35);
+    padding: 19% 43.5%;
+    color: black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#welcome-text{
+    text-align: center;
+    text-shadow: 2px 2px 2px #C0C0C0;
+    font-weight: bold;
+}
+
+#text-about{
+    text-align: center;
+    padding-top: 5%;
+    padding-bottom: 5%
+}

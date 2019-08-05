@@ -5,6 +5,7 @@ import museum.dto.worker.WorkerSaveDto;
 import museum.exception.BadIdException;
 import museum.exception.BadNameException;
 import museum.exception.EntityConstraintException;
+import museum.exception.WorkerStatException;
 import museum.service.HallService;
 import museum.service.PostService;
 import museum.service.WorkerService;
@@ -67,9 +68,14 @@ public class WorkerController {
       method = RequestMethod.GET,
       params = {"id"})
   public String findById(@RequestParam Long id, ModelMap modelMap) {
-    modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("halls", hallService.findByWorkerId(id));
-    return "worker/workerInfo";
+    try {
+      modelMap.addAttribute("worker", workerService.findById(id));
+      modelMap.addAttribute("halls", hallService.findByWorkerId(id));
+      return "worker/workerInfo";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /**
@@ -126,8 +132,13 @@ public class WorkerController {
    */
   @GetMapping("/guides/stat")
   public String findGuidesStat(ModelMap modelMap) {
-    modelMap.addAttribute("guides", workerService.findGuidesStat());
-    return "guide/gidStat";
+    try {
+      modelMap.addAttribute("guides", workerService.findGuidesStat());
+      return "guide/gidStat";
+    } catch (WorkerStatException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /**
@@ -152,7 +163,7 @@ public class WorkerController {
     try {
       workerService.deleteById(id);
       return "redirect:/worker";
-    } catch (EntityConstraintException e) {
+    } catch (EntityConstraintException | BadIdException e) {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
@@ -167,9 +178,14 @@ public class WorkerController {
    */
   @GetMapping(value = "/edit", params = "id")
   public String editWorker(@RequestParam Long id, ModelMap modelMap) {
-    modelMap.addAttribute("worker", workerService.findById(id));
-    modelMap.addAttribute("posts", postService.findAll());
-    return "worker/addWorker";
+    try {
+      modelMap.addAttribute("worker", workerService.findById(id));
+      modelMap.addAttribute("posts", postService.findAll());
+      return "worker/addWorker";
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
   }
 
   /**

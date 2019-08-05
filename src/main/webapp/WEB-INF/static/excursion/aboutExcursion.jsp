@@ -42,7 +42,7 @@
         <div class="buttons col-1">
             <a href="/excursion/edit?id=${excursion.id}" class="btn btn-primary">Edit</a>
 
-            <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})">Delete this
+            <button type="button" class="btn btn-primary" onclick="deleteExcursion(${excursion.id})" style="margin-top: 10px">Delete this
                 excursion
             </button>
         </div>

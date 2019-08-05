@@ -1,8 +1,11 @@
 package museum.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 /**
@@ -21,9 +24,11 @@ public class Excursion {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Positive
   private Long id;
 
   @Column(nullable = false)
+  @Length(min = 6, max = 30)
   private String description;
 
   @Column(nullable = false)
@@ -36,5 +41,6 @@ public class Excursion {
   private Double price;
 
   @ManyToOne
+  @JoinColumn(nullable = false)
   private Worker worker;
 }

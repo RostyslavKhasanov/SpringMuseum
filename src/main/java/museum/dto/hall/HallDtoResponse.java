@@ -10,6 +10,12 @@ import museum.entity.Hall;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * DTO for Hall response.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,6 +29,11 @@ public class HallDtoResponse {
 
   private List<ExhibitIdInitialsDto> exhibits;
 
+  /**
+   * Constructor for class.
+   *
+   * @param hall object of post.
+   */
   public HallDtoResponse(Hall hall) {
     this.id = hall.getId();
     this.name = hall.getName();

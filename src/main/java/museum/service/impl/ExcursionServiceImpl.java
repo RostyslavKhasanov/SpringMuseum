@@ -11,11 +11,11 @@ import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
+import museum.utils.FormatStringToLocalDateTime;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,16 +33,15 @@ public class ExcursionServiceImpl implements ExcursionService {
 
   private WorkerService workerService;
 
+  private FormatStringToLocalDateTime dateTime;
+
   /** Method that save new excursion. */
   @Transactional
   @Override
   public void save(ExcursionSaveDto dtoRequest) {
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
-
-    LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
+    LocalDateTime begin = dateTime.convertToLocalDateTime(dtoRequest.getBegin());
+    LocalDateTime end = dateTime.convertToLocalDateTime(dtoRequest.getEnd());
 
     excursionDao.save(
         Excursion.builder()
@@ -52,17 +51,21 @@ public class ExcursionServiceImpl implements ExcursionService {
             .price(dtoRequest.getPrice())
             .worker(workerService.getOneById(dtoRequest.getWorkerId()))
             .build());
+
+    if(end.isBefore(begin)){
+      throw new BadRequestForInputDate("Second given date has to be late than first.");
+    } else if(begin.equals(end)) {
+      throw new BadRequestForInputDate("Time of begin date and end date can not be same");
+    }
   }
 
   /** Method that update excursion. */
   @Transactional
   @Override
   public void update(ExcursionUpdateDto dtoRequest) throws BadIdException, BadRequestForInputDate {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    LocalDateTime begin = LocalDateTime.parse(dtoRequest.getBegin().replace("T", " "), formatter);
-
-    LocalDateTime end = LocalDateTime.parse(dtoRequest.getEnd().replace("T", " "), formatter);
+    LocalDateTime begin = dateTime.convertToLocalDateTime(dtoRequest.getBegin());
+    LocalDateTime end = dateTime.convertToLocalDateTime(dtoRequest.getEnd());
 
     Excursion excursion =
         Excursion.builder()
@@ -77,15 +80,17 @@ public class ExcursionServiceImpl implements ExcursionService {
     Excursion newExcursion = excursionDao.update(excursion);
     if (newExcursion == null) {
       throw new BadIdException("Excursion has no any row with id " + dtoRequest.getId());
-    } else {
-      throw new BadRequestForInputDate("Field have not correct given input. Try again, please");
+    } else if(end.isBefore(begin)){
+      throw new BadRequestForInputDate("Second given date has to be late than first.");
+    } else if(begin.equals(end)) {
+      throw new BadRequestForInputDate("Time of begin date and end date can not be same");
     }
   }
 
   /**
    * Method that return all excursion dto.
    *
-   * @return List of ExcursionFullDto.
+   * @return List of ExcursionIdNameDto.
    */
   @Transactional
   @Override
@@ -98,7 +103,7 @@ public class ExcursionServiceImpl implements ExcursionService {
   /**
    * Method that return excursion by id.
    *
-   * @return Excursion - this is entity.
+   * @return ExcursionFullDto - this is dto.
    */
   @Transactional
   @Override
@@ -114,6 +119,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    * Method that return excursion by id.
    *
    * @return Excursion - entity.
+   * @exception BadIdException
    */
   @Transactional
   @Override
@@ -125,7 +131,10 @@ public class ExcursionServiceImpl implements ExcursionService {
     return excursion;
   }
 
-  /** Method that delete excursion by id. */
+  /** Method that delete excursion by id.
+   *
+   * @exception BadIdException
+   */
   @Transactional
   @Override
   public void deleteById(Long id) throws BadIdException {
@@ -163,7 +172,7 @@ public class ExcursionServiceImpl implements ExcursionService {
    *
    * @param begin start of time slot to search in
    * @param end end of time slot to search in
-   * @return int count
+   * @return int count of excursions.
    */
   @Transactional
   @Override
