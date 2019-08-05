@@ -3,6 +3,7 @@ package museum.dao;
 import java.util.List;
 
 public interface ElementDao<T> {
+
   List<T> findAll();
 
   T findById(Long id);
