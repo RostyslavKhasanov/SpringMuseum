@@ -26,11 +26,11 @@
             <form action="/author/save" method="post" class="authorForm col-4">
                 <input type="text" name="firstName" class="form-control" placeholder="First name"
                        aria-label="First name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,30}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,50}$">
                 <br>
                 <input type="text" name="secondName" class="form-control" placeholder="Second name"
                        aria-label="Second name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,30}$">
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,50}$">
                 <br>
                 <button type="submit" class="btn btn-primary" value="Save">Save</button>
             </form>
@@ -41,12 +41,12 @@
                 <input type="text" name="firstName" class="form-control" placeholder="first Name"
                        aria-label="First name"
                        aria-describedby="basic-addon2" value="${author.firstName}" required
-                       pattern="^[a-zA-Z]{1,30}$">
+                       pattern="^[a-zA-Z]{1,50}$">
                 <br>
                 <input type="text" name="secondName" class="form-control" placeholder="Second Name"
                        aria-label="Second name"
                        aria-describedby="basic-addon2" value="${author.secondName}" required
-                       pattern="^[a-zA-Z]{1,30}$">
+                       pattern="^[a-zA-Z]{1,50}$">
                 <br>
                 <input type="submit" class="btn btn-primary" value="Save"/>
             </form>
