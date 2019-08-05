@@ -96,7 +96,7 @@ th a:hover {
     border-color: hsl(0, 76%, 50%);
 }
 
-.hall-Form input:not(:placeholder-shown) {
+.hallForm input:not(:placeholder-shown) {
     border-color: hsl(0, 76%, 50%);
 }
 
@@ -113,7 +113,7 @@ th a:hover {
 }
 
 
-.hall-Form input:valid {
+.hallForm input:valid {
     border-color: hsl(120, 76%, 50%);
 }
 

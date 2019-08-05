@@ -28,7 +28,7 @@ public class Hall {
   private Long id;
 
   @Column(nullable = false, unique = true)
-  @Length(min = 3, max = 20)
+  @Length(min = 3, max = 30)
   private String name;
 
   @ManyToOne
