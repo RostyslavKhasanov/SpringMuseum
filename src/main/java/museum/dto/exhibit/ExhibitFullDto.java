@@ -12,9 +12,17 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+/**
+ * Full DTO for Exhibit.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class ExhibitFullDto {
   @NotNull @Positive private Long id;
 
@@ -34,6 +42,11 @@ public class ExhibitFullDto {
 
   @NotNull private HallIdNameDtoResponse hall;
 
+  /**
+   * Constructor for class.
+   *
+   * @param exhibit is Entity that you want to cast to dto.
+   */
   public ExhibitFullDto(Exhibit exhibit) {
     this.id = exhibit.getId();
     this.name = exhibit.getName();

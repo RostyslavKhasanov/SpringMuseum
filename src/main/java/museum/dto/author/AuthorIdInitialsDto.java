@@ -10,6 +10,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+/**
+ * Id and initials DTO for Author.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,6 +34,11 @@ public class AuthorIdInitialsDto {
   @NotBlank
   private String secondName;
 
+  /**
+   * Constructor for class.
+   *
+   * @param author is Entity that you want to cast to dto.
+   */
   public AuthorIdInitialsDto(Author author) {
     this.id = author.getId();
     this.firstName = author.getFirstName();
