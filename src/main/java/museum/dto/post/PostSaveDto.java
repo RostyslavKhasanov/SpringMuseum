@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Worker;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
 @NoArgsConstructor
 public class PostSaveDto {
 
-  @NotBlank private String name;
+  @Length(min = 2, max = 20)
+  @NotBlank
+  private String name;
 
   private List<Worker> workers;
 }

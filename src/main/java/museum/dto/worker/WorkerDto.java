@@ -8,6 +8,7 @@ import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Post;
 import museum.entity.Worker;
 
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,9 +25,9 @@ public class WorkerDto {
 
   private Long id;
 
-  private String firstName;
+  @NotBlank private String firstName;
 
-  private String secondName;
+  @NotBlank private String secondName;
 
   private Post post;
 
@@ -39,10 +40,11 @@ public class WorkerDto {
     this.secondName = worker.getSecondName();
     this.post = worker.getPost();
     this.halls =
-            worker.getHalls().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
+        worker.getHalls().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
     this.excursions =
-            worker.getExcursions().stream()
-                    .map(ExcursionBeginEndDtoResponse::new)
-                    .collect(Collectors.toList());
+        worker.getExcursions().stream()
+            .map(ExcursionBeginEndDtoResponse::new)
+            .collect(Collectors.toList());
+    ;
   }
 }

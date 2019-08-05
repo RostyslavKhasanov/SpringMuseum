@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  * DTO for Worker statistic response.
@@ -17,13 +19,13 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class WorkerStatDto {
 
-  private Long id;
+  @NotNull @Positive private Long id;
 
   @NotBlank private String firstName;
 
   @NotBlank private String secondName;
 
-  private int countOfExcursion;
+  @NotNull private int countOfExcursion;
 
-  private int countOfHour;
+  @NotNull private int countOfHour;
 }
