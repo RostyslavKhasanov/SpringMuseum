@@ -31,6 +31,7 @@
     </div>
     <div class="col-md-2">
         <div class="col-10" id="workerExhibits">
+            <br>
             <form>
                 <div class="input-group input-group-sm mb-3">
                     <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm"

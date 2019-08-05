@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Controller class for 'post' page.
@@ -54,7 +55,7 @@ public class PostController {
    * @param id post id.
    */
   @GetMapping(value = "/delete", params = "id")
-  public String deleteWorker(@RequestParam Long id, ModelMap modelMap) throws BadIdException {
+  public String deleteWorker(@RequestParam @NotNull Long id, ModelMap modelMap) throws BadIdException {
     try {
       postService.delete(id);
       return "redirect:/worker";
