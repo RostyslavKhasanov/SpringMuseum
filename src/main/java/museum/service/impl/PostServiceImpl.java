@@ -1,6 +1,5 @@
 package museum.service.impl;
 
-import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
 import museum.dao.PostDao;
 import museum.dto.post.PostDto;
