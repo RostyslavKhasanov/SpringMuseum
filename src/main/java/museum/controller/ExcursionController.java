@@ -96,7 +96,7 @@ public class ExcursionController {
   public String updateExhibitPage(@RequestParam @NotNull Long id, ModelMap modelMap) {
     ExcursionFullDto excursion = excursionService.findById(id);
     modelMap.addAttribute("excursion", excursion);
-    modelMap.addAttribute("workers", workerService.findAll());
+    modelMap.addAttribute("workers", workerService.findAllGuide());
     return "excursion/addAndEditExcursion";
   }
 
