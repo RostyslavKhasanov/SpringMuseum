@@ -18,7 +18,7 @@
         <h1>New post: </h1>
         <input type="text" name="Name" class="form-control" placeholder="Name" aria-label="Post name"
                aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{2,20}$"
-               oninvalid="this.setCustomValidity('Only english letters')">
+               oninvalid="this.setCustomValidity('Only english letters, min length of symbols 2')">
         <br>
         <button type="submit" class="btn btn-primary" value="Add post">Add post</button>
     </form>
