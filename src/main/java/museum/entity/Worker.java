@@ -1,6 +1,7 @@
 package museum.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,8 +26,10 @@ public class Worker {
   private Long id;
 
   @Column(nullable = false)
+  @Length(min = 1, max = 20)
   private String firstName;
 
+  @Length(min = 1, max = 20)
   @Column(nullable = false)
   private String secondName;
 
