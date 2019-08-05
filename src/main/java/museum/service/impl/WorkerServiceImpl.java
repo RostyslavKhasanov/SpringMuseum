@@ -141,7 +141,7 @@ public class WorkerServiceImpl implements WorkerService {
       }
       return workerStatDto;
     } catch (NoResultException e) {
-      throw new WorkerStatException("Excursion or halls doesn't exist");
+      throw new WorkerStatException("Excursions or halls doesn't exist");
     }
   }
 

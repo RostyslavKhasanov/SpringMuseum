@@ -109,7 +109,7 @@ public class ExcursionController {
   /** Method for jsp add page. */
   @RequestMapping("/add")
   public String addExcursionPage(ModelMap modelMap) {
-    List<WorkerNamesDto> workers = workerService.findAll();
+    List<WorkerNamesDto> workers = workerService.findAllGuide();
     modelMap.addAttribute("workers", workers);
     return "excursion/addAndEditExcursion";
   }
