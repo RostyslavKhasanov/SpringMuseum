@@ -2,10 +2,10 @@ package museum.service.impl;
 
 import lombok.AllArgsConstructor;
 import museum.dao.HallDao;
-import museum.dto.hall.HallSaveRequest;
-import museum.dto.hall.HallUpdateRequest;
+import museum.dto.hall.HallIdNameDto;
+import museum.dto.hall.HallSaveDto;
+import museum.dto.hall.HallUpdateDto;
 import museum.dto.hall.HallDtoResponse;
-import museum.dto.hall.HallIdNameDtoResponse;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
@@ -34,7 +34,7 @@ public class HallServiceImpl implements HallService {
   /** Method that save new hall. */
   @Transactional
   @Override
-  public void save(HallSaveRequest dto) {
+  public void save(HallSaveDto dto) {
     dao.save(Hall.builder()
             .name(dto.getName())
             .worker(workerService.getOneById(dto.getWorkerId())).build());
@@ -43,12 +43,12 @@ public class HallServiceImpl implements HallService {
   /**
    * Method that return all hall dto.
    *
-   * @return List of HallIdNameDtoResponse.
+   * @return List of HallIdNameDto.
    */
   @Transactional
   @Override
-  public List<HallIdNameDtoResponse> findAll() {
-      return dao.findAll().stream().map(HallIdNameDtoResponse::new).collect(Collectors.toList());
+  public List<HallIdNameDto> findAll() {
+      return dao.findAll().stream().map(HallIdNameDto::new).collect(Collectors.toList());
   }
 
   /**
@@ -89,7 +89,7 @@ public class HallServiceImpl implements HallService {
    */
   @Transactional
   @Override
-  public void update(HallUpdateRequest dto) {
+  public void update(HallUpdateDto dto) {
       Hall hall = Hall.builder()
               .id(dto.getId())
               .name(dto.getName())

@@ -44,8 +44,9 @@
             <c:otherwise>
                 <form action="/hall/update" method="post" class="hallForm col-4">
                     <input type="hidden" name="id" value="${hall.id}">
-                    <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name"
-                           aria-describedby="basic-addon2" value="${hall.name}" required pattern="[a-zA-Z0-9\s]{3, 30}">
+                    <input type="text" name="name" class="form-control" placeholder="Name"
+                           aria-label="Name" aria-describedby="basic-addon2" required
+                           pattern="[a-zA-Z0-9\s]{3,30}" value="${hall.name}">
                     <br>
 
                     <select name="workerId" class="custom-select" required>
