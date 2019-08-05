@@ -1,13 +1,11 @@
 package museum.controller;
 
-import museum.dto.post.PostDto;
 import museum.dto.post.PostSaveDto;
 import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
 import museum.exception.PostExistException;
 import museum.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;

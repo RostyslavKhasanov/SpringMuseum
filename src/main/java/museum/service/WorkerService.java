@@ -3,6 +3,7 @@ package museum.service;
 import museum.dto.worker.*;
 import museum.entity.Worker;
 import museum.exception.BadIdException;
+import museum.exception.BadNameException;
 import museum.exception.EntityConstraintException;
 import museum.exception.WorkerStatException;
 
@@ -34,17 +35,19 @@ public interface WorkerService {
    * Get worker by id.
    *
    * @param id worker id.
+   * @throws BadIdException if worker with entered id doesn't exist.
    * @return worker;
    */
-  WorkerDto findById(Long id);
+  WorkerDto findById(Long id) throws BadIdException;
 
   /**
    * Get worker id by name.
    *
    * @param name worker name.
+   * @throws BadNameException if worker with entered name doesn't exist.
    * @return id of worker;
    */
-  Long findWorkerIdByName(String name);
+  Long findWorkerIdByName(String name) throws BadNameException;
 
   /**
    * Get all free guides.
@@ -63,6 +66,7 @@ public interface WorkerService {
   /**
    * Get guides statistic.
    *
+   * @throws WorkerStatException if excursions doesn't exist.
    * @return List of WorkerStatDtoResponse;
    */
   List<WorkerStatDto> findGuidesStat() throws WorkerStatException;
@@ -70,16 +74,19 @@ public interface WorkerService {
   /**
    * Delete worker by id.
    *
+   * @throws EntityConstraintException if worker has some responsibility (serve halls or has
+   *     excursion).
    * @param id worker id.
    */
-  void deleteById(Long id) throws BadIdException, EntityConstraintException;
+  void deleteById(Long id) throws EntityConstraintException;
 
   /**
    * Get worker by id..
    *
+   * @throws BadIdException if worker with entered id doesn't exist.
    * @return Worker;
    */
-  Worker getOneById(Long id);
+  Worker getOneById(Long id) throws BadIdException;
 
   /**
    * Update worker info.

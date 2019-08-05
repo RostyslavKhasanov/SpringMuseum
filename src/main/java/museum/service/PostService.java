@@ -5,6 +5,7 @@ import museum.dto.post.PostSaveDto;
 import museum.entity.Post;
 import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
+import museum.exception.PostExistException;
 
 import java.util.List;
 
@@ -19,16 +20,19 @@ public interface PostService {
   /**
    * Save post.
    *
+   * @throws PostExistException if post already exist.
    * @param postSaveDto request dto
    */
-  void save(PostSaveDto postSaveDto);
+  void save(PostSaveDto postSaveDto) throws PostExistException;
 
   /**
    * Get post by id.
    *
+   * @param id post id.
+   * @throws BadIdException if post with entered id doesn't exist.
    * @return PostDto by id.
    */
-  PostDto findById(Long id);
+  PostDto findById(Long id) throws BadIdException;
 
   /**
    * Get all posts.
@@ -41,13 +45,15 @@ public interface PostService {
    * Get one post by id.
    *
    * @param id post id.
+   * @throws BadIdException if post with entered id doesn't exist.
    * @return Post by id.
    */
-  Post getOneById(Long id);
+  Post getOneById(Long id) throws BadIdException;
 
   /**
    * Delete post by id.
    *
+   * @throws EntityConstraintException if exist workers with this post.
    * @param id post id
    */
   void delete(Long id) throws EntityConstraintException;
