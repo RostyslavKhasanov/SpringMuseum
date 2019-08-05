@@ -33,7 +33,7 @@
                            aria-describedby="basic-addon2" required min="2019-08-04T22:22" max="2025-08-04T22:22"><br>
                     <label for="end">End:</label>
                     <input id="end" type="datetime-local" name="end" class="form-control" aria-label="End"
-                           aria-describedby="basic-addon2" required><br>
+                           aria-describedby="basic-addon2" required min="2019-08-04T22:22" max="2025-08-04T22:22"><br>
                     <label for="price">Price</label>
                     <input type="number" value="100" min="0" step="0.1"
                            data-number-to-fixed="2" aria-describedby="basic-addon2" data-number-stepfactor="100"
