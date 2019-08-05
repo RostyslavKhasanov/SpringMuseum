@@ -31,8 +31,8 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
   /**
    * Method for searching excursions in time period based on given input.
    *
-   * @param start start of time slot to search in
-   * @param end end of time slot to search in
+   * @param start start of time period to search in
+   * @param end end of time period to search in
    * @return List of ExcursionIdNameDto.
    */
   @Override
@@ -51,8 +51,8 @@ public class ExcursionDaoImpl extends ElementDaoImpl<Excursion> implements Excur
   /**
    * Method for counting excursions in time period based on given input.
    *
-   * @param start start of time slot to search in
-   * @param end end of time slot to search in
+   * @param start start of time period to search in
+   * @param end end of time period to search in
    * @return int count of excursions.
    */
   @Override

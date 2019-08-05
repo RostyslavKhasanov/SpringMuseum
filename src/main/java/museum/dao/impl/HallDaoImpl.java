@@ -27,8 +27,8 @@ public class HallDaoImpl extends ElementDaoImpl<Hall> implements HallDao {
 
   /** Method that find hall by worker id.
    *
-   * @param workerId
-   * @return List of HallDtoResponse.
+   * @param workerId worker id.
+   * @return List of Hall.
    * */
   @Override
   public List<Hall> findHalLByWorkerId(Long workerId) {

@@ -10,18 +10,66 @@ import museum.exception.EntityConstraintException;
 
 import java.util.List;
 
+/**
+ * Service interface for Hall entity.
+ *
+ * @author Kateryna Horokh
+ * @version 1.0
+ */
 public interface HallService {
-    void save(HallSaveRequest dto);
 
-    List<HallIdNameDtoResponse> findAll();
+  /**
+   * Save hall.
+   *
+   * @param dto request hall dto.
+   */
+  void save(HallSaveRequest dto);
 
-    HallDtoResponse findById(Long id) throws BadIdException;
+  /**
+   * Get all hall.
+   *
+   * @return List of ExcursionIdNameDto.
+   */
+  List<HallIdNameDtoResponse> findAll();
 
-    Hall getOneById(Long id) throws BadIdException;
+  /**
+   * Get hall - dto by id.
+   *
+   * @param id hall id.
+   * @return hall.
+   * @exception BadIdException
+   */
+  HallDtoResponse findById(Long id) throws BadIdException;
 
-    void update(HallUpdateRequest dto) throws BadIdException;
+  /**
+   * Get hall - entity by id.
+   *
+   * @param id hall id.
+   * @return hall.
+   * @exception BadIdException
+   */
+  Hall getOneById(Long id) throws BadIdException;
 
-    void deleteById(Long id) throws BadIdException;
+  /**
+   * Update hall info.
+   *
+   * @param dto request excursion dto.
+   * @exception BadIdException
+   */
+  void update(HallUpdateRequest dto) throws BadIdException;
 
-    List<HallDtoResponse> findByWorkerId(Long id);
+  /**
+   * Delete hall by id.
+   *
+   * @param id hall id.
+   * @exception BadIdException
+   */
+  void deleteById(Long id) throws BadIdException;
+
+  /**
+   * Find hall by worker id.
+   *
+   * @param id hall id.
+   */
+  List<HallDtoResponse> findByWorkerId(Long id);
 }

@@ -15,40 +15,62 @@
 </head>
 <body>
 <jsp:include page="../menu.jsp"/>
-<div class="container" style="display: flex; flex-wrap: nowrap; justify-content: space-between">
-    <div class="material-container">
-        <table class="table text-muted">
-            <tr>
-                <th scope="col">Material name</th>
-                <th scope="col">Count of material</th>
-            </tr>
-            <tbody>
-            <c:forEach items="${exhibitMaterialStats}" var="item">
-                <tr>
-                    <th scope="row">${item.materialName}</th>
-                    <th scope="row">${item.materialCount}</th>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
-    </div>
 
-    <div class="technology-container">
-        <table class="table text-muted">
-            <tr>
-                <th scope="col">Technology name</th>
-                <th scope="col">Count of technology</th>
-            </tr>
-            <tbody>
-            <c:forEach items="${exhibitTechnologyStats}" var="item">
-                <tr>
-                    <th scope="row">${item.technologyName}</th>
-                    <th scope="row">${item.technologyCount}</th>
-                </tr>
+<%--<c:choose>
+    <c:when test="${not empty exhibits}">
+        <div class="list-group">
+            <c:forEach items="${exhibits}" var="item">
+                <a href="?id=${item.id}" class="list-group-item list-group-item-action disabled">${item.name}</a>
             </c:forEach>
-            </tbody>
-        </table>
-    </div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <h3 class="w3-wide" style="margin: 20px;">Not found any exhibit!</h3>
+    </c:otherwise>
+</c:choose>--%>
+<div class="container" style="display: flex; flex-wrap: nowrap; justify-content: space-between">
+    <c:choose>
+        <c:when test="${not empty exhibitMaterialStats && not empty exhibitTechnologyStats}">
+            <div class="material-container">
+
+                <table class="table text-muted">
+                    <tr>
+                        <th scope="col">Material name</th>
+                        <th scope="col">Count of material</th>
+                    </tr>
+                    <tbody>
+                    <c:forEach items="${exhibitMaterialStats}" var="item">
+                        <tr>
+                            <th scope="row">${item.materialName}</th>
+                            <th scope="row">${item.materialCount}</th>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+
+
+            </div>
+            <div class="technology-container">
+                <table class="table text-muted">
+                    <tr>
+                        <th scope="col">Technology name</th>
+                        <th scope="col">Count of technology</th>
+                    </tr>
+                    <tbody>
+                    <c:forEach items="${exhibitTechnologyStats}" var="item">
+                        <tr>
+                            <th scope="row">${item.technologyName}</th>
+                            <th scope="row">${item.technologyCount}</th>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <h3 class="w3-wide" style="margin: 20px;">No any statistic!</h3>
+        </c:otherwise>
+    </c:choose>
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
