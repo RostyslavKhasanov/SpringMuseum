@@ -13,6 +13,12 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Full DTO for Author.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,6 +36,11 @@ public class AuthorFullDto {
 
   private List<ExhibitIdInitialsDto> exhibits;
 
+  /**
+   * Constructor for class.
+   *
+   * @param author is Entity that you want to cast to dto.
+   */
   public AuthorFullDto(Author author) {
     this.id = author.getId();
     this.firstName = author.getFirstName();

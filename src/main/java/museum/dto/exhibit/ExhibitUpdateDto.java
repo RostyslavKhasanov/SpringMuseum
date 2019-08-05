@@ -11,6 +11,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+/**
+ * Update DTO for Exhibit.
+ *
+ * @author Nazar Stasyuk
+ * @version 1.0
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,6 +40,11 @@ public class ExhibitUpdateDto {
   @NotNull private Long authorId;
   @NotNull private Long hallId;
 
+  /**
+   * Constructor for class.
+   *
+   * @param exhibit is Entity that you want to cast to dto.
+   */
   public ExhibitUpdateDto(Exhibit exhibit) {
     this.id = exhibit.getId();
     this.name = exhibit.getName();
