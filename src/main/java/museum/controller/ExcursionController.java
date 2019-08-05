@@ -9,15 +9,17 @@ import museum.exception.BadIdException;
 import museum.exception.BadRequestForInputDate;
 import museum.service.ExcursionService;
 import museum.service.WorkerService;
+import museum.utils.FormatStringToLocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import sun.awt.ModalExclude;
+import sun.plugin2.message.ModalityChangeMessage;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -33,6 +35,8 @@ public class ExcursionController {
   @Autowired private ExcursionService excursionService;
 
   @Autowired private WorkerService workerService;
+
+  @Autowired private FormatStringToLocalDateTime dateTime;
 
   /** Method that return all excursions. */
   @GetMapping
@@ -52,7 +56,7 @@ public class ExcursionController {
    *
    * @param from start of time slot to search in
    * @param to end of time slot to search in
-   * @exception Exception
+   * @exception BadRequestForInputDate
    */
   @RequestMapping(
       method = RequestMethod.GET,
@@ -63,11 +67,8 @@ public class ExcursionController {
       @RequestParam(name = "end") String to,
       ModelMap modelMap) {
     try {
-      String fromS = from.replaceAll("T", " ");
-      String toS = to.replaceAll("T", " ");
-      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-      LocalDateTime begin = LocalDateTime.parse(fromS, formatter);
-      LocalDateTime end = LocalDateTime.parse(toS, formatter);
+      LocalDateTime begin = dateTime.convertToLocalDateTime(from);
+      LocalDateTime end = dateTime.convertToLocalDateTime(to);
       List<ExcursionIdNameDto> excursions = excursionService.findByPeriod(begin, end);
       modelMap.addAttribute("excursions", excursions);
 
@@ -115,8 +116,13 @@ public class ExcursionController {
 
   /** Method that save new excursion. */
   @PostMapping("/save")
-  public String save(@Valid @ModelAttribute ExcursionSaveDto dto) {
+  public String save(@Valid @ModelAttribute ExcursionSaveDto dto, ModelMap modelMap) {
+    try{
     excursionService.save(dto);
+    } catch (BadRequestForInputDate e){
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
     return "redirect:/excursion";
   }
 

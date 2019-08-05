@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Excursion;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * DTO for Excursion id, description.
  *
@@ -16,17 +19,17 @@ import museum.entity.Excursion;
 @NoArgsConstructor
 public class ExcursionIdNameDto {
 
-    private Long id;
+  @NotNull private Long id;
 
-    private String description;
+  @NotBlank private String description;
 
-    /**
-     * Constructor for class.
-     *
-     * @param excursion object of post.
-     */
-    public ExcursionIdNameDto(Excursion excursion) {
-        this.id = excursion.getId();
-        this.description = excursion.getDescription();
-    }
+  /**
+   * Constructor for class.
+   *
+   * @param excursion object of post.
+   */
+  public ExcursionIdNameDto(Excursion excursion) {
+    this.id = excursion.getId();
+    this.description = excursion.getDescription();
+  }
 }
