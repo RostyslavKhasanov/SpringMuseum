@@ -15,10 +15,10 @@
 <div class="row no-gutters">
     <div class="col"></div>
     <div class="col-6">
+        <br><br>
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
                 <th scope="col">Count of excursions</th>
@@ -27,7 +27,6 @@
             </thead>
             <c:forEach items="${guides}" var="item">
                 <tr>
-                    <th scope="row">${(item.getId())}</th>
                     <td>${(item.getFirstName())}</td>
                     <td>${(item.getSecondName())}</td>
                     <td>${(item.getCountOfExcursion())}</td>

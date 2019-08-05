@@ -5,9 +5,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Post;
 import museum.entity.Worker;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.List;
 
 /**
@@ -21,9 +23,11 @@ import java.util.List;
 @NoArgsConstructor
 public class PostDto {
 
-  @NotNull private Long id;
+  @NotNull @Positive private Long id;
 
-  @NotBlank private String name;
+  @NotBlank
+  @Length(min = 2, max = 20)
+  private String name;
 
   private List<Worker> workers;
 

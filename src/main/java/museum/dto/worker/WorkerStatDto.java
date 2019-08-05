@@ -3,6 +3,7 @@ package museum.dto.worker;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,9 +22,13 @@ public class WorkerStatDto {
 
   @NotNull @Positive private Long id;
 
-  @NotBlank private String firstName;
+  @NotBlank
+  @Length(min = 1, max = 20)
+  private String firstName;
 
-  @NotBlank private String secondName;
+  @NotBlank
+  @Length(min = 1, max = 20)
+  private String secondName;
 
   @NotNull private int countOfExcursion;
 
