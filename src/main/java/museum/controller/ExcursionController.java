@@ -91,12 +91,6 @@ public class ExcursionController {
     return "redirect:/excursion";
   }
 
-  /** Method for giving form for searching excursions in time period based on given input. */
-  @RequestMapping("/byPeriodForm")
-  public String showFormPage(ModelMap modelMap) {
-    return "excursion/excursionForm";
-  }
-
   /** Method for jsp edit page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateExhibitPage(@RequestParam @NotNull Long id, ModelMap modelMap) {
@@ -112,6 +106,12 @@ public class ExcursionController {
     List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
     return "excursion/addAndEditExcursion";
+  }
+
+  /** Method for giving form for searching excursions in time period based on given input. */
+  @RequestMapping("/byPeriodForm")
+  public String showFormPage(ModelMap modelMap) {
+    return "excursion/excursionForm";
   }
 
   /**
