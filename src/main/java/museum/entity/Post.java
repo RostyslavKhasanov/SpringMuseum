@@ -1,8 +1,10 @@
 package museum.entity;
 
 import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,11 @@ public class Post {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Positive
   private Long id;
 
   @Column(nullable = false, unique = true)
+  @Length(min = 2, max = 20)
   private String name;
 
   @OneToMany(mappedBy = "post")

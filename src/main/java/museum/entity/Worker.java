@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +24,14 @@ public class Worker {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Positive
   private Long id;
 
   @Column(nullable = false)
-  @Length(min = 1, max = 20)
+  @Length(min = 4, max = 20)
   private String firstName;
 
-  @Length(min = 1, max = 20)
+  @Length(min = 4, max = 20)
   @Column(nullable = false)
   private String secondName;
 

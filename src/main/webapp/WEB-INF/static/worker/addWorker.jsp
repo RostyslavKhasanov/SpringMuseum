@@ -20,12 +20,12 @@
                 <h1>New worker: </h1>
                 <input type="text" name="firstName" class="form-control" placeholder="First name"
                        aria-label="First name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{4,20}$"
                        oninvalid="this.setCustomValidity('Only english letters')">
                 <br>
                 <input type="text" name="secondName" class="form-control" placeholder="Second name"
                        aria-label="Second name"
-                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{1,20}$"
+                       aria-describedby="basic-addon2" required pattern="^[a-zA-Z]{4,20}$"
                        oninvalid="this.setCustomValidity('Only english letters')">
                 <br>
                 <select name="postId" class="custom-select" id="inputGroupSelect01" required
@@ -46,11 +46,11 @@
                 <input type="text" name="firstName" class="form-control" placeholder="First name"
                        aria-label="First name"
                        aria-describedby="basic-addon2" value="${worker.getFirstName()}" required
-                       pattern="^[a-zA-Z]{1,20}$">
+                       pattern="^[a-zA-Z]{4,20}$">
                 <br>
                 <input type="text" name="secondName" class="form-control" placeholder="Second name"
                        aria-label="Second name"
-                       aria-describedby="basic-addon2" value="${worker.getSecondName()}" pattern="^[a-zA-Z]{1,20}$">
+                       aria-describedby="basic-addon2" value="${worker.getSecondName()}" pattern="^[a-zA-Z]{4,20}$">
                 <br>
                 <select name="postId" class="custom-select" id="inputGroupSelect02">
                     <option selected value="${worker.getPost().getId()}">${worker.getPost().getName()}</option>

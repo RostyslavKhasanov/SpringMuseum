@@ -10,9 +10,9 @@
             <property name="hibernate.connection.url"
                       value="jdbc:mysql://localhost:3306/MuseumSpring?useSSL=false&amp;serverTimezone=UTC"/>
             <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="kate"/>
+            <property name="hibernate.connection.password" value="root"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.enable_lazy_load_no_trans" value="true" />
