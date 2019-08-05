@@ -31,11 +31,12 @@ public class PostServiceImpl implements PostService {
   /**
    * Save post.
    *
+   * @throws PostExistException if post already exist.
    * @param postSaveDto request dto
    */
   @Transactional
   @Override
-  public void save(PostSaveDto postSaveDto) {
+  public void save(PostSaveDto postSaveDto) throws PostExistException {
     if (postDao.findByName(postSaveDto.getName()) == null) {
       postDao.save(Post.builder().name(postSaveDto.getName()).build());
     } else {
@@ -46,7 +47,9 @@ public class PostServiceImpl implements PostService {
   /**
    * Get post by id.
    *
-   * @return PostResponseDto by id.
+   * @param id post id.
+   * @throws BadIdException if post with entered id doesn't exist.
+   * @return PostDto by id.
    */
   @Transactional
   @Override
@@ -75,11 +78,12 @@ public class PostServiceImpl implements PostService {
    * Get one post by id.
    *
    * @param id post id.
+   * @throws BadIdException if post with entered id doesn't exist.
    * @return Post by id.
    */
   @Transactional
   @Override
-  public Post getOneById(Long id) {
+  public Post getOneById(Long id) throws BadIdException {
     Post post = postDao.findById(id);
     if (post == null) {
       throw new BadIdException("Post with id " + id + " doesn't exist");
@@ -90,6 +94,7 @@ public class PostServiceImpl implements PostService {
   /**
    * Delete post by id.
    *
+   * @throws EntityConstraintException if exist workers with this post.
    * @param id post id
    */
   @Transactional
