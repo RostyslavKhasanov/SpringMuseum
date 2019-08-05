@@ -19,7 +19,7 @@ import javax.validation.constraints.Positive;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HallIdNameDtoResponse {
+public class HallIdNameDto {
 
   @NotNull @Positive private Long id;
 
@@ -32,7 +32,7 @@ public class HallIdNameDtoResponse {
    *
    * @param hall object of post.
    */
-  public HallIdNameDtoResponse(Hall hall) {
+  public HallIdNameDto(Hall hall) {
     this.id = hall.getId();
     this.name = hall.getName();
   }

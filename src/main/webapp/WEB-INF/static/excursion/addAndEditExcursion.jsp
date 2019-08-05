@@ -64,10 +64,9 @@
                            min="2019-08-04T22:22" max="2025-08-04T22:22"
                            value="${excursion.end}"/><br>
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" value="100" min="0" step="0.1"
+                    <input type="number" class="form-control" min="0" step="0.1"
                            data-number-to-fixed="2" data-number-stepfactor="100" class="currency" id="price"
-                           name="price" required
-                           value="${excursion.price}"/>
+                           name="price" required value="${excursion.price}"/>
                     <select name="workerId" class="custom-select" required style="margin-top: 10%">
                         <c:forEach var="worker" items="${workers}">
                             <option

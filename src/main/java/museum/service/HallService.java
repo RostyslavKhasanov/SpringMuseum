@@ -1,12 +1,11 @@
 package museum.service;
 
-import museum.dto.hall.HallSaveRequest;
-import museum.dto.hall.HallUpdateRequest;
+import museum.dto.hall.HallSaveDto;
+import museum.dto.hall.HallUpdateDto;
 import museum.dto.hall.HallDtoResponse;
-import museum.dto.hall.HallIdNameDtoResponse;
+import museum.dto.hall.HallIdNameDto;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
-import museum.exception.EntityConstraintException;
 
 import java.util.List;
 
@@ -23,14 +22,14 @@ public interface HallService {
    *
    * @param dto request hall dto.
    */
-  void save(HallSaveRequest dto);
+  void save(HallSaveDto dto);
 
   /**
    * Get all hall.
    *
    * @return List of ExcursionIdNameDto.
    */
-  List<HallIdNameDtoResponse> findAll();
+  List<HallIdNameDto> findAll();
 
   /**
    * Get hall - dto by id.
@@ -56,7 +55,7 @@ public interface HallService {
    * @param dto request excursion dto.
    * @exception BadIdException
    */
-  void update(HallUpdateRequest dto) throws BadIdException;
+  void update(HallUpdateDto dto) throws BadIdException;
 
   /**
    * Delete hall by id.

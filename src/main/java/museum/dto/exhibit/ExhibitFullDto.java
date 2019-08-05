@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.dto.author.AuthorIdInitialsDto;
-import museum.dto.hall.HallIdNameDtoResponse;
+import museum.dto.hall.HallIdNameDto;
 import museum.entity.Exhibit;
 import org.hibernate.validator.constraints.Length;
 
@@ -40,7 +40,7 @@ public class ExhibitFullDto {
 
   @NotNull private AuthorIdInitialsDto author;
 
-  @NotNull private HallIdNameDtoResponse hall;
+  @NotNull private HallIdNameDto hall;
 
   /**
    * Constructor for class.
@@ -53,6 +53,6 @@ public class ExhibitFullDto {
     this.material = exhibit.getMaterial();
     this.technology = exhibit.getTechnology();
     this.author = new AuthorIdInitialsDto(exhibit.getAuthor());
-    this.hall = new HallIdNameDtoResponse(exhibit.getHall());
+    this.hall = new HallIdNameDto(exhibit.getHall());
   }
 }
