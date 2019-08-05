@@ -4,6 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Hall;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  * DTO for Hall saving.
@@ -16,11 +21,13 @@ import museum.entity.Hall;
 @NoArgsConstructor
 public class HallSaveRequest {
 
-  private Long id;
+  @NotNull @Positive private Long id;
 
+  @NotBlank
+  @Length(min = 3, max = 30)
   private String name;
 
-  private Long workerId;
+  @NotNull private Long workerId;
 
   /**
    * Constructor for class.

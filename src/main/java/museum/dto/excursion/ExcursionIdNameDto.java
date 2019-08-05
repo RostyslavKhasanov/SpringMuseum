@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Excursion;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  * DTO for Excursion id, description.
@@ -19,9 +21,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class ExcursionIdNameDto {
 
-  @NotNull private Long id;
+  @NotNull @Positive private Long id;
 
-  @NotBlank private String description;
+  @NotBlank
+  @Length(min = 6, max = 30)
+  private String description;
 
   /**
    * Constructor for class.

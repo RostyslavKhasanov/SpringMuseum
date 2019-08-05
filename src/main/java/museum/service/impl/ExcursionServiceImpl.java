@@ -54,6 +54,8 @@ public class ExcursionServiceImpl implements ExcursionService {
 
     if(end.isBefore(begin)){
       throw new BadRequestForInputDate("Second given date has to be late than first.");
+    } else if(begin.equals(end)) {
+      throw new BadRequestForInputDate("Time of begin date and end date can not be same");
     }
   }
 
@@ -80,6 +82,8 @@ public class ExcursionServiceImpl implements ExcursionService {
       throw new BadIdException("Excursion has no any row with id " + dtoRequest.getId());
     } else if(end.isBefore(begin)){
       throw new BadRequestForInputDate("Second given date has to be late than first.");
+    } else if(begin.equals(end)) {
+      throw new BadRequestForInputDate("Time of begin date and end date can not be same");
     }
   }
 

@@ -4,6 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import museum.entity.Hall;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 /**
  * DTO for Hall id, name.
@@ -16,8 +21,10 @@ import museum.entity.Hall;
 @NoArgsConstructor
 public class HallIdNameDtoResponse {
 
-  private Long id;
+  @NotNull @Positive private Long id;
 
+  @NotBlank
+  @Length(min = 3, max = 30)
   private String name;
 
   /**
