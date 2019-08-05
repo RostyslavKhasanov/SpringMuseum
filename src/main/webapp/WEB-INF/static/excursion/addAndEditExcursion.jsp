@@ -27,7 +27,7 @@
                 <form action="/excursion/save" method="post" class="excursionForm col-4">
                     <input type="text" name="description" class="form-control" placeholder="Description"
                            style="margin: 6% 0" aria-label="Description" aria-describedby="basic-addon2" required
-                           pattern="[a-zA-Z0-9 ]{6,30}" min="2019-08-03T22:22" max="2025-08-03T22:22">
+                           pattern="[a-zA-Z0-9\s]{6,30}">
                     <label for="start">Start:</label>
                     <input id="start" type="datetime-local" name="begin" class="form-control" aria-label="Begin"
                            aria-describedby="basic-addon2" required min="2019-08-04T22:22" max="2025-08-04T22:22"><br>
@@ -54,12 +54,14 @@
                     <input type="hidden" name="id" value="${excursion.id}">
                     <input type="text" name="description" class="form-control" placeholder="Description"
                            style="margin: 6% 0" aria-label="Description" aria-describedby="basic-addon2" required
-                           pattern="[a-zA-Z0-9 ]{6,30}" value="${excursion.description}">
+                           pattern="[a-zA-Z0-9\s]{6,30}" value="${excursion.description}">
                     <label for="startTime">Start:</label>
-                    <input id="startTime" type="datetime-local" class="form-control" name="begin" required min="2019-08-04T22:22"
+                    <input id="startTime" type="datetime-local" class="form-control" name="begin" required
+                           min="2019-08-04T22:22"
                            max="2025-08-04T22:22" value="${excursion.begin}"/><br>
                     <label for="endTime">End:</label>
-                    <input id="endTime" type="datetime-local" class="form-control" name="end" required min="2019-08-04T22:22" max="2025-08-04T22:22"
+                    <input id="endTime" type="datetime-local" class="form-control" name="end" required
+                           min="2019-08-04T22:22" max="2025-08-04T22:22"
                            value="${excursion.end}"/><br>
                     <label for="price">Price</label>
                     <input type="number" class="form-control" value="100" min="0" step="0.1"

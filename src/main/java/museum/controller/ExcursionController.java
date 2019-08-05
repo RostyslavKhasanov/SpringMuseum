@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import sun.awt.ModalExclude;
-import sun.plugin2.message.ModalityChangeMessage;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -45,10 +43,75 @@ public class ExcursionController {
     return "excursion/excursionsInfo";
   }
 
+  /** Method that return excursion by id. */
+  @GetMapping(params = "id")
+  public String findById(@RequestParam @NotNull Long id, ModelMap modelMap) {
+    try {
+      modelMap.addAttribute("excursion", excursionService.findById(id));
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "excursion/aboutExcursion";
+  }
+
+  /** Method that update excursion. */
+  @PostMapping("/update")
+  public String update(@Valid @ModelAttribute ExcursionUpdateDto dto, ModelMap modelMap) {
+    try {
+      excursionService.update(dto);
+    } catch (BadIdException | BadRequestForInputDate e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "redirect:/excursion";
+  }
+
+  /** Method that save new excursion. */
+  @PostMapping("/save")
+  public String save(@Valid @ModelAttribute ExcursionSaveDto dto, ModelMap modelMap) {
+    try {
+      excursionService.save(dto);
+    } catch (BadRequestForInputDate e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "redirect:/excursion";
+  }
+
+  /** Method that delete excursion. */
+  @GetMapping(value = "/delete", params = "id")
+  public String delete(@RequestParam @NotNull Long id, ModelMap modelMap) {
+    try {
+      excursionService.deleteById(id);
+    } catch (BadIdException e) {
+      modelMap.addAttribute("message", e.getMessage());
+      return "errorMessage";
+    }
+    return "redirect:/excursion";
+  }
+
   /** Method for giving form for searching excursions in time period based on given input. */
   @RequestMapping("/byPeriodForm")
   public String showFormPage(ModelMap modelMap) {
     return "excursion/excursionForm";
+  }
+
+  /** Method for jsp edit page. */
+  @RequestMapping(value = "/edit", params = "id")
+  public String updateExhibitPage(@RequestParam @NotNull Long id, ModelMap modelMap) {
+    ExcursionFullDto excursion = excursionService.findById(id);
+    modelMap.addAttribute("excursion", excursion);
+    modelMap.addAttribute("workers", workerService.findAll());
+    return "excursion/addAndEditExcursion";
+  }
+
+  /** Method for jsp add page. */
+  @RequestMapping("/add")
+  public String addExcursionPage(ModelMap modelMap) {
+    List<WorkerNamesDto> workers = workerService.findAll();
+    modelMap.addAttribute("workers", workers);
+    return "excursion/addAndEditExcursion";
   }
 
   /**
@@ -79,70 +142,5 @@ public class ExcursionController {
       modelMap.addAttribute("message", e.getMessage());
       return "errorMessage";
     }
-  }
-
-  /** Method that return excursion by id. */
-  @GetMapping(params = "id")
-  public String findById(@RequestParam @NotNull Long id, ModelMap modelMap) {
-    try {
-      modelMap.addAttribute("excursion", excursionService.findById(id));
-    } catch (BadIdException e) {
-      modelMap.addAttribute("message", e.getMessage());
-      return "errorMessage";
-    }
-    return "excursion/aboutExcursion";
-  }
-
-  /** Method for jsp edit page. */
-  @RequestMapping(value = "/edit", params = "id")
-  public String updateExhibitPage(@RequestParam @NotNull Long id, ModelMap modelMap) {
-    ExcursionFullDto excursion = excursionService.findById(id);
-    modelMap.addAttribute("excursion", excursion);
-    modelMap.addAttribute("workers", workerService.findAll());
-    return "excursion/addAndEditExcursion";
-  }
-
-  /** Method that update excursion. */
-  @PostMapping("/update")
-  public String update(@Valid @ModelAttribute ExcursionUpdateDto dto, ModelMap modelMap) {
-    try {
-      excursionService.update(dto);
-    } catch (BadIdException | BadRequestForInputDate e) {
-      modelMap.addAttribute("message", e.getMessage());
-      return "errorMessage";
-    }
-    return "redirect:/excursion";
-  }
-
-  /** Method that save new excursion. */
-  @PostMapping("/save")
-  public String save(@Valid @ModelAttribute ExcursionSaveDto dto, ModelMap modelMap) {
-    try{
-    excursionService.save(dto);
-    } catch (BadRequestForInputDate e){
-      modelMap.addAttribute("message", e.getMessage());
-      return "errorMessage";
-    }
-    return "redirect:/excursion";
-  }
-
-  /** Method for jsp add page. */
-  @RequestMapping("/add")
-  public String addExcursionPage(ModelMap modelMap) {
-    List<WorkerNamesDto> workers = workerService.findAll();
-    modelMap.addAttribute("workers", workers);
-    return "excursion/addAndEditExcursion";
-  }
-
-  /** Method that delete excursion. */
-  @GetMapping(value = "/delete", params = "id")
-  public String delete(@RequestParam @NotNull Long id, ModelMap modelMap) {
-    try {
-      excursionService.deleteById(id);
-    } catch (BadIdException e) {
-      modelMap.addAttribute("message", e.getMessage());
-      return "errorMessage";
-    }
-    return "redirect:/excursion";
   }
 }

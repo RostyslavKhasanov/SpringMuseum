@@ -21,8 +21,6 @@ import javax.validation.constraints.Positive;
 @NoArgsConstructor
 public class HallSaveRequest {
 
-  @NotNull @Positive private Long id;
-
   @NotBlank
   @Length(min = 3, max = 30)
   private String name;
@@ -35,7 +33,6 @@ public class HallSaveRequest {
    * @param hall object of post.
    */
   public HallSaveRequest(Hall hall) {
-    this.id = hall.getId();
     this.name = hall.getName();
     this.workerId = hall.getWorker().getId();
   }
