@@ -22,7 +22,7 @@
                 <div>
                     <c:forEach items="${halls}" var="item">
                         <c:forEach items="${item.getExhibits()}" var="item1">
-                            <h6>${(item1.getName())}</h6>
+                            <h6><a href="/exhibit?id=${item1.id}" class="list-group-item list-group-item-action disabled">${item1.name}</a></h6>
                         </c:forEach>
                     </c:forEach>
                 </div>
