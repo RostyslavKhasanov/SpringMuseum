@@ -30,7 +30,7 @@
                 <br>
                 <select name="postId" class="custom-select" id="inputGroupSelect01" required
                         oninvalid="this.setCustomValidity('Choose one')">
-                    <option selected value="">Input some</option>
+                    <option selected value="">Input post</option>
                     <c:forEach var="post" items="${posts}" varStatus="rowCounter">
                         <option value="${post.getId()}">${post.getName()}</option>
                     </c:forEach>
