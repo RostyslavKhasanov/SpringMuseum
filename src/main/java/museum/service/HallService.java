@@ -1,8 +1,8 @@
 package museum.service;
 
+import museum.dto.hall.HallFullDto;
 import museum.dto.hall.HallSaveDto;
 import museum.dto.hall.HallUpdateDto;
-import museum.dto.hall.HallDtoResponse;
 import museum.dto.hall.HallIdNameDto;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
@@ -38,7 +38,7 @@ public interface HallService {
    * @return hall.
    * @exception BadIdException
    */
-  HallDtoResponse findById(Long id) throws BadIdException;
+  HallFullDto findById(Long id) throws BadIdException;
 
   /**
    * Get hall - entity by id.
@@ -70,5 +70,5 @@ public interface HallService {
    *
    * @param id hall id.
    */
-  List<HallDtoResponse> findByWorkerId(Long id);
+  List<HallFullDto> findByWorkerId(Long id);
 }

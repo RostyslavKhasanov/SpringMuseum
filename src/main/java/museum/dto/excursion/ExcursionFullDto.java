@@ -6,6 +6,10 @@ import lombok.Setter;
 import museum.dto.worker.WorkerNamesDto;
 import museum.entity.Excursion;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 /**
  * DTO for Excursion response.
  *
@@ -17,15 +21,15 @@ import museum.entity.Excursion;
 @NoArgsConstructor
 public class ExcursionFullDto {
 
-  private Long id;
+  @NotNull @Positive private Long id;
 
-  private String description;
+  @NotBlank private String description;
 
-  private String begin;
+  @NotBlank private String begin;
 
-  private String end;
+  @NotBlank private String end;
 
-  private Double price;
+  @NotNull private Double price;
 
   private WorkerNamesDto worker;
 
