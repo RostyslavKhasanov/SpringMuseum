@@ -1,6 +1,6 @@
 package museum.controller;
 
-import museum.dto.hall.HallDtoResponse;
+import museum.dto.hall.HallFullDto;
 import museum.dto.hall.HallIdNameDto;
 import museum.dto.hall.HallSaveDto;
 import museum.dto.hall.HallUpdateDto;
@@ -88,7 +88,7 @@ public class HallController {
   /** Method that update author page. */
   @RequestMapping(value = "/edit", params = "id")
   public String updateAuthorPage(@RequestParam Long id, ModelMap modelMap) {
-    HallDtoResponse hall = service.findById(id);
+    HallFullDto hall = service.findById(id);
     modelMap.addAttribute("hall", hall);
     List<WorkerNamesDto> workers = workerService.findAll();
     modelMap.addAttribute("workers", workers);
