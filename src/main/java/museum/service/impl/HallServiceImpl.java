@@ -2,10 +2,10 @@ package museum.service.impl;
 
 import lombok.AllArgsConstructor;
 import museum.dao.HallDao;
+import museum.dto.hall.HallFullDto;
 import museum.dto.hall.HallIdNameDto;
 import museum.dto.hall.HallSaveDto;
 import museum.dto.hall.HallUpdateDto;
-import museum.dto.hall.HallDtoResponse;
 import museum.entity.Hall;
 import museum.exception.BadIdException;
 import museum.exception.EntityConstraintException;
@@ -54,17 +54,17 @@ public class HallServiceImpl implements HallService {
   /**
    * Method that return hall by id.
    *
-   * @return HallDtoResponse.
+   * @return HallFullDto.
    * @exception BadIdException
    */
   @Transactional
   @Override
-  public HallDtoResponse findById(Long id) {
+  public HallFullDto findById(Long id) {
     Hall hall = dao.findById(id);
     if (hall == null) {
       throw new BadIdException("Hall has no row with id " + id);
     }
-    return new HallDtoResponse(hall);
+    return new HallFullDto(hall);
   }
 
   /**
@@ -118,9 +118,9 @@ public class HallServiceImpl implements HallService {
   /** Method that find hall by worker id. */
   @Transactional
   @Override
-  public List<HallDtoResponse> findByWorkerId(Long id) {
+  public List<HallFullDto> findByWorkerId(Long id) {
     return dao.findHalLByWorkerId(id).stream()
-        .map(HallDtoResponse::new)
+        .map(HallFullDto::new)
         .collect(Collectors.toList());
   }
 }

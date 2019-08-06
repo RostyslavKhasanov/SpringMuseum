@@ -3,7 +3,7 @@ package museum.dto.worker;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import museum.dto.excursion.ExcursionBeginEndDtoResponse;
+import museum.dto.excursion.ExcursionBeginEndDto;
 import museum.dto.hall.HallIdNameDto;
 import museum.entity.Post;
 import museum.entity.Worker;
@@ -37,7 +37,7 @@ public class WorkerDto {
   private Post post;
 
   private List<HallIdNameDto> halls;
-  private List<ExcursionBeginEndDtoResponse> excursions;
+  private List<ExcursionBeginEndDto> excursions;
 
   public WorkerDto(Worker worker) {
     this.id = worker.getId();
@@ -48,7 +48,7 @@ public class WorkerDto {
         worker.getHalls().stream().map(HallIdNameDto::new).collect(Collectors.toList());
     this.excursions =
         worker.getExcursions().stream()
-            .map(ExcursionBeginEndDtoResponse::new)
+            .map(ExcursionBeginEndDto::new)
             .collect(Collectors.toList());
     ;
   }

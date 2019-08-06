@@ -7,6 +7,8 @@ import museum.dto.exhibit.ExhibitIdInitialsDto;
 import museum.dto.worker.WorkerNamesDto;
 import museum.entity.Hall;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +21,11 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
-public class HallDtoResponse {
+public class HallFullDto {
 
-  private Long id;
+  @NotNull private Long id;
 
-  private String name;
+  @NotBlank private String name;
 
   private WorkerNamesDto worker;
 
@@ -34,7 +36,7 @@ public class HallDtoResponse {
    *
    * @param hall object of post.
    */
-  public HallDtoResponse(Hall hall) {
+  public HallFullDto(Hall hall) {
     this.id = hall.getId();
     this.name = hall.getName();
     this.worker = new WorkerNamesDto(hall.getWorker());
