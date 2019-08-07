@@ -1,15 +1,16 @@
 package museum.dao;
 
+import javafx.geometry.Pos;
 import museum.entity.Post;
-import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
+/**
+ * DAO interface for Post entity.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
+public interface PostDao extends ElementDao<Post> {
 
-@Repository
-@Transactional
-public class PostDao extends ElementDaoImpl<Post> {
+    Post findByName(String name);
 
-    public PostDao() {
-        super(Post.class);
-    }
 }

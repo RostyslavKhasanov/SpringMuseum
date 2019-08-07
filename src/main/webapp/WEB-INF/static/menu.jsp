@@ -13,7 +13,6 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">Museum</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
@@ -24,16 +23,13 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link" href="/exhibit">Exhibits</a>
             <a class="nav-item nav-link" href="/author">Authors</a>
-            <a class="nav-item nav-link" href="/hall">Hall</a>
+            <a class="nav-item nav-link" href="/hall">Halls</a>
             <a class="nav-item nav-link " href="/excursion">Excursions</a>
-            <a class="nav-item nav-link " href="/worker?pos=1">Gid</a>
+            <a class="nav-item nav-link " href="/worker/guides">Gid</a>
             <a class="nav-item nav-link " href="/worker">Workers</a>
         </div>
     </div>
 </nav>
-
-
-
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

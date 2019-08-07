@@ -1,26 +1,37 @@
 package museum.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Pojo class for 'worker' database entity.
+ *
+ * @author Rostyslav Khasanov
+ * @version 1.0
+ */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Worker {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Positive
   private Long id;
 
   @Column(nullable = false)
+  @Length(min = 4, max = 20)
   private String firstName;
 
+  @Length(min = 4, max = 20)
   @Column(nullable = false)
   private String secondName;
 
